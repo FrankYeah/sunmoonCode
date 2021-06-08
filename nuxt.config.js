@@ -64,7 +64,6 @@ export default {
     '~assets/styles/global.css',
     '~assets/styles/global.scss',
     '~assets/fonts/goudy/goudy.css',
-    '~assets/fonts/lato/lato.css',
     'swiper/swiper-bundle.css',
   ],
   /*@nuxtjs/style-resources*/
