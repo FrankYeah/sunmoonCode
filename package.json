@@ -1,0 +1,34 @@
+{
+  "name": "nuxt-demo",
+  "version": "1.0.0",
+  "description": "Nuxt Demo for my 2019 talks",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt-start",
+    "generate": "nuxt generate"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@nuxtjs/pwa": "^3.0.0-beta.14",
+    "chokidar": "^3.4.0",
+    "cross-env": "^7.0.3",
+    "fibers": "^5.0.0",
+    "har-validator": "^5.1.5",
+    "nuxt-sass-resources-loader": "^2.0.5",
+    "nuxt-start": "^2.7.1",
+    "request": "^2.88.2",
+    "rewrite": "0.0.1",
+    "sass": "^1.32.8",
+    "swiper": "^6.6.2",
+    "to": "^0.2.9",
+    "vue-awesome-swiper": "^4.1.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.13.15",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "nuxt": "^2.7.1",
+    "sass-loader": "^7.1.0",
+    "vue-multiselect": "^2.1.6"
+  }
+}
