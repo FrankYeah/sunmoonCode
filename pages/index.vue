@@ -51,11 +51,42 @@
     </div>
 
     <!-- chart -->
-
+    <div class="index-chart">
+      <div class="index-chart-head">Get started with the chart!</div>
+      <div class="index-chart-box">
+        <div class="index-chart-left">
+          <div class="index-chart-period">Period of time</div>
+          <div class="index-chart-chart"></div>
+          <div class="index-chart-horizon">Horizon</div>
+        </div>
+        <div class="index-chart-right">
+          <div class="index-chart-industry">Industry: Petroleum</div>
+          <div class="index-chart-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis id enim pharetra aliquam. Maecenas aliquet facilisis massa eu fringilla.</div>
+          <div class="index-chart-btn">Contact us for more info</div>
+          <div class="index-chart-desc">
+            <div class="index-chart-desc-text">Default boundary</div>
+            <div class="index-chart-desc-text-2">Lower boundary</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Technical Report -->
 
-
+    <div class="index-report">
+      <div class="index-report-head">Technical Report</div>
+      <div class="index-report-box">
+        <div class="index-report-pre">The technical reports and their associated addendum in the section explain in details the CRI’s working models for credit ratings and the implementation requirements in its operations. By design, a technical report published later includes all charges made to the earlier versions and the associate addendum. Please refer to the user guide for the chronicle of the document releasing.</div>
+        <div class="index-report-title">User Guide for Technical Documents and Addenda</div>
+        <div class="index-report-subtitle">2020</div>
+        <div class="index-report-text">- Version 2020 Update 2 Addendum 1: Replacement of Switzerland’s 1-year and 3-month interest rates.</div>
+        <div class="index-report-text">- Version 2020 Update 2</div>
+        <div class="index-report-text">- Version 2020 Update 1 Addendum 1: Increasing the updating frequency for one DTD parameter from monthly to daily</div>
+        <div class="index-report-text">- Version 2020 Update 1</div>
+        <div class="index-report-text">- Version 2020 Update 1 Addendum 15: Replacement of stock index in Egypt</div>
+        <div class="index-report-text">- Version 2017 Update 1 Addendum 14: Replacement of stock index in Italy and Ghana’s 1-year interest rate</div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -87,10 +118,10 @@ export default {
     }
   },
   mounted () {
-    document.addEventListener('click', this.autoHideIndex, false)
+
   },
   destroyed () {
-    document.removeEventListener('click', this.autoHideIndex, false)
+
   },
   computed: {
 
@@ -98,12 +129,6 @@ export default {
   methods: {
     focusInput () {
       this.showAutocompleteIndex = true
-    },
-    autoHideIndex (evt) {
-      if (!this.showAutocompleteIndex) return false
-      if (!this.$el.contains(evt.target)) {
-        this.showAutocompleteIndex = false
-      }
     },
     goToCompany (name) {
       // this.searchText = name
@@ -310,13 +335,15 @@ export default {
   
   }
 
+  // 結束 intro
+
   // wave
 
   &-wave {
     position: relative;
     max-width: 1100px;
     width: 100%;
-    height: 500px;
+    height: 110px;
     margin: 0px auto;
     z-index: -1;
     
@@ -326,6 +353,154 @@ export default {
       right: -147px;
     }
   }
+
+  // chart
+
+  &-chart {
+    position: relative;
+    max-width: 1100px;
+    width: 100%;
+    margin: 212px auto 0px auto;
+
+    &-head {
+      font-size: 40px;
+      font-weight: bold;
+      text-align: center;
+    }
+    
+    &-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 48px;
+      padding: 60px 72px 60px 4px;
+      box-shadow: 0px 3px 6px #00000014;
+      border: 1px solid #EDEDED;
+      border-radius: 10px;
+    }
+    
+    &-left {
+      width: 590px;
+      text-align: center;
+    }
+    
+    &-period {
+      font-size: 20px;
+      color: #9C9C9C;
+    }
+    
+    &-chart {
+      margin: 52px 0px 30px;
+    }
+    
+    &-horizon {
+      color: #9C9C9C;
+    }
+    
+    &-right {
+      width: 344px;
+    }
+    
+    &-industry {
+      font-size: 20px;
+    }
+    
+    &-text {
+      margin-top: 16px;
+      line-height: 24px;
+    }
+    
+    &-btn {
+      width: 344px;
+      height: 48px;
+      line-height: 48px;
+      margin-top: 51px;
+      border: 1px solid #D2D2D2;
+      font-size: 14px;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    
+    &-desc {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 37px;
+    }
+    
+    &-desc-text {
+      position: relative;
+      padding-left: 32px;
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0px;
+        top: 1px;
+        width: 16px;
+        height: 16px;
+        border-radius: 100%;
+        background-color: #FF4866;
+      }
+    }
+
+    &-desc-text-2 {
+      position: relative;
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: -32px;
+        top: 1px;
+        width: 16px;
+        height: 16px;
+        border-radius: 100%;
+        background-color: #FDC43F;
+      }
+    }
+  }
+
+  // Technical Report
+
+  &-report {
+    max-width: 1100px;
+    width: 100%;
+    margin: 80px auto 0px auto;
+
+    &-head {
+      font-size: 40px;
+    }
+
+    &-box {
+      margin-top: 48px;
+      padding: 64px 40px;
+      border: 1px solid #D2D2D2;
+    }
+    
+    &-pre {
+      line-height: 20px;
+      color: #9C9C9C;
+    }
+    
+    &-title {
+      margin-top: 64px;
+      font-size: 20px;
+    }
+    
+    &-subtitle {
+      margin-top: 32px;
+      font-size: 20px;
+    }
+    
+    &-text {
+      margin-top: 32px;
+      color: #9C9C9C;
+    }
+  }
+
 
 }
 

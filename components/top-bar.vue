@@ -5,7 +5,7 @@
       <a href="./">
         <img class="top-logo" src="@/assets/img/sunmoon-logo.png" alt="sunmoon">
       </a>
-      <div class="top-search">
+      <div v-if="$route.name != 'index'" class="top-search">
         <img class="top-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
         <input v-model="searchText" @click="focusInput" class="top-search-input" type="text">
         <div v-if="showAutocomplete" class="top-search-popup">
@@ -85,7 +85,13 @@ export default {
     }
   },
   watch: {
-    
+    '$route.name': {
+      handler: function(search) {
+          console.log(search)
+      },
+      deep: true,
+      immediate: true
+    }
   }
 }
 </script>
@@ -187,8 +193,11 @@ export default {
       border-radius: 22px;
       cursor: pointer;
 
-      img &:hover {
-        opacity: 0.8;
+      img {
+        
+        &:hover {
+          opacity: 0.8;
+        }
       }
     }
 

@@ -35,7 +35,7 @@ export default {
 .bottom {
 
   &-line {
-    border: 1px solid #D2D2D2;
+    border-top: 1px solid #D2D2D2;
     max-width: 1100px;
     width: 100%;
     margin: 0px auto 0px;
