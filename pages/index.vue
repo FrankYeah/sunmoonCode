@@ -55,14 +55,19 @@
       <div class="index-chart-head">Get started with the chart!</div>
       <div class="index-chart-box">
         <div class="index-chart-left">
-          <div class="index-chart-period">Period of time</div>
-          <div class="index-chart-chart"></div>
-          <div class="index-chart-horizon">Horizon</div>
+          <div class="index-chart-chart">
+            <div class="index-chart-level">Level</div>
+            <div class="index-chart-period">Period of time</div>
+            <div id="myChart"></div>
+            <div class="index-chart-horizon">Horizon</div>
+          </div>
         </div>
         <div class="index-chart-right">
           <div class="index-chart-industry">Industry: Petroleum</div>
           <div class="index-chart-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis id enim pharetra aliquam. Maecenas aliquet facilisis massa eu fringilla.</div>
-          <div class="index-chart-btn">Contact us for more info</div>
+          <a href="./about">
+            <div class="index-chart-btn">Contact us for more info</div>
+          </a>
           <div class="index-chart-desc">
             <div class="index-chart-desc-text">Default boundary</div>
             <div class="index-chart-desc-text-2">Lower boundary</div>
@@ -118,6 +123,7 @@ export default {
     }
   },
   mounted () {
+    this.echartsInit()
 
   },
   destroyed () {
@@ -138,7 +144,105 @@ export default {
           step: name
         }
       })
-    }
+    },
+    echartsInit () {
+      // 找到容器
+      let myChart = this.$echarts.init(document.getElementById('myChart'))
+      // 开始渲染
+      myChart.setOption({
+        title: {
+          text: ''
+        },
+        // 移動到 chart
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          }
+        },
+        // chart 跟四周的距離
+        grid: {
+          top: '30px',
+          left: '30px',
+          right: '30px',
+          bottom: '30px',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            // 是否顯示 x 格線
+            axisTick: {
+              show: true
+            },
+            //  改變x軸顏色
+            axisLine:{
+              lineStyle:{
+                color:'#9C9C9C'
+              }
+            },  
+            // x 座標值的顏色/大小
+            axisLabel: {
+              textStyle: {
+                color: '#9C9C9C',
+                fontSize:'14'
+              },
+            }, 
+            data: [0, 10 , 20 , 30 ,40 , 50]
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            max: 1,
+            min: 0.8,
+            splitNumber:3,
+            // minInterval: 0.05,
+            axisTick: {
+              show: false
+            },
+            axisLine:{
+              lineStyle:{
+                show: false,
+              }
+            }, 
+            axisLabel: {
+              textStyle: {
+                color: '#9C9C9C',
+                fontSize:'14'
+              },
+            }, 
+          }
+        ],
+        series: [
+          {
+            type: 'line',
+            areaStyle: {},
+            itemStyle:{
+              normal:{
+                color:'#FDC43F'
+              },
+            },
+            data: [0.95, 0.87, 0.98, 0.85, 0.91, 0.87],
+        },
+        {
+          type: 'line',
+          areaStyle: {},
+          itemStyle:{
+            normal:{
+              color:'#FF4866'
+            },
+          },
+          data: [0.97, 0.93, 0.81, 0.9, 0.87, 0.86],
+        },
+        ]
+      })
+    },
+
   },
   watch: {
     
@@ -384,16 +488,33 @@ export default {
       text-align: center;
     }
     
+    &-chart {
+      position: relative;
+      margin-left: 50px;
+    }
+
+    #myChart{
+      width: 580px;
+      height: 352px;
+    }
+
+    &-level {
+      position: absolute;
+      left: -30px;
+      top: 180px;
+      color: #9C9C9C;
+      transform: rotate(270deg);
+    }
+
     &-period {
+      margin-left: 70px;
       font-size: 20px;
       color: #9C9C9C;
     }
-    
-    &-chart {
-      margin: 52px 0px 30px;
-    }
-    
+
     &-horizon {
+      margin-left: 70px;
+      text-align: center;
       color: #9C9C9C;
     }
     
@@ -417,6 +538,7 @@ export default {
       margin-top: 51px;
       border: 1px solid #D2D2D2;
       font-size: 14px;
+      color: #646464;
       text-align: center;
       cursor: pointer;
 

@@ -59,6 +59,7 @@ export default {
         overrideBrowserslist: ['> 5%']
       }
     },
+    transpile: ['vue-echarts', 'resize-detector']
   },
   css: [
     '~assets/styles/global.css',
@@ -81,7 +82,8 @@ export default {
   plugins: [
     '~/plugins/vue-multiselect.js',
     '~/plugins/component.js',
-    '~/plugins/vue-awesome-swiper'
+    '~/plugins/vue-awesome-swiper',
+    '~/plugins/echarts'
   ],
   modules: [
     '@nuxtjs/pwa',
