@@ -3,7 +3,7 @@
 
     <div class="top-left">
       <a href="./">
-        <img class="top-logo" src="@/assets/img/sunmoon-logo.png" alt="sunmoon">
+        <img class="top-logo" src="@/assets/img/sunmoon-logo-bg.png" alt="sunmoon">
       </a>
       <div v-if="$route.name != 'index'" class="top-search">
         <img class="top-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
@@ -114,6 +114,8 @@ export default {
     }
 
     &-logo {
+      width: 176px;
+      height: 48px;
       margin-right: 56px;
     }
 
@@ -134,10 +136,6 @@ export default {
       border: 1px solid #D2D2D2;
       border-radius: 31px;
       font-size: 16px;
-
-      &:focus {
-        outline: none;
-      }
     }
 
     &-search-popup {

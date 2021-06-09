@@ -52,6 +52,20 @@ a {
   text-decoration: none;
 }
 
+input {
+
+  &:focus {
+    outline: none;
+  }
+}
+
+textarea {
+
+  &:focus {
+    outline: none;
+  }
+}
+
 @media( max-width: 500px ){
 
 }

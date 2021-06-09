@@ -297,10 +297,6 @@ export default {
       border: 1px solid #D2D2D2;
       border-radius: 31px;
       font-size: 16px;
-
-      &:focus {
-        outline: none;
-      }
     }
 
     &-search-btn {
