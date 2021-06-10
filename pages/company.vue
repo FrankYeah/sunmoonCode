@@ -1,6 +1,7 @@
 <template>
   <div class="company">
 
+      <!-- 首圖 -->
       <div class="company-title">Valaris plc</div>
           <!-- chart -->
       <div class="company-chart">
@@ -27,16 +28,58 @@
         </div>
       </div>
 
+      <!-- 輪播 -->
 
+      <div class="company-rotate">
+        <swiper class="swiper" :options="swiperOption" ref="mySwiper">
+          <swiper-slide
+            v-for="(chart, index) in chartData"
+            :key="index"
+          >
+            <div class="company-rotate-box">
+              <div class="company-rotate-title">{{ chart.title }}</div>
+              <div class="company-rotate-chart"
+                :id="chart.title"
+              ></div>
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
 
+      <!-- 相關搜尋 -->
+      <div class="company-relate">
 
-      <swiper class="swiper" :options="swiperOption" ref="mySwiper">
-        <swiper-slide
-          v-for="(web, index) in chartData"
+        <div class="company-relate-title-box">
+          <div class="company-relate-line"></div>
+          <div class="company-relate-title">Related Companies</div>
+          <div class="company-relate-line"></div>
+        </div>
+
+        <div class="company-relate-box"
+          v-for="(relate, index) in relateData"
+          v-show="index < 2 || isload"
           :key="index"
         >
-        </swiper-slide>
-      </swiper>
+          <div class="company-relate-chart-box">
+            <div class="company-relate-chart-title">{{ relate.title }}</div>
+            <div class="company-relate-chart" :id="relate.title"></div>
+          </div>
+          <div class="company-relate-desc">
+            <div class="company-relate-desc-title">Agilent Technologies</div>
+            <div class="company-relate-desc-text">
+              Status:
+              <span
+                :style="`color : ${relate.dataY1[0] > relate.dataY2[0] ? '#50E3C1' : '#FF4866'}`"
+              >Danger
+              </span>
+            </div>
+            <div class="company-relate-desc-text">Industry: Biotechnology</div>
+          </div>
+        </div>
+
+        <div v-if="!isload" @click="isload = true" class="company-relate-load">Load more</div>
+
+      </div>
 
   </div>
 </template>
@@ -59,43 +102,218 @@ export default {
   data () {
     return {
       swiperOption: {
-        slidesPerView: 4,
-        spaceBetween: 30,
-        loop: true,
-        autoplay: {
-          delay: 2500,
-          disableOnInteraction: false
-        },
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        }
+        slidesPerView: 3,
+        spaceBetween: 0,
       },
+      isload: false,
+      relateData: [
+        {
+          title: 'Jan, 2021',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
+          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
+        },
+        {
+          title: 'Feb, 2021',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
+          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
+        },
+        {
+          title: 'Mar, 2021',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
+          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
+        },
+      ],
       chartData: [
-        {}
+        {
+          title: 'Jan, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
+          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
+        },
+        {
+          title: 'Feb, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
+          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
+        },
+        {
+          title: 'Mar, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
+          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
+        },
+        {
+          title: 'Apr, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
+          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
+        },
+        {
+          title: 'May, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
+          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
+        },
+        {
+          title: 'Jun, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
+          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
+        },
+        {
+          title: 'Jul, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
+          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
+        },
+        {
+          title: 'Aug, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
+          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
+        },
+        {
+          title: 'Sep, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
+          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
+        },
+        {
+          title: 'Oct, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
+          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
+        },
+        {
+          title: 'Nov, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
+          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
+        },
+        {
+          title: 'Dec, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
+          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
+        },
       ]
     }
   },
   mounted () {
-    this.echartsInit()
+    // 首圖
+    let myChart = this.$echarts.init(document.getElementById('myChart'))
+    myChart.setOption(this.completeChart(
+      this.chartData[0].dataX,
+      this.chartData[0].dataY1,
+      this.chartData[0].dataY2
+    ))
+
+    // 輪播圖
+    for (let i = 0; i < this.chartData.length; i++) {
+      this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.lessChart(
+        this.chartData[i].dataX,
+        this.chartData[i].dataY1,
+        this.chartData[i].dataY2
+      ))
+    }
+    
+    // 相關搜尋
+    for (let i = 0; i < this.relateData.length; i++) {
+      this.$echarts.init(document.getElementById(this.relateData[i].title)).setOption(this.lessChart(
+        this.relateData[i].dataX,
+        this.relateData[i].dataY1,
+        this.relateData[i].dataY2
+      ))
+    }
+
   },
   computed: {
 
   },
   methods: {
-    echartsInit () {
-      // 找到容器
-      let myChart = this.$echarts.init(document.getElementById('myChart'))
-      // 开始渲染
-      myChart.setOption(this.useChart(
-        [0, 10 , 20 , 30 ,40 , 50],
-        [0.95, 0.87, 0.98, 0.85, 0.91, 0.87],
-        [0.97, 0.93, 0.81, 0.9, 0.87, 0.86],
-        1,
-        0.8
-      ))
+    lessChart (dataX, dataY1, dataY2) {
+      let chart = {
+        title: {
+          text: ''
+        },
+         tooltip : {
+           show: false,
+            },   
+        grid: {
+          top: '20px',
+          left: '10px',
+          right: '10px',
+          bottom: '20px',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            axisTick: {
+              show: false
+            },
+            axisLine:{
+              show: false,
+            },  
+            axisLabel: {
+              show: false,
+            }, 
+            data: dataX
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            max:Math.max(...dataY1.concat(dataY2)),
+            min:Math.min(...dataY1.concat(dataY2)),
+            splitNumber:3,
+            // minInterval: 0.05,
+            axisTick: {
+              show: false
+            },
+            axisLine:{
+              show: false,
+            },  
+            splitLine: {
+              show: false,
+            },
+            axisLabel: {
+              show: false,
+            }, 
+          }
+        ],
+        series: [
+          {
+            type: 'line',
+            showSymbol:false,
+            areaStyle: {},
+            itemStyle:{
+              normal:{
+                color: dataY1[0] > dataY2[0] ?'#50E3C1' : '#FF4866'
+              },
+            },
+            data: dataY1,
+        },
+        {
+          type: 'line',
+          showSymbol:false,
+          areaStyle: {},
+          itemStyle:{
+            normal:{
+              color:'#FDC43F'
+            },
+          },
+          data: dataY2,
+        },
+        ]
+      }
+      return chart
     },
-    useChart (dataX, dataY1, dataY2, max, min) {
+    completeChart (dataX, dataY1, dataY2) {
       let chart = {
         title: {
           text: ''
@@ -145,8 +363,8 @@ export default {
         yAxis: [
           {
             type: 'value',
-            max: max,
-            min: min,
+            max:Math.max(...dataY1.concat(dataY2)),
+            min:Math.min(...dataY1.concat(dataY2)),
             splitNumber:3,
             // minInterval: 0.05,
             axisTick: {
@@ -171,7 +389,7 @@ export default {
             areaStyle: {},
             itemStyle:{
               normal:{
-                color:'#FDC43F'
+                color: dataY1[0] > dataY2[0] ?'#50E3C1' : '#FF4866'
               },
             },
             data: dataY1,
@@ -181,7 +399,7 @@ export default {
           areaStyle: {},
           itemStyle:{
             normal:{
-              color:'#FF4866'
+              color:'#FDC43F'
             },
           },
           data: dataY2,
@@ -189,7 +407,7 @@ export default {
         ]
       }
       return chart
-    }
+    },
   },
   watch: {
     
@@ -203,7 +421,7 @@ export default {
   position: relative;
   max-width: 1100px;
   width: 100%;
-  margin: 86px auto 0px auto;
+  margin: 86px auto 148px auto;
 
   &-title {
     font-size: 48px;
@@ -213,7 +431,6 @@ export default {
 
   // chart
   &-chart {
-
 
     &-box {
       display: flex;
@@ -324,6 +541,114 @@ export default {
         height: 16px;
         border-radius: 100%;
         background-color: #FDC43F;
+      }
+    }
+  }
+
+  // rotate
+
+  &-rotate {
+      width: 100%;
+      margin-top: 40px;
+
+    &-box {
+      width: 336px;
+      height: 218px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0px 3px 6px #00000014;
+      border: 1px solid #EDEDED;
+      border-radius: 10px;
+    }
+
+    &-title {
+      text-align: center;
+      color: #9C9C9C;
+      margin-top: 20px;
+    }
+
+    &-chart {
+      width: 272px;
+      height: 160px;
+      margin: 6px 0px 0px 0px;
+    }
+  }
+
+  // relate 相關搜尋
+
+  &-relate {
+    margin-top: 105px;
+
+    &-title-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 37px;
+    }
+
+    &-line {
+      width: 371px;
+      height: 1px;
+      background-color: #D2D2D2;
+    }
+
+    &-title {
+      font-size: 20px;
+      color: #D2D2D2;
+    }
+
+    &-box {
+      display: flex;
+      align-items: center;
+      height: 240px;
+      margin-top: 28px;
+      padding-left: 54px;
+      box-shadow: 0px 3px 6px #00000014;
+      border: 1px solid #EDEDED;
+      border-radius: 10px;
+    }
+
+    &-chart-box {
+      margin-right: 69px;
+    }
+
+    &-chart-title {
+      text-align: center;
+    }
+
+    &-chart {
+      width: 292px;
+      height: 140px;
+    }
+
+    &-desc {
+
+    }
+
+    &-desc-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    &-desc-text {
+      margin-top: 8px;
+    }
+
+    &-load {
+      width: 344px;
+      height: 48px;
+      line-height: 48px;
+      margin: 72px auto 0px;
+      text-align: center;
+      font-size: 14px;
+      background-color: #F7F7F7;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
       }
     }
   }

@@ -1,33 +1,36 @@
 <template>
-  <div class="top">
-
-    <div class="top-left">
-      <a href="./">
-        <img class="top-logo" src="@/assets/img/sunmoon-logo-bg.png" alt="sunmoon">
-      </a>
-      <div v-if="$route.name != 'index'" class="top-search">
-        <img class="top-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
-        <input v-model="searchText" @click="focusInput" class="top-search-input" type="text">
-        <div v-if="showAutocomplete" class="top-search-popup">
-          <div v-for="(company, index) in companyList"
-            :key="index"
-            @click="goToCompany(company.name)"
-            class="top-search-recommend"
-          >{{ company.name }}</div>
+  <div
+  :class="['top', {'top-scroll': isScroll}]"
+  >
+    <div class="top-box">
+      <div class="top-left">
+        <a href="./">
+          <img class="top-logo" src="@/assets/img/sunmoon-logo-bg.png" alt="sunmoon">
+        </a>
+        <div v-if="$route.name != 'index'" class="top-search">
+          <img class="top-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
+          <input v-model="searchText" @click="focusInput" @keypress.enter="goToCompany(searchText)" class="top-search-input" type="text">
+          <div v-if="showAutocomplete" class="top-search-popup">
+            <div v-for="(company, index) in companyList"
+              :key="index"
+              @click="goToCompany(company.name)"
+              class="top-search-recommend"
+            >{{ company.name }}</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="top-right">
-      <a class="top-link" href="./">
-        <div>HOME</div>
-      </a>
-      <a class="top-link" href="./about">
-        <div>ABOUT</div>
-      </a>
-      <div @click="isDark = !isDark" class="top-switch">
-        <img v-if="!isDark" class="top-sun" src="@/assets/img/icon/icon-sun.svg" alt="sun">
-        <img v-else class="top-moon" src="@/assets/img/icon/icon-moon.svg" alt="moon">
+      <div class="top-right">
+        <a class="top-link" href="./">
+          <div>HOME</div>
+        </a>
+        <a class="top-link" href="./about">
+          <div>ABOUT</div>
+        </a>
+        <div @click="isDark = !isDark" class="top-switch">
+          <img v-if="!isDark" class="top-sun" src="@/assets/img/icon/icon-sun.svg" alt="sun">
+          <img v-else class="top-moon" src="@/assets/img/icon/icon-moon.svg" alt="moon">
+        </div>
       </div>
     </div>
   </div>
@@ -46,6 +49,7 @@ export default {
       searchText: '',
       isDark: false,
       showAutocomplete: false,
+      isScroll: false,
       companyList: [
         { name: 'Apple inc. | Consumer electronic・Cupertino, California' },
         { name: 'Adobe | Consumer electronic・San Francisco, CA' },
@@ -56,6 +60,16 @@ export default {
     }
   },
   mounted () {
+    window.onscroll = () => {
+      console.log(window.scrollY)
+      console.log(this.isScroll)
+      if (window.scrollY > 100) {
+        this.isScroll = true
+      } else {
+        this.isScroll = false
+      }
+    }
+    
     document.addEventListener('click', this.autoHide, false)
   },
   destroyed () {
@@ -77,7 +91,7 @@ export default {
     goToCompany (name) {
       // this.searchText = name
       this.$router.push({
-        path: './company',
+        path: 'company',
         query: {
           step: name
         }
@@ -99,12 +113,25 @@ export default {
 <style lang="scss">
 
   .top {
-    max-width: 1100px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
     width: 100%;
-    margin: 39px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: white;
+    z-index: 2;
+
+    &-scroll {
+      box-shadow: 0px 3px 12px #00000014;
+    }
+
+    &-box {
+      max-width: 1100px;
+      width: 100%;
+      margin: 39px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
     // left
 
@@ -117,6 +144,10 @@ export default {
       width: 176px;
       height: 48px;
       margin-right: 56px;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
 
     &-search {

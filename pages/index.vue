@@ -11,7 +11,7 @@
         
         <div class="index-intro-search">
           <img class="index-intro-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
-          <input v-model="searchText" @click.stop="focusInput" class="index-intro-search-input" type="text">
+          <input v-model="searchText" @click.stop="focusInput" @keypress.enter="goToCompany(searchText)" class="index-intro-search-input" type="text">
           <div class="index-intro-search-btn">Search</div>
           <div v-if="showAutocompleteIndex" class="index-intro-search-popup">
             <div v-for="(company, index) in companyList"
@@ -29,9 +29,9 @@
       </div>
 
       <!-- intro right -->
-      <img class="index-intro-city" src="@/assets/img/world-map.png" alt="arrow">
+      <img class="index-intro-city" src="@/assets/img/index/map-light.png" alt="map">
       
-      <div class="index-intro-talk">
+      <div @click="goToCompany('valaris')" class="index-intro-talk">
         <div class="index-intro-talk-left">
           <div class="index-intro-year">JAN, 2021</div>
           <div class="index-intro-name">Valaris plc</div>
@@ -47,7 +47,7 @@
 
     <!-- wave -->
     <div class="index-wave">
-      <img class="index-wave-img" src="@/assets/img/wave-move.svg" alt="arrow">
+      <img class="index-wave-img" src="@/assets/img/index/mountain-light-1.svg" alt="arrow">
     </div>
 
     <!-- chart -->
@@ -119,12 +119,24 @@ export default {
         { name: 'Airbnb | Internet・San Francisco, CA' },
         { name: 'Airbnb | Internet・San Francisco, CA' },
         { name: 'Airbnb | Internet・San Francisco, CA' }
+      ],
+      chartData: [
+        {
+          title: 'Nov, 2020',
+          dataX: [0, 10 , 20 , 30 ,40 , 50],
+          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
+          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
+        }
       ]
     }
   },
   mounted () {
-    this.echartsInit()
-
+    let myChart = this.$echarts.init(document.getElementById('myChart'))
+    myChart.setOption(this.completeChart(
+      this.chartData[0].dataX,
+      this.chartData[0].dataY1,
+      this.chartData[0].dataY2
+    ))
   },
   destroyed () {
 
@@ -139,17 +151,14 @@ export default {
     goToCompany (name) {
       // this.searchText = name
       this.$router.push({
-        path: './company',
+        path: 'company',
         query: {
           step: name
         }
       })
     },
-    echartsInit () {
-      // 找到容器
-      let myChart = this.$echarts.init(document.getElementById('myChart'))
-      // 开始渲染
-      myChart.setOption({
+    completeChart (dataX, dataY1, dataY2) {
+      let chart = {
         title: {
           text: ''
         },
@@ -192,14 +201,14 @@ export default {
                 fontSize:'14'
               },
             }, 
-            data: [0, 10 , 20 , 30 ,40 , 50]
+            data: dataX
           }
         ],
         yAxis: [
           {
             type: 'value',
-            max: 1,
-            min: 0.8,
+            max:Math.max(...dataY1.concat(dataY2)),
+            min:Math.min(...dataY1.concat(dataY2)),
             splitNumber:3,
             // minInterval: 0.05,
             axisTick: {
@@ -224,23 +233,24 @@ export default {
             areaStyle: {},
             itemStyle:{
               normal:{
-                color:'#FDC43F'
+                color: dataY1[0] > dataY2[0] ?'#50E3C1' : '#FF4866'
               },
             },
-            data: [0.95, 0.87, 0.98, 0.85, 0.91, 0.87],
+            data: dataY1,
         },
         {
           type: 'line',
           areaStyle: {},
           itemStyle:{
             normal:{
-              color:'#FF4866'
+              color:'#FDC43F'
             },
           },
-          data: [0.97, 0.93, 0.81, 0.9, 0.87, 0.86],
+          data: dataY2,
         },
         ]
-      })
+      }
+      return chart
     },
 
   },
@@ -379,9 +389,10 @@ export default {
     // intro right
 
     &-city {
+      width: 700px;
       position: absolute;
-      right: -80px;
-      top: 0px;
+      right: -124px;
+      top: -38px;
     }
 
     &-talk {
@@ -397,6 +408,11 @@ export default {
       background-size: cover;
       background-position-x: center;
       background-position-y: top;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
 
     &-talk-left {

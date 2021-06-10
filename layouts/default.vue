@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="default-setting">
     <topBar/>
     <nuxt/>
     <bottomBar/>
@@ -37,6 +37,10 @@ export default {
 </script>
 
 <style lang="scss">
+
+.default-setting {
+  margin-top: 180px;
+}
 
 body {
   margin: 0px;
