@@ -59,6 +59,7 @@
           v-for="(relate, index) in relateData"
           v-show="index < 2 || isload"
           :key="index"
+          @click="goToCompany()"
         >
           <div class="company-relate-chart-box">
             <div class="company-relate-chart-title">{{ relate.title }}</div>
@@ -234,6 +235,14 @@ export default {
 
   },
   methods: {
+    goToCompany (name) {
+      this.$router.push({
+        path: 'company',
+        query: {
+          step: name
+        }
+      })
+    },
     lessChart (dataX, dataY1, dataY2) {
       let chart = {
         title: {
@@ -608,6 +617,11 @@ export default {
       box-shadow: 0px 3px 6px #00000014;
       border: 1px solid #EDEDED;
       border-radius: 10px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
 
     &-chart-box {

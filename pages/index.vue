@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        <div class="index-intro-down">
+        <div @click="scrollEvent('startChart')" class="index-intro-down">
           <div class="index-intro-down-btn"></div>
           <div class="index-intro-down-text">Learn about the Graphic rapidly</div>
         </div>
@@ -31,7 +31,9 @@
       <!-- intro right -->
       <img class="index-intro-city" src="@/assets/img/index/map-light.png" alt="map">
       
-      <div @click="goToCompany('valaris')" class="index-intro-talk">
+      <div @click="goToCompany('valaris')"
+        :class="`index-intro-talk index-intro-talk-${randomNum}`"
+      >
         <div class="index-intro-talk-left">
           <div class="index-intro-year">JAN, 2021</div>
           <div class="index-intro-name">Valaris plc</div>
@@ -47,11 +49,13 @@
 
     <!-- wave -->
     <div class="index-wave">
-      <img class="index-wave-img" src="@/assets/img/index/mountain-light-1.svg" alt="arrow">
+      <img class="index-wave-img" alt="arrow"
+        :src="require(`@/assets/img/index/mountain-light-${randomNum}.svg`)"
+      >
     </div>
 
     <!-- chart -->
-    <div class="index-chart">
+    <div id="startChart" class="index-chart">
       <div class="index-chart-head">Get started with the chart!</div>
       <div class="index-chart-box">
         <div class="index-chart-left">
@@ -111,6 +115,7 @@ export default {
   },
   data () {
     return {
+      randomNum: 1,
       searchText: '',
       showAutocompleteIndex: false,
       companyList: [
@@ -131,6 +136,7 @@ export default {
     }
   },
   mounted () {
+    this.randomNum = Math.floor(Math.random()*3) + 1
     let myChart = this.$echarts.init(document.getElementById('myChart'))
     myChart.setOption(this.completeChart(
       this.chartData[0].dataX,
@@ -145,6 +151,9 @@ export default {
 
   },
   methods: {
+    scrollEvent (id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' })
+    },
     focusInput () {
       this.showAutocompleteIndex = true
     },
@@ -406,8 +415,7 @@ export default {
 
     &-talk {
       position: absolute;
-      top: 100px;
-      right: 138px;
+      top: 108px;
       width: 314px;
       height: 140px;
       display: flex;
@@ -422,6 +430,18 @@ export default {
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    &-talk-1 {
+      right: 138px;
+    }
+
+    &-talk-2 {
+      right: 76px;
+    }
+
+    &-talk-3 {
+      right: -48px;
     }
 
     &-talk-left {

@@ -61,8 +61,6 @@ export default {
   },
   mounted () {
     window.onscroll = () => {
-      console.log(window.scrollY)
-      console.log(this.isScroll)
       if (window.scrollY > 100) {
         this.isScroll = true
       } else {
@@ -105,13 +103,12 @@ export default {
           }
         })
       }
-      
     }
   },
   watch: {
     '$route.name': {
       handler: function(search) {
-          console.log(search)
+
       },
       deep: true,
       immediate: true
