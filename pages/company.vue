@@ -89,7 +89,7 @@
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 export default {
   head: {
-    title: '首頁',
+    title: 'Company',
   },
   layout: 'default',
   components: {

@@ -90,12 +90,22 @@ export default {
     },
     goToCompany (name) {
       // this.searchText = name
-      this.$router.push({
-        path: 'company',
-        query: {
-          step: name
-        }
-      })
+      if (name == 'error') {
+        this.$router.push({
+          path: 'noResult',
+          query: {
+            step: name
+          }
+        })
+      } else {
+        this.$router.push({
+          path: 'company',
+          query: {
+            step: name
+          }
+        })
+      }
+      
     }
   },
   watch: {
@@ -127,7 +137,8 @@ export default {
     &-box {
       max-width: 1100px;
       width: 100%;
-      margin: 39px auto;
+      height: 92px;
+      margin: auto;
       display: flex;
       justify-content: space-between;
       align-items: center;

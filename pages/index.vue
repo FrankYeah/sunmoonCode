@@ -12,7 +12,7 @@
         <div class="index-intro-search">
           <img class="index-intro-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
           <input v-model="searchText" @click.stop="focusInput" @keypress.enter="goToCompany(searchText)" class="index-intro-search-input" type="text">
-          <div class="index-intro-search-btn">Search</div>
+          <div @click="goToCompany(searchText)" class="index-intro-search-btn">Search</div>
           <div v-if="showAutocompleteIndex" class="index-intro-search-popup">
             <div v-for="(company, index) in companyList"
               :key="index"
@@ -100,7 +100,7 @@
 
 export default {
   head: {
-    title: '首頁',
+    title: 'Intro',
   },
   layout: 'default',
   components: {
@@ -150,12 +150,21 @@ export default {
     },
     goToCompany (name) {
       // this.searchText = name
-      this.$router.push({
-        path: 'company',
-        query: {
-          step: name
-        }
-      })
+      if (name == 'error') {
+        this.$router.push({
+          path: 'noResult',
+          query: {
+            step: name
+          }
+        })
+      } else {
+        this.$router.push({
+          path: 'company',
+          query: {
+            step: name
+          }
+        })
+      }
     },
     completeChart (dataX, dataY1, dataY2) {
       let chart = {

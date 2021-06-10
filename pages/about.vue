@@ -50,7 +50,7 @@
 
 export default {
   head: {
-    title: '首頁',
+    title: 'Company',
   },
   layout: 'default',
   components: {
