@@ -1,5 +1,7 @@
 # nuxt-demo
 
+<!-- https://github.com/Atinux/nuxt-demo -->
+
 Nuxt.js Demo for my 2019 talks.
 
 [See demo](https://nuxt-demo.surge.sh).

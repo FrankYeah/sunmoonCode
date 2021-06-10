@@ -5,6 +5,9 @@ export default {
   mode: 'universal',
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+  router: {
+    base: '/sunmoon/'
+  },
   head: {
     titleTemplate: '%s - sunmoon',
     title: 'sunmoon',
