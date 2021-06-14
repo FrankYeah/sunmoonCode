@@ -44,6 +44,12 @@
             </div>
           </swiper-slide>
         </swiper>
+        <img v-if="swiperIndex != 0" @click="nextPrev" class="company-rotate-arrow-left"
+          src="@/assets/img/icon/grey-arrow.svg" alt="arrow"
+        >
+        <img v-if="swiperIndex != 9" @click="nextSlide" class="company-rotate-arrow-right"
+          src="@/assets/img/icon/grey-arrow.svg" alt="arrow"
+        >
       </div>
 
       <!-- 相關搜尋 -->
@@ -104,8 +110,9 @@ export default {
     return {
       swiperOption: {
         slidesPerView: 3,
-        spaceBetween: 0,
+        spaceBetween: 10,
       },
+      swiperIndex: 0,
       isload: false,
       relateData: [
         {
@@ -204,6 +211,9 @@ export default {
     }
   },
   mounted () {
+    this.swiper.on('slideChange', () => {
+      this.swiperIndex = this.swiper.activeIndex
+    })
     // 首圖
     let myChart = this.$echarts.init(document.getElementById('myChart'))
     myChart.setOption(this.completeChart(
@@ -232,7 +242,9 @@ export default {
 
   },
   computed: {
-
+    swiper () {
+      return this.$refs.mySwiper.$swiper
+    },
   },
   methods: {
     goToCompany (name) {
@@ -242,6 +254,12 @@ export default {
           step: name
         }
       })
+    },
+    nextPrev () {
+      this.swiper.slidePrev()
+    },
+    nextSlide () {
+      this.swiper.slideNext()
     },
     lessChart (dataX, dataY1, dataY2) {
       let chart = {
@@ -302,19 +320,25 @@ export default {
             areaStyle: {},
             itemStyle:{
               normal:{
-                color: dataY1[0] > dataY2[0] ?'#50E3C1' : '#FF4866'
+                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
               },
             },
+            lineStyle: {
+              color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
+            },
             data: dataY1,
-        },
+          },
         {
           type: 'line',
           showSymbol:false,
           areaStyle: {},
           itemStyle:{
             normal:{
-              color:'#FDC43F'
+              color:'rgba(253,196,63,0.3)'
             },
+          },
+          lineStyle: {
+            color: 'rgb(253,196,63)'
           },
           data: dataY2,
         },
@@ -398,18 +422,24 @@ export default {
             areaStyle: {},
             itemStyle:{
               normal:{
-                color: dataY1[0] > dataY2[0] ?'#50E3C1' : '#FF4866'
+                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
               },
             },
+            lineStyle: {
+              color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
+            },
             data: dataY1,
-        },
+          },
         {
           type: 'line',
           areaStyle: {},
           itemStyle:{
             normal:{
-              color:'#FDC43F'
+              color:'rgba(253,196,63,0.3)'
             },
+          },
+          lineStyle: {
+            color: 'rgb(253,196,63)'
           },
           data: dataY2,
         },
@@ -557,8 +587,9 @@ export default {
   // rotate
 
   &-rotate {
-      width: 100%;
-      margin-top: 40px;
+    position: relative;
+    width: 100%;
+    margin-top: 40px;
 
     &-box {
       width: 336px;
@@ -582,6 +613,33 @@ export default {
       width: 272px;
       height: 160px;
       margin: 6px 0px 0px 0px;
+    }
+
+    &-arrow-left{
+      position: absolute;
+      top: 90px;
+      left: -48px;
+      width: 20px;
+      height: 32px;
+      transform: rotate(180deg);
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &-arrow-right{
+      position: absolute;
+      top: 90px;
+      right: -48px;
+      width: 20px;
+      height: 32px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 

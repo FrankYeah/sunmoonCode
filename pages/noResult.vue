@@ -164,19 +164,25 @@ export default {
             areaStyle: {},
             itemStyle:{
               normal:{
-                color: dataY1[0] > dataY2[0] ?'#50E3C1' : '#FF4866'
+                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
               },
             },
+            lineStyle: {
+              color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
+            },
             data: dataY1,
-        },
+          },
         {
           type: 'line',
           showSymbol:false,
           areaStyle: {},
           itemStyle:{
             normal:{
-              color:'#FDC43F'
+              color:'rgba(253,196,63,0.3)'
             },
+          },
+          lineStyle: {
+            color: 'rgb(253,196,63)'
           },
           data: dataY2,
         },

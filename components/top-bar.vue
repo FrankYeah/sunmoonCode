@@ -124,6 +124,7 @@ export default {
     top: 0px;
     left: 0px;
     width: 100%;
+    height: 92px;
     background-color: white;
     z-index: 2;
 
@@ -146,11 +147,12 @@ export default {
     &-left {
       display: flex;
       align-items: center;
+      height: 92px;
     }
 
     &-logo {
       width: 176px;
-      height: 48px;
+      height: auto;
       margin-right: 56px;
 
       &:hover {
@@ -204,6 +206,7 @@ export default {
     &-right {
       display: flex;
       align-items: center;
+      height: 92px;
     }
 
     &-link {

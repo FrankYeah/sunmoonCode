@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        <div @click="scrollEvent('startChart')" class="index-intro-down">
+        <div @click="scrollEvent('startChart')" :class="`index-intro-down index-intro-down-${randomNum}`">
           <div class="index-intro-down-btn"></div>
           <div class="index-intro-down-text">Learn about the Graphic rapidly</div>
         </div>
@@ -31,19 +31,7 @@
       <!-- intro right -->
       <img class="index-intro-city" src="@/assets/img/index/map-light.png" alt="map">
       
-      <div @click="goToCompany('valaris')"
-        :class="`index-intro-talk index-intro-talk-${randomNum}`"
-      >
-        <div class="index-intro-talk-left">
-          <div class="index-intro-year">JAN, 2021</div>
-          <div class="index-intro-name">Valaris plc</div>
-          <div class="index-intro-industry">Petroleum industry</div>
-        </div>
-        <div class="index-intro-talk-right">
-          <img class="index-intro-arrow" src="@/assets/img/icon/arrow-green.svg" alt="arrow">
-          <div class="index-intro-arrown-text">SAFE</div>
-        </div>  
-      </div>
+      
 
     </div>
 
@@ -52,6 +40,19 @@
       <img class="index-wave-img" alt="arrow"
         :src="require(`@/assets/img/index/mountain-light-${randomNum}.svg`)"
       >
+      <div @click="goToCompany('valaris')"
+        :class="`index-wave-talk index-wave-talk-${randomNum}`"
+      >
+        <div class="index-wave-talk-left">
+          <div class="index-wave-year">JAN, 2021</div>
+          <div class="index-wave-name">Valaris plc</div>
+          <div class="index-wave-industry">Petroleum industry</div>
+        </div>
+        <div class="index-wave-talk-right">
+          <img class="index-wave-arrow" src="@/assets/img/icon/arrow-green.svg" alt="arrow">
+          <div class="index-wave-arrown-text">SAFE</div>
+        </div>  
+      </div>
     </div>
 
     <!-- chart -->
@@ -251,18 +252,24 @@ export default {
             areaStyle: {},
             itemStyle:{
               normal:{
-                color: dataY1[0] > dataY2[0] ?'#50E3C1' : '#FF4866'
+                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
               },
             },
+            lineStyle: {
+              color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
+            },
             data: dataY1,
-        },
+          },
         {
           type: 'line',
           areaStyle: {},
           itemStyle:{
             normal:{
-              color:'#FDC43F'
+              color:'rgba(253,196,63,0.3)'
             },
+          },
+          lineStyle: {
+            color: 'rgb(253,196,63)'
           },
           data: dataY2,
         },
@@ -379,6 +386,14 @@ export default {
       }
     }
 
+    &-down-3 {
+      transform: translateY(-28px);
+    }
+
+    &-down-3 {
+      transform: translateY(-28px);
+    }
+
     &-down-btn {
       width: 48px;
       height: 48px;
@@ -407,15 +422,35 @@ export default {
     // intro right
 
     &-city {
-      width: 700px;
+      width: 630px;
       position: absolute;
       right: -124px;
       top: -38px;
+      z-index: -1;
+    }
+
+  }
+
+  // 結束 intro
+
+  // wave
+
+  &-wave {
+    position: relative;
+    width: 100%;
+    height: 110px;
+    margin: 0px auto;
+    z-index: -1;
+    
+    &-img {
+      position: absolute;
+      top: -255px;
+      right: 0px;
     }
 
     &-talk {
       position: absolute;
-      top: 108px;
+      top: -397px;
       width: 314px;
       height: 140px;
       display: flex;
@@ -433,15 +468,15 @@ export default {
     }
 
     &-talk-1 {
-      right: 138px;
+      right: 287px;
     }
 
     &-talk-2 {
-      right: 76px;
+      right: 228px;
     }
 
     &-talk-3 {
-      right: -48px;
+      right: 102px;
     }
 
     &-talk-left {
@@ -477,26 +512,8 @@ export default {
       font-size: 14px;
       color: #50E3C1;
     }
-  
-  }
 
-  // 結束 intro
 
-  // wave
-
-  &-wave {
-    position: relative;
-    max-width: 1100px;
-    width: 100%;
-    height: 110px;
-    margin: 0px auto;
-    z-index: -1;
-    
-    &-img {
-      position: absolute;
-      top: -255px;
-      right: -147px;
-    }
   }
 
   // chart
