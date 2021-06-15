@@ -61,11 +61,11 @@ export default {
   },
   data () {
     return {
-
+      screenWidth: null,
     }
   },
   mounted () {
-
+    this.screenWidth = window.screen.width
   },
   computed: {
 
@@ -194,10 +194,6 @@ export default {
       margin-bottom: 32px;
       border: 0px;
       border-bottom: 1px solid #D2D2D2;
-
-      &::placeholder {
-        color: #D2D2D2;
-      }
     }
 
     &-textarea {
@@ -207,10 +203,6 @@ export default {
       font-size: 16px;
       border: 0px;
       border-bottom: 1px solid #D2D2D2;
-
-      &::placeholder {
-        color: #D2D2D2;
-      }
     }
 
     &-btn {
@@ -305,18 +297,10 @@ export default {
 
       &-input {
 
-
-        &::placeholder {
-
-        }
       }
 
       &-textarea {
 
-
-        &::placeholder {
-
-        }
       }
 
       &-btn {

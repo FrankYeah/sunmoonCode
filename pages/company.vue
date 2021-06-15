@@ -108,6 +108,7 @@ export default {
   },
   data () {
     return {
+      screenWidth: null,
       swiperOption: {
         slidesPerView: 3,
         spaceBetween: 10,
@@ -211,6 +212,7 @@ export default {
     }
   },
   mounted () {
+    this.screenWidth = window.screen.width
     this.swiper.on('slideChange', () => {
       this.swiperIndex = this.swiper.activeIndex
     })
@@ -242,9 +244,7 @@ export default {
 
   },
   computed: {
-    swiper () {
-      return this.$refs.mySwiper.$swiper
-    },
+    swiper () { return this.$refs.mySwiper.$swiper },
   },
   methods: {
     goToCompany (name) {

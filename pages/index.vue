@@ -11,7 +11,9 @@
         
         <div class="index-intro-search">
           <img class="index-intro-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
-          <input v-model="searchText" @click.stop="focusInput" @keypress.enter="goToCompany(searchText)" class="index-intro-search-input" type="text">
+          <input v-model="searchText" @click.stop="focusInput" @keypress.enter="goToCompany(searchText)"
+            placeholder="Company name" class="index-intro-search-input" type="text"
+          >
           <div @click="goToCompany(searchText)" class="index-intro-search-btn">Search</div>
           <div v-if="showAutocompleteIndex" class="index-intro-search-popup">
             <div v-for="(company, index) in companyList"
@@ -116,6 +118,7 @@ export default {
   },
   data () {
     return {
+      screenWidth: null,
       randomNum: 1,
       searchText: '',
       showAutocompleteIndex: false,
@@ -137,6 +140,7 @@ export default {
     }
   },
   mounted () {
+    this.screenWidth = window.screen.width
     this.randomNum = Math.floor(Math.random()*3) + 1
     let myChart = this.$echarts.init(document.getElementById('myChart'))
     myChart.setOption(this.completeChart(
@@ -686,37 +690,47 @@ export default {
 @media( max-width: 500px ){
 
   .index {
-
+    margin: 140px 0px 128px;
 
     &-intro {
-
+      max-width: initial;
+      width: calc(100% - 40px);
 
       &-left {
 
       }
 
       &-head {
-
+        font-size: 24px;
       }
 
       &-text {
-
+        width: initial;
+        margin-top: 16px;
+        font-size: 16px;
       }
 
       &-search {
-
+        margin-top: 36px;
       }
 
       &-search-icon {
-
+        width: 22px;
       }
 
       &-search-input {
-
+        padding: 0px 0px 0px 58px;
+        width: calc(100% - 98px);
+        height: 58px;
+        padding: 0px 0px 0px 58px;
       }
 
       &-search-btn {
-
+        top: 8px;
+        width: 80px;
+        height: 44px;
+        line-height: 44px;
+        font-size: 16px;
       }
 
       &-search-popup {
@@ -754,7 +768,7 @@ export default {
       // intro right
 
       &-city {
-
+        width: 63%;
       }
 
     }

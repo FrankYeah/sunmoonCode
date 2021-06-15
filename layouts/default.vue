@@ -57,9 +57,15 @@ a {
 }
 
 input {
+  padding: 0px;
+  margin: 0px;
 
   &:focus {
     outline: none;
+  }
+
+  &::placeholder {
+    color: #D2D2D2;
   }
 }
 
@@ -68,16 +74,20 @@ textarea {
   &:focus {
     outline: none;
   }
+
+  &::placeholder {
+    color: #D2D2D2;
+  }
 }
 
 @media( max-width: 500px ){
 
   .default-setting {
-
+    margin-top: 84px;
   }
 
   body {
-
+    font-size: 14px;
   }
 
 }

@@ -4,12 +4,19 @@
   >
     <div class="top-box">
       <div class="top-left">
-        <a href="./">
+
+        <a v-if="$route.name != 'index'" href="./">
+          <img class="top-small-logo" src="@/assets/img/icon/icon-single-logo.png" alt="sunmoon">
+        </a>
+        <a v-else href="./">
           <img class="top-logo" src="@/assets/img/sunmoon-logo-bg.png" alt="sunmoon">
         </a>
+        
         <div v-if="$route.name != 'index'" class="top-search">
           <img class="top-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
-          <input v-model="searchText" @click="focusInput" @keypress.enter="goToCompany(searchText)" class="top-search-input" type="text">
+          <input v-model="searchText" @click="focusInput" @keypress.enter="goToCompany(searchText)"
+            class="top-search-input" type="text" placeholder="Company name"
+          >
           <div v-if="showAutocomplete" class="top-search-popup">
             <div v-for="(company, index) in companyList"
               :key="index"
@@ -18,9 +25,33 @@
             >{{ company.name }}</div>
           </div>
         </div>
+
+        <div v-if="showRwdInput" class="top-rwd-search-popup">
+          <div class="top-rwd-search-input-box">
+            <img @click="showRwdInput = false" class="top-rwd-search-arrow" src="@/assets/img/icon/grey-arrow.svg" alt="arrow">
+            <input v-model="searchText" ref="rwdInput"
+              @keypress.enter="goToCompany(searchText)"
+              class="top-rwd-search-input"  type="text"
+            >
+            <img @click="searchText = ''"  class="top-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
+          </div>
+          <div v-for="(company, index) in companyList"
+            :key="index"
+            @click="goToCompany(company.name)"
+            class="top-rwd-search-text-box"
+          >
+            <img class="top-rwd-search-search"  src="@/assets/img/icon/icon-search.svg" alt="search">
+            <div class="top-rwd-search-text" >{{ company.name }}</div>
+          </div>
+          
+        </div>
+
       </div>
 
-      <div class="top-right">
+      <img @click="isMenu = !isMenu"
+        class="top-menu" src="@/assets/img/icon/rwd-menu.svg" alt="menu"
+      >
+      <div v-if="isMenu" class="top-right">
         <a class="top-link" href="./">
           <div>HOME</div>
         </a>
@@ -44,22 +75,27 @@ export default {
   props: {
     
   },
-  data () {
-    return {
-      searchText: '',
-      isDark: false,
-      showAutocomplete: false,
-      isScroll: false,
-      companyList: [
-        { name: 'Apple inc. | Consumer electronic・Cupertino, California' },
-        { name: 'Adobe | Consumer electronic・San Francisco, CA' },
-        { name: 'Airbnb | Internet・San Francisco, CA' },
-        { name: 'Airbnb | Internet・San Francisco, CA' },
-        { name: 'Airbnb | Internet・San Francisco, CA' }
-      ]
-    }
-  },
+  data: () => ({
+    screenWidth: null,
+    isMenu: true,
+    showRwdInput: false,
+    searchText: '',
+    isDark: false,
+    showAutocomplete: false,
+    isScroll: false,
+    companyList: [
+      { name: 'Apple inc. | Consumer electronic・Cupertino, California' },
+      { name: 'Adobe | Consumer electronic・San Francisco, CA' },
+      { name: 'Airbnb | Internet・San Francisco, CA' },
+      { name: 'Airbnb | Internet・San Francisco, CA' },
+      { name: 'Airbnb | Internet・San Francisco, CA' }
+    ]
+  }),
   mounted () {
+    this.screenWidth = window.screen.width
+    if (this.screenWidth < 500) {
+      this.isMenu = false
+    }
     window.onscroll = () => {
       if (window.scrollY > 100) {
         this.isScroll = true
@@ -69,24 +105,36 @@ export default {
     }
     
     document.addEventListener('click', this.autoHide, false)
+    document.addEventListener('click', this.autoHideMenu, false)
   },
   destroyed () {
     document.removeEventListener('click', this.autoHide, false)
-  },
-  computed: {
-
+    document.removeEventListener('click', this.autoHideMenu, false)
   },
   methods: {
     focusInput () {
-      this.showAutocomplete = true
+      if (this.screenWidth < 500) {
+        this.showRwdInput = true
+        // this.$refs.rwdInput.focus()
+      } else {
+        this.showAutocomplete = true
+      }
+      
     },
     autoHide (evt) {
+      if (!this.isMenu) return false
+      if (!this.$el.contains(evt.target)) {
+        this.isMenu = false
+      }
+    },
+    autoHideMenu (evt) {
       if (!this.showAutocomplete) return false
       if (!this.$el.contains(evt.target)) {
         this.showAutocomplete = false
       }
     },
     goToCompany (name) {
+      this.showRwdInput = false
       // this.searchText = name
       if (name == 'error') {
         this.$router.push({
@@ -103,7 +151,7 @@ export default {
           }
         })
       }
-    }
+    },
   },
   watch: {
     '$route.name': {
@@ -117,7 +165,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
   .top {
     position: fixed;
@@ -127,6 +175,14 @@ export default {
     height: 92px;
     background-color: white;
     z-index: 2;
+
+    &-desktop {
+      display: block;
+    }
+
+    &-rwd {
+      display: none;
+    }
 
     &-scroll {
       box-shadow: 0px 3px 12px #00000014;
@@ -158,6 +214,12 @@ export default {
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    &-small-logo {
+      display: none;
+      width: 48px;
+      height: auto;
     }
 
     &-search {
@@ -201,7 +263,13 @@ export default {
       }
     }
 
+
+
     // right
+
+    &-menu {
+      display: none;
+    }
 
     &-right {
       display: flex;
@@ -256,24 +324,40 @@ export default {
 @media( max-width: 500px ){
 
   .top {
+    height: 64px;
 
+    &-desktop {
+      display: none;
+    }
+
+    &-rwd {
+      display: block;
+    }
 
     &-scroll {
 
     }
 
     &-box {
-
+      max-width: initial;
+      width: initial;
+      margin: auto 20px;
+      height: 64px;
     }
 
     // left
 
     &-left {
-
+      height: 64px;
     }
 
     &-logo {
- 
+      width: 160px;
+    }
+
+    &-small-logo {    
+      display: block;
+      margin-right: 29px;
     }
 
     &-search {
@@ -281,11 +365,16 @@ export default {
     }
 
     &-search-icon {
-
+      width: 16px;
+      height: auto;
+      top: 11px;
+      left: 16px;
     }
 
     &-search-input {
-
+      width: 158px;
+      height: 34px;
+      padding-left: 40px;
     }
 
     &-search-popup {
@@ -296,17 +385,89 @@ export default {
 
     }
 
-    // right
+    // rwd input popup
 
-    &-right {
+    &-rwd-search-popup {
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: #fff;
+    }
+
+    &-rwd-search-input-box {
+      height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 37px;
+    }
+
+    &-rwd-search-arrow {
+      position: absolute;
+      top: 40px;
+      left: 12px;
+      width: 14px;
+      height: auto;
+      transform: rotate(180deg);
+    }
+
+    &-rwd-search-input {
+      width: calc(100% - 50px);
+      padding: 0px 0px 11px 36px;
+      border: 0px;
+      border-bottom: 1px solid #D2D2D2;
+      font-size: 20px;
+    }
+
+    &-rwd-search-close {
+      position: absolute;
+      top: 43px;
+      right: 28px;
+      width: 14px;
+      height: auto;
+    }
+
+    &-rwd-search-text-box {
+      display: flex;
+      width: calc(100% - 48px);
+      margin: 28px auto 0px;
+    }
+
+    &-rwd-search-search {
+      margin-right: 18px;
+    }
+
+    &-rwd-search-text {
 
     }
 
-    &-link {
 
+
+    // right
+
+    &-menu {
+      display: block;
+    }
+
+    &-right {
+      position: absolute;
+      left: 0px;
+      top: 74px;
+      flex-direction: column;
+      height: initial;
+      width: 100%;
+      padding:0px 0px 46px;
+      background-color: #fff;
+      box-shadow: 0px 6px 6px #2E2E2E14;
+    }
+
+    &-link {
+      margin:0px 0px 36px;
 
       div {
-
+        font-size: 16px;
       }
     }
 

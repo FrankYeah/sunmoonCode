@@ -15,8 +15,11 @@ export default {
   },
   data () {
     return {
-
+      screenWidth: null,
     }
+  },
+  mounted () {
+    this.screenWidth = window.screen.width
   },
   computed: {
 
@@ -56,11 +59,13 @@ export default {
 .bottom {
 
   &-line {
-
+    max-width: initial;
+    width: initial;
+    margin: 0px 20px;
   }
 
   &-text {
-
+    font-size: 12px;
   }
 
 }

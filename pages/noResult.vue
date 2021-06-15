@@ -35,6 +35,7 @@ export default {
   },
   data () {
     return {
+      screenWidth: null,
       isload: false,
       resultData: [
         {
@@ -83,6 +84,7 @@ export default {
     }
   },
   mounted () {
+    this.screenWidth = window.screen.width
     // 相關搜尋
     for (let i = 0; i < this.resultData.length; i++) {
       this.$echarts.init(document.getElementById(this.resultData[i].title)).setOption(this.lessChart(
