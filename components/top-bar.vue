@@ -257,6 +257,75 @@ export default {
 
   .top {
 
+
+    &-scroll {
+
+    }
+
+    &-box {
+
+    }
+
+    // left
+
+    &-left {
+
+    }
+
+    &-logo {
+ 
+    }
+
+    &-search {
+
+    }
+
+    &-search-icon {
+
+    }
+
+    &-search-input {
+
+    }
+
+    &-search-popup {
+
+    }
+
+    &-search-recommend {
+
+    }
+
+    // right
+
+    &-right {
+
+    }
+
+    &-link {
+
+
+      div {
+
+      }
+    }
+
+    &-switch {
+
+
+      img {
+
+      }
+    }
+
+    &-sun {
+
+    }
+
+    &-moon {
+
+    }
+
   }
 
 }

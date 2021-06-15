@@ -278,6 +278,43 @@ export default {
 
   .result {
 
+
+    &-title {
+
+    }
+
+    &-subtitle {
+
+    }
+
+    &-main {
+
+    }
+
+    &-chart-outer {
+
+    }
+
+    &-chart-box {
+
+    }
+
+    &-chart-title {
+
+    }
+
+    &-chart-subtitle {
+
+    }
+
+    &-chart {
+
+    }
+
+    &-load {
+
+    }
+
   }
 
 }

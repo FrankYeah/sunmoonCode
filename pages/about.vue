@@ -236,6 +236,93 @@ export default {
   .about {
 
 
+    &-title {
+
+    }
+
+    &-line {
+
+    }
+
+    &-intro {
+    
+
+      &-box {
+
+      }
+
+      &-img {
+
+      }
+
+      &-right {
+
+      }
+
+      &-text {
+
+      }
+
+      &-desc-box {
+
+      }
+
+      &-desc {
+
+      }
+
+      &-desc-head {
+
+      }
+
+      &-desc-text {
+
+      }
+    }
+
+    &-talk {
+
+
+      &-left {
+
+      }
+
+      &-title {
+
+      }
+
+      &-text {
+
+
+        &::before {
+
+        }
+      }
+
+      &-right {
+
+      }
+
+      &-input {
+
+
+        &::placeholder {
+
+        }
+      }
+
+      &-textarea {
+
+
+        &::placeholder {
+
+        }
+      }
+
+      &-btn {
+
+      }
+    }
   }
 
 }

@@ -72,6 +72,14 @@ textarea {
 
 @media( max-width: 500px ){
 
+  .default-setting {
+
+  }
+
+  body {
+
+  }
+
 }
 
 </style>

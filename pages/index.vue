@@ -681,15 +681,248 @@ export default {
     }
   }
 
-
 }
 
 @media( max-width: 500px ){
 
   .index {
-    
+
+
+    &-intro {
+
+
+      &-left {
+
+      }
+
+      &-head {
+
+      }
+
+      &-text {
+
+      }
+
+      &-search {
+
+      }
+
+      &-search-icon {
+
+      }
+
+      &-search-input {
+
+      }
+
+      &-search-btn {
+
+      }
+
+      &-search-popup {
+
+      }
+
+      &-search-recommend {
+
+      }
+
+      &-down {
+
+      }
+
+      &-down-3 {
+
+      }
+
+      &-down-3 {
+
+      }
+
+      &-down-btn {
+
+
+        &:before {
+
+        }
+      }
+
+      &-down-text {
+
+      }
+
+      // intro right
+
+      &-city {
+
+      }
+
+    }
+
+    // 結束 intro
+
+    // wave
+
+    &-wave {
+
+      
+      &-img {
+
+      }
+
+      &-talk {
+
+      }
+
+      &-talk-1 {
+
+      }
+
+      &-talk-2 {
+
+      }
+
+      &-talk-3 {
+
+      }
+
+      &-talk-left {
+
+      }
+
+      &-year {
+
+      }
+
+      &-name {
+
+      }
+
+      &-industry {
+
+      }
+
+      &-talk-right {
+
+      }
+
+      &-arrow {
+        
+      }
+
+      &-arrown-text {
+
+      }
+
+
+    }
+
+    // chart
+
+    &-chart {
+
+
+      &-head {
+
+      }
+      
+      &-box {
+
+      }
+      
+      &-left {
+
+      }
+      
+      &-chart {
+
+      }
+
+      #myChart{
+
+      }
+
+      &-level {
+ 
+      }
+
+      &-period {
+
+      }
+
+      &-horizon {
+
+      }
+      
+      &-right {
+
+      }
+      
+      &-industry {
+
+      }
+      
+      &-text {
+
+      }
+      
+      &-btn {
+
+      }
+      
+      &-desc {
+
+      }
+      
+      &-desc-text {
+
+
+        &:before {
+
+        }
+      }
+
+      &-desc-text-2 {
+
+
+        &:before {
+
+        }
+      }
+    }
+
+    // Technical Report
+
+    &-report {
+
+
+      &-head {
+
+      }
+
+      &-box {
+
+      }
+      
+      &-pre {
+
+      }
+      
+      &-title {
+
+      }
+      
+      &-subtitle {
+
+      }
+      
+      &-text {
+
+      }
+    }
 
   }
+  
 
 }
 

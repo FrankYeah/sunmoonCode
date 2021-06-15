@@ -53,9 +53,17 @@ export default {
 
 @media( max-width: 500px ){
 
-  .bottom {
-    
+.bottom {
+
+  &-line {
+
   }
+
+  &-text {
+
+  }
+
+}
 
 }
 

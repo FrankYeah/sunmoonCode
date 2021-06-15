@@ -733,6 +733,156 @@ export default {
   .company {
 
 
+    &-title {
+
+    }
+
+    // chart
+    &-chart {
+
+      &-box {
+
+      }
+      
+      &-left {
+        width: 590px;
+        text-align: center;
+      }
+      
+      &-chart {
+
+      }
+
+      #myChart{
+
+      }
+
+      &-level {
+
+      }
+
+      &-period {
+
+      }
+
+      &-horizon {
+
+      }
+      
+      &-right {
+
+      }
+      
+      &-industry {
+
+      }
+      
+      &-text {
+
+      }
+      
+      &-btn {
+
+      }
+      
+      &-desc {
+
+      }
+      
+      &-desc-text {
+
+
+        &:before {
+
+        }
+      }
+
+      &-desc-text-2 {
+
+
+        &:before {
+
+        }
+      }
+    }
+
+    // rotate
+
+    &-rotate {
+
+
+      &-box {
+
+      }
+
+      &-title {
+
+      }
+
+      &-chart {
+
+      }
+
+      &-arrow-left{
+
+      }
+
+      &-arrow-right{
+
+      }
+    }
+
+    // relate 相關搜尋
+
+    &-relate {
+
+
+      &-title-box {
+
+      }
+
+      &-line {
+
+      }
+
+      &-title {
+
+      }
+
+      &-box {
+
+      }
+
+      &-chart-box {
+
+      }
+
+      &-chart-title {
+
+      }
+
+      &-chart {
+
+      }
+
+      &-desc {
+
+      }
+
+      &-desc-title {
+
+      }
+
+      &-desc-text {
+
+      }
+
+      &-load {
+
+      }
+    }
+
+
   }
 
 }
