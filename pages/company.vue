@@ -124,6 +124,10 @@ export default {
         grabCursor: true,
         mousewheelControl: true,
         spaceBetween: 100,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false
+        },
         breakpoints: {
           1000: {
             slidesPerView: 3,
@@ -131,7 +135,6 @@ export default {
           },
           500: {
             slidesPerView: 1,
-            
             centeredSlides: true,
           },
         }
