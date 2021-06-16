@@ -302,7 +302,7 @@ export default {
   methods: {
     goToCompany (name) {
       this.$router.push({
-        path: 'company',
+        path: '/company',
         query: {
           step: name
         }

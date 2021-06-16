@@ -139,14 +139,14 @@ export default {
       // this.searchText = name
       if (name == 'error') {
         this.$router.push({
-          path: 'noResult',
+          path: '/noResult',
           query: {
             step: name
           }
         })
       } else {
         this.$router.push({
-          path: 'company',
+          path: '/company',
           query: {
             step: name
           }

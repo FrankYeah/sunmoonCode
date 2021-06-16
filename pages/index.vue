@@ -194,14 +194,14 @@ export default {
       // this.searchText = name
       if (name == 'error') {
         this.$router.push({
-          path: 'noResult',
+          path: '/noResult',
           query: {
             step: name
           }
         })
       } else {
         this.$router.push({
-          path: 'company',
+          path: '/company',
           query: {
             step: name
           }
@@ -349,6 +349,7 @@ export default {
     &-search {
       position: relative;
       margin-top: 44px;
+      z-index: 2;
     }
 
     &-search-icon {
@@ -477,7 +478,7 @@ export default {
     width: 100%;
     height: 110px;
     margin: 0px auto;
-    z-index: -1;
+    z-index: 1;
     
     &-img {
       position: absolute;
