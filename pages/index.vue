@@ -32,15 +32,37 @@
 
       <!-- intro right -->
       <img class="index-intro-city" src="@/assets/img/index/map-light.png" alt="map">
-      
-      
 
+    </div>
+
+    <!-- rwd input popup -->
+
+    <div v-if="showRwdInput" class="index-intro-rwd-search-popup">
+      <div class="index-intro-rwd-search-input-box">
+        <img @click="showRwdInput = false" class="index-intro-rwd-search-arrow" src="@/assets/img/icon/grey-arrow.svg" alt="arrow">
+        <input v-model="searchText" ref="rwdInput"
+          @keypress.enter="goToCompany(searchText)"
+          class="index-intro-rwd-search-input"  type="text"
+        >
+        <img @click="searchText = ''"  class="index-intro-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
+      </div>
+      <div v-for="(company, index) in companyList"
+        :key="index"
+        @click="goToCompany(company.name)"
+        class="index-intro-rwd-search-text-box"
+      >
+        <img class="index-intro-rwd-search-search"  src="@/assets/img/icon/icon-search.svg" alt="search">
+        <div class="index-intro-rwd-search-text" >{{ company.name }}</div>
+      </div>
     </div>
 
     <!-- wave -->
     <div class="index-wave">
-      <img class="index-wave-img" alt="arrow"
+      <img class="index-wave-img" alt="wave"
         :src="require(`@/assets/img/index/mountain-light-${randomNum}.svg`)"
+        :style="[
+          { backgroundImage: 'url(' + require('@/assets/img/index/mountain-light-'+ randomNum +'.svg') + ')' }
+        ]"
       >
       <div @click="goToCompany('valaris')"
         :class="`index-wave-talk index-wave-talk-${randomNum}`"
@@ -72,7 +94,7 @@
         <div class="index-chart-right">
           <div class="index-chart-industry">Industry: Petroleum</div>
           <div class="index-chart-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis id enim pharetra aliquam. Maecenas aliquet facilisis massa eu fringilla.</div>
-          <a href="./about">
+          <a class="index-chart-btn-href" href="./about">
             <div class="index-chart-btn">Contact us for more info</div>
           </a>
           <div class="index-chart-desc">
@@ -119,6 +141,7 @@ export default {
   data () {
     return {
       screenWidth: null,
+      showRwdInput: false,
       randomNum: 1,
       searchText: '',
       showAutocompleteIndex: false,
@@ -160,7 +183,12 @@ export default {
       document.getElementById(id).scrollIntoView({ behavior: 'smooth' })
     },
     focusInput () {
-      this.showAutocompleteIndex = true
+      if (this.screenWidth < 500) {
+        this.showRwdInput = true
+        // this.$refs.rwdInput.focus()
+      } else {
+        this.showAutocompleteIndex = true
+      }
     },
     goToCompany (name) {
       // this.searchText = name
@@ -390,7 +418,11 @@ export default {
       }
     }
 
-    &-down-3 {
+    &-down-1 {
+
+    }
+
+    &-down-2 {
       transform: translateY(-28px);
     }
 
@@ -419,6 +451,7 @@ export default {
     }
 
     &-down-text {
+      color: #9C9C9C;
       width: 132px;
       margin-left: 16px;
     }
@@ -514,6 +547,7 @@ export default {
 
     &-arrown-text {
       font-size: 14px;
+      font-weight: bold;
       color: #50E3C1;
     }
 
@@ -656,6 +690,7 @@ export default {
 
     &-head {
       font-size: 40px;
+      font-weight: bold;
     }
 
     &-box {
@@ -697,7 +732,7 @@ export default {
       width: calc(100% - 40px);
 
       &-left {
-
+        width: auto;
       }
 
       &-head {
@@ -711,22 +746,26 @@ export default {
       }
 
       &-search {
-        margin-top: 36px;
+        margin: 36px auto 0px;
+        text-align: center;
       }
 
       &-search-icon {
         width: 22px;
+        top: 19px;
+        left: 32px;
       }
 
       &-search-input {
         padding: 0px 0px 0px 58px;
-        width: calc(100% - 98px);
+        width: calc(100% - 74px);
         height: 58px;
-        padding: 0px 0px 0px 58px;
+        padding: 0px 0px 0px 46px;
       }
 
       &-search-btn {
         top: 8px;
+        right: 18px;
         width: 80px;
         height: 44px;
         line-height: 44px;
@@ -741,12 +780,78 @@ export default {
 
       }
 
-      &-down {
+      // rwd input popup
+
+      &-rwd-search-popup {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+        height: 100vh;
+        background-color: #fff;
+        z-index: 2;
+      }
+
+      &-rwd-search-input-box {
+        height: 42px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 37px;
+      }
+
+      &-rwd-search-arrow {
+        position: absolute;
+        top: 40px;
+        left: 27px;
+        width: 14px;
+        height: auto;
+        transform: rotate(180deg);
+      }
+
+      &-rwd-search-input {
+        width: calc(100% - 86px);
+        padding: 0px 0px 11px 36px;
+        border: 0px;
+        border-bottom: 1px solid #D2D2D2;
+        font-size: 20px;
+      }
+
+      &-rwd-search-close {
+        position: absolute;
+        top: 43px;
+        right: 26px;
+        width: 14px;
+        height: auto;
+      }
+
+      &-rwd-search-text-box {
+        display: flex;
+        width: calc(100% - 48px);
+        margin: 28px auto 0px;
+      }
+
+      &-rwd-search-search {
+        margin-right: 18px;
+      }
+
+      &-rwd-search-text {
 
       }
 
-      &-down-3 {
+      // rwd
 
+      &-down {
+        margin-top: 0px;
+        transform: translateY(137px);
+      }
+
+      &-down-1 {
+        transform: translate(-14px, 135px);
+      }
+
+      &-down-2 {
+        transform: translate(-14px, 131px);
       }
 
       &-down-3 {
@@ -754,21 +859,26 @@ export default {
       }
 
       &-down-btn {
-
+        width: 34px;
+        height: 34px;
 
         &:before {
-
+          left: 12px;
+          top: 15px;
+          border-width: 6px 5px 0 5px;
         }
       }
 
       &-down-text {
-
+        margin-left: 8px;
       }
 
       // intro right
 
       &-city {
-        width: 63%;
+        width: 80%;
+        top: -79px;
+        right: -20px;
       }
 
     }
@@ -778,50 +888,65 @@ export default {
     // wave
 
     &-wave {
-
+      margin-top: 107px;
+      z-index: 1;
       
       &-img {
-
+        top: 0px;
+        right: 0xpx;
+        width: 500px;
+        background-image: url('../assets/img/icon/icon-talk.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-x: center;
+        background-position-y: top;
       }
 
       &-talk {
-
+        top: -85px;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 184px;
+        height: 103px;
       }
 
       &-talk-1 {
-
+        right: 66px;
       }
 
       &-talk-2 {
-
+        right: 41px;
       }
 
       &-talk-3 {
-
+        right: 0px;
       }
 
       &-talk-left {
-
+        padding: 0px;
+        margin-top: 23px;
       }
 
       &-year {
-
+        display: none;
       }
 
       &-name {
-
+        font-size: 16px;
       }
 
       &-industry {
-
+        display: none;
       }
 
       &-talk-right {
-
+        padding: 0px;
+        margin-top: 2px;
       }
 
       &-arrow {
-        
+        display: none;
       }
 
       &-arrown-text {
@@ -834,73 +959,97 @@ export default {
     // chart
 
     &-chart {
-
+      max-width: initial;
+      width: calc(100% - 42px);
+      margin-top: 95px;
 
       &-head {
-
+        font-size: 20px;
       }
       
       &-box {
-
+        flex-direction: column;
+        margin-top: 36px;
+        padding: 24px 14px;
       }
       
       &-left {
-
+        width: calc(100% - 0px);
       }
       
       &-chart {
-
+        margin-left: 0px;
       }
 
       #myChart{
-
+        width: calc(100% - 0px);
+        height: 260px;
       }
 
       &-level {
- 
+        display: none;
       }
 
       &-period {
-
+        font-size: 14px;
+        margin: 0px;
       }
 
       &-horizon {
-
+        display: none;
       }
       
       &-right {
-
+        display: flex;
+        flex-direction: column;
+        width: initial;
       }
       
       &-industry {
-
+        order: 2;
+        margin-top: 24px;
+        font-size: 16px;
       }
       
       &-text {
+        order: 3;
+      }
 
+      &-btn-href {
+        position: absolute;
+        left: 0px;
+        bottom: -78px;
       }
       
       &-btn {
-
+        width: calc(100vw - 42px);
       }
       
       &-desc {
-
+        order: 1;
+        margin-top: 0px;
+        color: #D2D2D2;
+        font-size: 16px;
       }
       
       &-desc-text {
-
+        padding-left: 18px;
 
         &:before {
-
+          top: 4px;
+          width: 12px;
+          height: 12px;
         }
       }
 
       &-desc-text-2 {
-
+        padding-left: 18px;
 
         &:before {
-
+          top: 4px;
+          left: 0px;
+          width: 12px;
+          height: 12px;
         }
       }
     }
@@ -908,14 +1057,18 @@ export default {
     // Technical Report
 
     &-report {
-
+      max-width: initial;
+      width: calc(100vw - 42px);
+      margin-top: 136px;
 
       &-head {
-
+        font-size: 20px;
+        text-align: center;
       }
 
       &-box {
-
+        margin-top: 36px;
+        padding: 40px 20px;
       }
       
       &-pre {
@@ -923,11 +1076,11 @@ export default {
       }
       
       &-title {
-
+        font-size: 16px;
       }
       
       &-subtitle {
-
+        font-size: 16px;
       }
       
       &-text {

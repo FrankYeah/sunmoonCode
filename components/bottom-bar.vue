@@ -66,6 +66,7 @@ export default {
 
   &-text {
     font-size: 12px;
+    margin: 12px 0px 18px;
   }
 
 }

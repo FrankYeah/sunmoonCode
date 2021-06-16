@@ -43,7 +43,6 @@
             <img class="top-rwd-search-search"  src="@/assets/img/icon/icon-search.svg" alt="search">
             <div class="top-rwd-search-text" >{{ company.name }}</div>
           </div>
-          
         </div>
 
       </div>
@@ -77,7 +76,7 @@ export default {
   },
   data: () => ({
     screenWidth: null,
-    isMenu: true,
+    isMenu: false,
     showRwdInput: false,
     searchText: '',
     isDark: false,
@@ -93,9 +92,6 @@ export default {
   }),
   mounted () {
     this.screenWidth = window.screen.width
-    if (this.screenWidth < 500) {
-      this.isMenu = false
-    }
     window.onscroll = () => {
       if (window.scrollY > 100) {
         this.isScroll = true
@@ -407,14 +403,14 @@ export default {
     &-rwd-search-arrow {
       position: absolute;
       top: 40px;
-      left: 12px;
+      left: 27px;
       width: 14px;
       height: auto;
       transform: rotate(180deg);
     }
 
     &-rwd-search-input {
-      width: calc(100% - 50px);
+      width: calc(100% - 86px);
       padding: 0px 0px 11px 36px;
       border: 0px;
       border-bottom: 1px solid #D2D2D2;
@@ -424,7 +420,7 @@ export default {
     &-rwd-search-close {
       position: absolute;
       top: 43px;
-      right: 28px;
+      right: 26px;
       width: 14px;
       height: auto;
     }
