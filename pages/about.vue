@@ -226,85 +226,105 @@ export default {
 @media( max-width: 500px ){
 
   .about {
-
+    max-width: initial;
+    width: calc(100% - 40px);
+    margin: 84px auto 81px;
 
     &-title {
-
+      font-size: 24px;
     }
 
     &-line {
-
+      display: none;
     }
 
     &-intro {
-    
+    margin-top: 64px;
 
       &-box {
-
+        flex-direction: column;
       }
 
       &-img {
-
+        width: 100%;
+        height: auto;
       }
 
       &-right {
-
+        width: initial;
       }
 
       &-text {
-
+        margin-top: 60px;
+        font-size: 16px;
       }
 
       &-desc-box {
-
+        margin-top: 0px;
+        flex-direction: column;
       }
 
       &-desc {
-
+        margin-top: 48px;
       }
 
       &-desc-head {
-
+        font-size: 20px;
+        text-align: center;
       }
 
       &-desc-text {
-
+        margin-top: 16px;
+        font-size: 16px;
       }
     }
 
     &-talk {
-
+      flex-direction: column;
+      margin-top: 108px;
 
       &-left {
 
       }
 
       &-title {
-
+        font-size: 24px;
+        text-align: center;
       }
 
       &-text {
-
+        width: 280px;
+        margin: 20px auto 0px auto;
+        padding-left: 30px;
+        text-align: center;
+        font-size: 16px;
 
         &::before {
-
+          left: 36px;
         }
       }
 
       &-right {
-
+        width: calc(100% - 40px);
+        margin-top: 32px;
+        padding: 40px 20px;
       }
 
       &-input {
-
+        width: calc(100% - 20px);
+        padding-left: 0px;
+        padding: 0px 0px 0px 20px;
       }
 
       &-textarea {
-
+        width: calc(100% - 20px);
+        padding: 0px 0px 0px 20px;
+        margin-top: 32px;
       }
 
       &-btn {
-
+        width: 100%;
+        margin: 40px 0px 0px 0px;
       }
     }
   }
