@@ -5,7 +5,7 @@
     <div class="top-box">
       <div class="top-left">
 
-        <a v-if="$route.name != 'index'" href="./">
+        <a v-if="$route.name != 'index' && screenWidth < 500" href="./">
           <img class="top-small-logo" src="@/assets/img/icon/icon-single-logo.png" alt="sunmoon">
         </a>
         <a v-else href="./">
@@ -92,6 +92,9 @@ export default {
   }),
   mounted () {
     this.screenWidth = window.screen.width
+    if (this.screenWidth > 500) {
+      this.isMenu = true
+    }
     window.onscroll = () => {
       if (window.scrollY > 100) {
         this.isScroll = true
@@ -118,9 +121,11 @@ export default {
       
     },
     autoHide (evt) {
-      if (!this.isMenu) return false
-      if (!this.$el.contains(evt.target)) {
-        this.isMenu = false
+      if(this.screenWidth < 500) {
+        if (!this.isMenu) return false
+        if (!this.$el.contains(evt.target)) {
+          this.isMenu = false
+        }
       }
     },
     autoHideMenu (evt) {
@@ -450,11 +455,11 @@ export default {
     &-right {
       position: absolute;
       left: 0px;
-      top: 74px;
+      top: 64px;
       flex-direction: column;
       height: initial;
       width: 100%;
-      padding:0px 0px 46px;
+      padding: 20px 0px 46px;
       background-color: #fff;
       box-shadow: 0px 6px 6px #2E2E2E14;
     }
@@ -481,6 +486,18 @@ export default {
 
     &-moon {
 
+    }
+
+  }
+
+}
+
+@media( max-width: 340px ){
+
+  .top {
+
+    &-small-logo {
+      margin-right: 6px;
     }
 
   }

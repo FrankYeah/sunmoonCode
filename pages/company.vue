@@ -41,6 +41,11 @@
               <div class="company-rotate-chart"
                 :id="chart.title"
               ></div>
+              <div class="company-rotate-desc">
+                <div class="company-rotate-desc-text">Default boundary</div>
+                <div class="company-rotate-desc-text-2">Lower boundary</div>
+              </div>
+              <div class="company-rotate-hint">Industry: Petroleum</div>
             </div>
           </swiper-slide>
         </swiper>
@@ -50,7 +55,11 @@
         <img v-if="swiperIndex != 9" @click="nextSlide" class="company-rotate-arrow-right"
           src="@/assets/img/icon/grey-arrow.svg" alt="arrow"
         >
+        <a href="./about">
+          <div class="company-rotate-contact">Contact us for more info</div>
+        </a>
       </div>
+      
 
       <!-- 相關搜尋 -->
       <div class="company-relate">
@@ -68,6 +77,7 @@
           @click="goToCompany()"
         >
           <div class="company-relate-chart-box">
+            <div class="company-relate-chart-subtitle">{{ relate.subtitle }}</div>
             <div class="company-relate-chart-title">{{ relate.title }}</div>
             <div class="company-relate-chart" :id="relate.title"></div>
           </div>
@@ -110,26 +120,42 @@ export default {
     return {
       screenWidth: null,
       swiperOption: {
-        slidesPerView: 3,
-        spaceBetween: 10,
+        mousewheel: true,
+        grabCursor: true,
+        mousewheelControl: true,
+        spaceBetween: 100,
+        breakpoints: {
+          1000: {
+            slidesPerView: 3,
+            centeredSlides: false,
+          },
+          500: {
+            slidesPerView: 1,
+            
+            centeredSlides: true,
+          },
+        }
       },
       swiperIndex: 0,
       isload: false,
       relateData: [
         {
           title: 'Jan, 2021',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
           dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
         },
         {
           title: 'Feb, 2021',
+          subtitle: 'Adobe',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
           dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
         },
         {
           title: 'Mar, 2021',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
           dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
@@ -138,72 +164,84 @@ export default {
       chartData: [
         {
           title: 'Jan, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
           dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
         },
         {
           title: 'Feb, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
           dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
         },
         {
           title: 'Mar, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
           dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
         },
         {
           title: 'Apr, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
           dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
         },
         {
           title: 'May, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
           dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
         },
         {
           title: 'Jun, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
           dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
         },
         {
           title: 'Jul, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
           dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
         },
         {
           title: 'Aug, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
           dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
         },
         {
           title: 'Sep, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
           dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
         },
         {
           title: 'Oct, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
           dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
         },
         {
           title: 'Nov, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
           dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
         },
         {
           title: 'Dec, 2020',
+          subtitle: 'Airbnb',
           dataX: [0, 10 , 20 , 30 ,40 , 50],
           dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
           dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
@@ -213,24 +251,36 @@ export default {
   },
   mounted () {
     this.screenWidth = window.screen.width
+
     this.swiper.on('slideChange', () => {
       this.swiperIndex = this.swiper.activeIndex
     })
-    // 首圖
-    let myChart = this.$echarts.init(document.getElementById('myChart'))
-    myChart.setOption(this.completeChart(
-      this.chartData[0].dataX,
-      this.chartData[0].dataY1,
-      this.chartData[0].dataY2
-    ))
+    // 首圖和 swiper
+    if (this.screenWidth > 500) {
+      let myChart = this.$echarts.init(document.getElementById('myChart'))
+      myChart.setOption(this.completeChart(
+        this.chartData[0].dataX,
+        this.chartData[0].dataY1,
+        this.chartData[0].dataY2
+      ))
+    }
 
     // 輪播圖
     for (let i = 0; i < this.chartData.length; i++) {
-      this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.lessChart(
-        this.chartData[i].dataX,
-        this.chartData[i].dataY1,
-        this.chartData[i].dataY2
-      ))
+      if(this.screenWidth > 500) {
+        this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.lessChart(
+          this.chartData[i].dataX,
+          this.chartData[i].dataY1,
+          this.chartData[i].dataY2
+        ))
+      } else {
+        this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.completeChart(
+          this.chartData[i].dataX,
+          this.chartData[i].dataY1,
+          this.chartData[i].dataY2
+        ))
+      }
+      
     }
     
     // 相關搜尋
@@ -555,6 +605,7 @@ export default {
     &-desc-text {
       position: relative;
       padding-left: 32px;
+      color: #D2D2D2;
 
       &:before {
         content: '';
@@ -570,6 +621,7 @@ export default {
 
     &-desc-text-2 {
       position: relative;
+      color: #D2D2D2;
 
       &:before {
         content: '';
@@ -615,6 +667,30 @@ export default {
       margin: 6px 0px 0px 0px;
     }
 
+      &-desc {
+        display: none;
+      }
+      
+      &-desc-text {
+
+
+        &:before {
+
+        }
+      }
+
+      &-desc-text-2 {
+
+
+        &:before {
+        }
+      }
+
+      &-hint {
+        display: none;
+      }
+
+
     &-arrow-left{
       position: absolute;
       top: 90px;
@@ -640,6 +716,10 @@ export default {
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    &-contact {
+      display: none;   
     }
   }
 
@@ -690,6 +770,10 @@ export default {
       text-align: center;
     }
 
+    &-chart-subtitle {
+      display: none;
+    }
+
     &-chart {
       width: 292px;
       height: 140px;
@@ -731,14 +815,17 @@ export default {
 @media( max-width: 500px ){
 
   .company {
-
+    max-width: initial;
+    width: calc(100% - 40px);
+    margin-bottom: 80px;
 
     &-title {
-
+      font-size: 24px;
     }
 
     // chart
     &-chart {
+      display: none;
 
       &-box {
 
@@ -809,40 +896,102 @@ export default {
     // rotate
 
     &-rotate {
-
+      margin-top: 20px;
 
       &-box {
-
+        width: calc(100% - 10px);
+        height: 380px;
+        margin: auto;
+        padding: 24px 0px;
       }
 
       &-title {
-
+        margin-top: 0px;
       }
 
       &-chart {
+        width: 295px;
+        height: 300px;
+      }
 
+      &-desc {
+        display: flex;
+        justify-content: space-between;
+        // margin-top: 0px;
+      }
+      
+      &-desc-text {
+        position: relative;
+        padding-left: 24px;
+        color: #D2D2D2;
+
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0px;
+          top: 1px;
+          width: 16px;
+          height: 16px;
+          border-radius: 100%;
+          background-color: #FF4866;
+        }
+      }
+
+      &-desc-text-2 {
+        position: relative;
+        padding-left: 32px;
+        color: #D2D2D2;
+
+        &:before {
+          content: '';
+          position: absolute;
+          left: 8px;
+          top: 0px;
+          width: 16px;
+          height: 16px;
+          border-radius: 100%;
+          background-color: #FDC43F;
+        }
+      }
+
+      &-hint {
+        display: block;
+        margin-top: 24px;
+        font-size: 16px;
+        transform: translateX(-63px);
       }
 
       &-arrow-left{
-
+        display: none;
       }
 
       &-arrow-right{
+        display: none;
+      }
 
+      &-contact {
+        display: block;
+        width: 100%;
+        height: 48px;
+        line-height: 48px;
+        margin-top: 28px;
+        text-align: center;
+        color: #646464;
+        border: 1px solid #D2D2D2;
       }
     }
 
     // relate 相關搜尋
 
     &-relate {
-
+      margin-top: 72px;
 
       &-title-box {
-
+        margin-bottom: 29px;
       }
 
       &-line {
-
+        width: 24%;
       }
 
       &-title {
@@ -850,23 +999,37 @@ export default {
       }
 
       &-box {
-
+        height: 220px;
+        padding-left: 0px;
       }
 
       &-chart-box {
+        margin-right: 0px;
+        height: 220px;
+        margin: 0px auto;
+      }
 
+      &-chart-subtitle {
+        display: block;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: #9C9C9C;
+        margin-top: 16px;
       }
 
       &-chart-title {
-
+        text-align: center;
+        margin-top: 4px;
+        color: #9C9C9C;
       }
 
       &-chart {
-
+        height: 160px;
       }
 
       &-desc {
-
+        display: none;
       }
 
       &-desc-title {
@@ -878,7 +1041,8 @@ export default {
       }
 
       &-load {
-
+        width: 100%;
+        margin-top: 48px;
       }
     }
 

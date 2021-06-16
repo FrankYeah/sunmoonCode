@@ -419,15 +419,15 @@ export default {
     }
 
     &-down-1 {
-
+      transform: translateY(-28px);
     }
 
     &-down-2 {
-      transform: translateY(-28px);
+      transform: translateY(-11px);
     }
 
     &-down-3 {
-      transform: translateY(-28px);
+      transform: translateY(-59px);
     }
 
     &-down-btn {
@@ -461,7 +461,7 @@ export default {
     &-city {
       width: 630px;
       position: absolute;
-      right: -124px;
+      right: -98px;
       top: -38px;
       z-index: -1;
     }
