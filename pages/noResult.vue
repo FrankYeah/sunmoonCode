@@ -4,10 +4,9 @@
     <div class="result-subtitle">It seems we can’t find any results based on your search. Try these top search companies below or search again!</div>
     <div class="result-main">Top search queries</div>
     <div class="result-chart-outer">
-      <div class="result-chart-box"
+      <div :class="['result-chart-box', {'result-chart-box-none': index > 2 && !isload}]"
         v-for="(chart, index) in resultData"
         :key="index"
-        v-show="index < 3 || isload"
         @click="goToCompany(chart.title)"
       >
         <div class="result-chart-title">{{ chart.title }}</div>
@@ -244,6 +243,10 @@ export default {
     }
   }
 
+  &-chart-box-none {
+    display: none;
+  }
+
   &-chart-title {
     font-size: 20px;
     font-weight: bold;
@@ -279,26 +282,32 @@ export default {
 @media( max-width: 500px ){
 
   .result {
-
+    width: calc(100% - 42px);
+    margin: 96px auto 80px;
 
     &-title {
-
+      font-size: 20px;
     }
 
     &-subtitle {
-
+      margin-top: 20px;
     }
 
     &-main {
-
+      margin-top: 48px;
+      font-size: 16px;
     }
 
     &-chart-outer {
-
+      width: auto;
+      padding: 0px;
+      margin: 20px auto auto;
     }
 
     &-chart-box {
-
+      width: calc(100% - 0px);
+      margin-bottom: 24px;
+      padding: 16px 0px;
     }
 
     &-chart-title {
@@ -310,11 +319,14 @@ export default {
     }
 
     &-chart {
-
+      width: 260px;
+      height: 160px;
+      margin: auto;
     }
 
     &-load {
-
+      width: 100%;
+      margin: 24px auto 0px;
     }
 
   }
