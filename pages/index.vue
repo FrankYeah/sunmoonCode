@@ -24,10 +24,7 @@
           </div>
         </div>
 
-        <div @click="scrollEvent('startChart')" :class="`index-intro-down index-intro-down-${randomNum}`">
-          <div class="index-intro-down-btn"></div>
-          <div class="index-intro-down-text">Learn about the Graphic rapidly</div>
-        </div>
+        
       </div>
 
       <!-- intro right -->
@@ -58,6 +55,13 @@
 
     <!-- wave -->
     <div class="index-wave">
+      <div class="index-wave-down-box">
+        <div @click="scrollEvent('startChart')" :class="`index-wave-down index-wave-down-${randomNum}`">
+          <div class="index-wave-down-btn"></div>
+          <div class="index-wave-down-text">Learn about the Graphic rapidly</div>
+        </div>
+      </div>
+
       <img class="index-wave-img" alt="wave"
         :src="require(`@/assets/img/index/mountain-light-${randomNum}.svg`)"
         :style="[
@@ -408,10 +412,41 @@ export default {
       }
     }
 
+    
+    // intro right
+
+    &-city {
+      width: 630px;
+      position: absolute;
+      right: -98px;
+      top: -38px;
+      z-index: -1;
+    }
+
+  }
+
+  // 結束 intro
+
+  // wave
+
+  &-wave {
+    position: relative;
+    width: 100%;
+    height: 110px;
+    margin: 160px auto 0px;
+    z-index: 1;
+
+    &-down-box {
+      max-width: 1100px;
+      width: 100%;
+      margin: auto;
+      z-index: 1;
+    }
+
     &-down {
+      position: absolute;
       display: flex;
       align-items: center;
-      margin-top: 148px;
       cursor: pointer;
 
       &:hover {
@@ -420,15 +455,15 @@ export default {
     }
 
     &-down-1 {
-      transform: translateY(-28px);
+      transform: translateY(-71px);
     }
 
     &-down-2 {
-      transform: translateY(-11px);
+      transform: translateY(-41px);
     }
 
     &-down-3 {
-      transform: translateY(-59px);
+      transform: translateY(-97px);
     }
 
     &-down-btn {
@@ -456,34 +491,12 @@ export default {
       width: 132px;
       margin-left: 16px;
     }
-
-    // intro right
-
-    &-city {
-      width: 630px;
-      position: absolute;
-      right: -98px;
-      top: -38px;
-      z-index: -1;
-    }
-
-  }
-
-  // 結束 intro
-
-  // wave
-
-  &-wave {
-    position: relative;
-    width: 100%;
-    height: 110px;
-    margin: 0px auto;
-    z-index: 1;
     
     &-img {
       position: absolute;
-      top: -255px;
+      top: -239px;
       right: 0px;
+      z-index: -1;
     }
 
     &-talk {
@@ -561,7 +574,7 @@ export default {
     position: relative;
     max-width: 1100px;
     width: 100%;
-    margin: 212px auto 0px auto;
+    margin: 180px auto 0px auto;
 
     &-head {
       font-size: 40px;
@@ -842,17 +855,41 @@ export default {
 
       // rwd
 
+
+      // intro right
+
+      &-city {
+        width: 80%;
+        top: -79px;
+        right: -20px;
+      }
+
+    }
+
+    // 結束 intro
+
+    // wave
+
+    &-wave {
+      margin-top: 107px;
+      z-index: 1;
+
+      &-down-box {
+        max-width: initial;
+        width: calc(100% - 40px);
+      }
+
       &-down {
         margin-top: 0px;
-        transform: translateY(137px);
+        transform: translateY(-13px);
       }
 
       &-down-1 {
-        transform: translate(-14px, 135px);
+        transform: translate(-14px, 12px);
       }
 
       &-down-2 {
-        transform: translate(-14px, 131px);
+        transform: translate(-14px, -12px);
       }
 
       &-down-3 {
@@ -873,24 +910,6 @@ export default {
       &-down-text {
         margin-left: 8px;
       }
-
-      // intro right
-
-      &-city {
-        width: 80%;
-        top: -79px;
-        right: -20px;
-      }
-
-    }
-
-    // 結束 intro
-
-    // wave
-
-    &-wave {
-      margin-top: 107px;
-      z-index: 1;
       
       &-img {
         top: 0px;
