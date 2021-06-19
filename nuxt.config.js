@@ -53,15 +53,42 @@ export default {
    // 在 console 可以看見 css 位置
     cssSourceMap: true,
     parallel: true,
-    cache: true,
+    // cache 設定成 false 後就可以 generate
+    cache: false,
     extractCSS: process.env.NODE_ENV === 'production',
     optimizeCSS: process.env.NODE_ENV === 'production',
     transpile: ['vue-intersect'],
+    // postcss: {
+    //   'autoprefixer': {
+    //     overrideBrowserslist: ['> 5%']
+    //   }
+    // },
+    // postcss: {
+    //   plugins: {
+
+    //   },
+    //   preset: {
+    //     autoprefixer: {
+    //       grid: true
+    //     }
+    //   },
+    // },
     postcss: {
+      'postcss-px2rem-exclude': {
+          emUnit: 75,
+          exclude: '/node_modules|vant/'
+      },
       'autoprefixer': {
-        overrideBrowserslist: ['> 5%']
+        flexbox: true,
+        grid: true,
+        overrideBrowserslist: ['last 3 versions', '> 1%', 'ie 8', 'ie 7'],
       }
     },
+    // postcss: [
+    //   require('autoprefixer')({
+    //     browsers: ['> 5%']
+    //   })
+    // ],
     transpile: ['vue-echarts', 'resize-detector']
   },
   css: [
