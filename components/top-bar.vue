@@ -33,7 +33,7 @@
               @keypress.enter="goToCompany(searchText)"
               class="top-rwd-search-input"  type="text"
             >
-            <img @click="searchText = ''"  class="top-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
+            <img @click="searchText = ''" v-if="searchText" class="top-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
           </div>
           <div v-for="(company, index) in companyList"
             :key="index"
@@ -51,11 +51,11 @@
         class="top-menu" src="@/assets/img/icon/rwd-menu.svg" alt="menu"
       >
       <div v-if="isMenu" class="top-right">
-        <a class="top-link" href="./">
+        <a :class="['top-link', {'top-link-on': currentRoute == 'index'}]" href="./">
           <div>HOME</div>
         </a>
-        <a class="top-link" href="./about">
-          <div>ABOUT</div>
+        <a :class="['top-link', {'top-link-on': currentRoute == 'about'}]" href="./about">
+          <div>ABOUT US</div>
         </a>
         <div @click="isDark = !isDark" class="top-switch">
           <img v-if="!isDark" class="top-sun" src="@/assets/img/icon/icon-sun.svg" alt="sun">
@@ -82,8 +82,9 @@ export default {
     isDark: false,
     showAutocomplete: false,
     isScroll: false,
+    currentRoute: null,
     companyList: [
-      { name: 'Apple inc. | Consumer electronic・Cupertino, California' },
+      { name: 'Apple inc. | Consumer electronic・Cupertino, CA' },
       { name: 'Adobe | Consumer electronic・San Francisco, CA' },
       { name: 'Airbnb | Internet・San Francisco, CA' },
       { name: 'Airbnb | Internet・San Francisco, CA' },
@@ -136,7 +137,8 @@ export default {
     },
     goToCompany (name) {
       this.showRwdInput = false
-      // this.searchText = name
+      this.showAutocomplete = false
+      this.searchText = ''
       if (name == 'error') {
         this.$router.push({
           path: '/noResult',
@@ -156,11 +158,24 @@ export default {
   },
   watch: {
     '$route.name': {
-      handler: function(search) {
-
+      handler: function(route) {
+        this.currentRoute = route
       },
       deep: true,
       immediate: true
+    },
+    showRwdInput: {
+      handler: function(change) {
+        if (change) {
+          let mo = function (e) { e.preventDefault() }
+          document.body.style.overflow='hidden'
+          document.addEventListener('touchmove', mo, false)
+        } else {
+          let mo = function (e) { e.preventDefault() } 
+          document.body.style.overflow = ''
+          document.removeEventListener('touchmove', mo, false)
+        }
+      },
     }
   }
 }
@@ -173,9 +188,9 @@ export default {
     top: 0px;
     left: 0px;
     width: 100%;
-    height: 92px;
+    height: 72px;
     background-color: white;
-    z-index: 2;
+    z-index: 3;
 
     &-desktop {
       display: block;
@@ -192,7 +207,7 @@ export default {
     &-box {
       max-width: 1100px;
       width: 100%;
-      height: 92px;
+      height: 72px;
       margin: auto;
       display: flex;
       justify-content: space-between;
@@ -204,7 +219,7 @@ export default {
     &-left {
       display: flex;
       align-items: center;
-      height: 92px;
+      height: 72px;
     }
 
     &-logo {
@@ -256,6 +271,7 @@ export default {
 
     &-search-recommend {
       padding: 10px 45px;
+      text-align: left;
       cursor: pointer;
 
       &:hover {
@@ -275,12 +291,12 @@ export default {
     &-right {
       display: flex;
       align-items: center;
-      height: 92px;
+      height: 72px;
     }
 
     &-link {
       margin-right: 48px;
-      letter-spacing: 0.8px;
+      letter-spacing: 1.5px;
       cursor: pointer;
 
       &:hover {
@@ -289,6 +305,13 @@ export default {
 
       div {
         color: #646464;
+      }
+    }
+
+    &-link-on {
+      
+      div {
+        color: #FDC43F;
       }
     }
 
@@ -311,12 +334,12 @@ export default {
     }
 
     &-sun {
-      margin-left: 8px;
+      margin: 0px 0px 6px 8px;
       transition: all 0.2s;
     }
 
     &-moon {
-      margin-left: 42px;
+      margin: 0px 0px 6px 42px;
       transition: all 0.2s;
     }
 
@@ -441,7 +464,7 @@ export default {
     }
 
     &-rwd-search-text {
-
+      font-size: 16px;
     }
 
 

@@ -41,7 +41,7 @@
           @keypress.enter="goToCompany(searchText)"
           class="index-intro-rwd-search-input"  type="text"
         >
-        <img @click="searchText = ''"  class="index-intro-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
+        <img @click="searchText = ''" v-if="searchText"  class="index-intro-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
       </div>
       <div v-for="(company, index) in companyList"
         :key="index"
@@ -131,6 +131,7 @@
 
 <script>
 
+import * as echarts from 'echarts'
 export default {
   head: {
     title: 'Intro',
@@ -285,7 +286,8 @@ export default {
         series: [
           {
             type: 'line',
-            areaStyle: {},
+            areaStyle: {
+            },
             itemStyle:{
               normal:{
                 color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
@@ -296,19 +298,37 @@ export default {
             },
             data: dataY1,
           },
-        {
-          type: 'line',
-          areaStyle: {},
-          itemStyle:{
-            normal:{
-              color:'rgba(253,196,63,0.3)'
+          {
+            type: 'line',
+            areaStyle: {
+              normal:{
+                // 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
+                // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                //   { 
+                //   offset: 0,
+                //   color: 'red'
+                //   },
+                //   {
+                //     offset: .1,
+                //     color: 'rgba(253,196,63,0.3)
+                //   },
+                //   {
+                //     offset: 1,
+                //     color: 'rgba(253,196,63,0.3)'
+                //   }
+                // ])
+              }
             },
+            itemStyle:{
+              normal:{
+                color:'rgba(253,196,63,0.3)'
+              },
+            },
+            lineStyle: {
+              color: 'rgb(253,196,63)'
+            },
+            data: dataY2,
           },
-          lineStyle: {
-            color: 'rgb(253,196,63)'
-          },
-          data: dataY2,
-        },
         ]
       }
       return chart
@@ -316,7 +336,19 @@ export default {
 
   },
   watch: {
-    
+    showRwdInput: {
+      handler: function(change) {
+        if (change) {
+          let mo = function (e) { e.preventDefault() }
+          document.body.style.overflow='hidden'
+          document.addEventListener('touchmove', mo, false)
+        } else {
+          let mo = function (e) { e.preventDefault() } 
+          document.body.style.overflow = ''
+          document.removeEventListener('touchmove', mo, false)
+        }
+      },
+    }
   }
 }
 </script>
@@ -404,6 +436,7 @@ export default {
 
     &-search-recommend {
       padding: 10px 45px;
+      text-align: left;
       cursor: pointer;
 
       &:hover {
@@ -750,6 +783,7 @@ export default {
       }
 
       &-head {
+        width: 270px;
         font-size: 24px;
       }
 
@@ -757,6 +791,7 @@ export default {
         width: initial;
         margin-top: 16px;
         font-size: 16px;
+        line-height: 20px;
       }
 
       &-search {
@@ -803,7 +838,7 @@ export default {
         width: 100vw;
         height: 100vh;
         background-color: #fff;
-        z-index: 2;
+        z-index: 3;
       }
 
       &-rwd-search-input-box {

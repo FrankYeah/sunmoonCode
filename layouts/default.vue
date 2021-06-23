@@ -79,7 +79,8 @@ body {
   font-family: 'Noto Sans TC', 'Noto Sans SC' ,sans-serif;
   font-size: 16px;
   color: #646464;
-  // font-family: 'GoudyOldStyle,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,PingFang TC,Hiragino Sans GB,Microsoft JhengHei,sans-serif!important';
+  font-family: 'SF Pro';
+  // font-family: 'SF Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,PingFang TC,Hiragino Sans GB,Microsoft JhengHei,sans-serif!important';
 }
 ol, ul {
 	list-style: none;
