@@ -122,11 +122,11 @@ export default {
         mousewheel: true,
         grabCursor: true,
         mousewheelControl: true,
-        spaceBetween: 100,
-        autoplay: {
-          delay: 2500,
-          disableOnInteraction: false
-        },
+        spaceBetween: -6,
+        // autoplay: {
+        //   delay: 2500,
+        //   disableOnInteraction: false
+        // },
         breakpoints: {
           1000: {
             slidesPerView: 3,
@@ -259,6 +259,7 @@ export default {
     })
     // 首圖和 swiper
     if (this.screenWidth > 500) {
+      this.swiperOption.spaceBetween = 0
       let myChart = this.$echarts.init(document.getElementById('myChart'))
       myChart.setOption(this.completeChart(
         this.chartData[0].dataX,
@@ -695,6 +696,7 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      margin: 0px 0px 0px 12px;
       box-shadow: 0px 3px 6px #00000014;
       border: 1px solid #EDEDED;
       border-radius: 10px;
@@ -944,9 +946,9 @@ export default {
       margin-top: 20px;
 
       &-box {
-        width: calc(100% - 10px);
+        width: calc(100% - 20px);
         height: 380px;
-        margin: auto;
+        margin: 0px 0px 0px 0px;
         padding: 24px 0px;
       }
 

@@ -557,6 +557,27 @@ export default {
       &:hover {
         opacity: 0.8;
       }
+
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: -43px;
+        left: 133px;
+        width: 52px;
+        height: 52px;
+        background: transparent radial-gradient(closest-side at 50% 50%, #F5DD82 0%, #F5DD8280 42%, #F5DD8200 100%) 0% 0% no-repeat padding-box;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -26px;
+        left: 152px;
+        width: 18px;
+        height: 18px;
+        border-radius: 100%;
+        background: #F5DD82 0% 0% no-repeat padding-box;
+      }
     }
 
     &-talk-1 {
@@ -564,7 +585,7 @@ export default {
     }
 
     &-talk-2 {
-      right: 228px;
+      right: 223px;
     }
 
     &-talk-3 {
@@ -1048,7 +1069,6 @@ export default {
       
       &-img {
         top: 0px;
-        right: 0xpx;
         width: 500px;
         background-image: url('../assets/img/icon/icon-talk.svg');
         background-repeat: no-repeat;
@@ -1058,16 +1078,31 @@ export default {
       }
 
       &-talk {
-        top: -85px;
+        top: -92px;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
         width: 184px;
         height: 103px;
+
+        &::before {
+          bottom: -16px;
+          left: 72px;
+          width: 40px;
+          height: 40px;
+        }
+
+        &::after {
+          bottom: 5px;
+          left: 89px;
+          width: 10px;
+          height: 10px;
+          border-radius: 100%;
+        }
       }
 
       &-talk-1 {
-        right: 66px;
+        right: 65px;
       }
 
       &-talk-2 {
@@ -1075,7 +1110,7 @@ export default {
       }
 
       &-talk-3 {
-        right: 0px;
+        right: -2px;
       }
 
       &-talk-left {
