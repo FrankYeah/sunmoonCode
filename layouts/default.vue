@@ -106,6 +106,9 @@ a {
 input {
   padding: 0px;
   margin: 0px;
+  outline: none;
+ -webkit-appearance: none;
+ -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   &:focus {
     outline: none;

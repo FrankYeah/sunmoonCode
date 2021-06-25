@@ -45,11 +45,12 @@
           </div>
         </div>
 
+        <img @click="isMenu = !isMenu"
+          class="top-menu" src="@/assets/img/icon/rwd-menu.svg" alt="menu"
+        >
+
       </div>
 
-      <img @click="isMenu = !isMenu"
-        class="top-menu" src="@/assets/img/icon/rwd-menu.svg" alt="menu"
-      >
       <div v-if="isMenu" class="top-right">
         <a :class="['top-link', {'top-link-on': currentRoute == 'index'}]" href="./">
           <div>HOME</div>
@@ -372,7 +373,9 @@ export default {
     // left
 
     &-left {
+      width: 100%;
       height: 64px;
+      justify-content: space-between;
     }
 
     &-logo {
@@ -381,7 +384,6 @@ export default {
 
     &-small-logo {    
       display: block;
-      margin-right: 29px;
     }
 
     &-search {

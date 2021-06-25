@@ -2,6 +2,7 @@
   <div class="about">
 
     <div class="about-title">About us</div>
+    <div class="about-dot-1"></div>
     <div class="about-line"></div>
 
     <div class="about-intro">
@@ -29,6 +30,11 @@
     </div>
 
     <div class="about-talk">
+
+      <div class="about-talk-dot-2"></div>
+      <div class="about-talk-dot-3"></div>
+      <div class="about-talk-dot-4"></div>
+      <div class="about-talk-dot-5"></div>
 
       <div class="about-talk-left">
         <div class="about-talk-title">Let’s talk!</div>
@@ -82,6 +88,7 @@ export default {
 <style lang="scss" scoped>
 
 .about {
+  position: relative;
   max-width: 1100px;
   width: 100%;
   margin: 69px auto 144px;
@@ -91,6 +98,17 @@ export default {
     font-weight: bold;
     color: #2E2E2E;
     text-align: center;
+  }
+
+  &-dot-1 {
+    position: absolute;
+    top: -10px;
+    right: 417px;
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    background-color: #50E3C1;
+    box-shadow: 0px 0px 6px #50E3C1;
   }
 
   &-line {
@@ -148,9 +166,52 @@ export default {
   }
 
   &-talk {
+    position: relative;
     margin-top: 193px;
     display: flex;
     justify-content: space-between;
+
+    &-dot-2 {
+      position: absolute;
+      top: 25px;
+      left: -48px;
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      background-color: #50E3C1;
+      box-shadow: 0px 0px 6px #50E3C1;
+    }
+
+    &-dot-3 {
+      position: absolute;
+      top: -49px;
+      right: -25px;
+      width: 4px;
+      height: 4px;
+      border-radius: 100%;
+      background-color: #50E3C1;
+    }
+
+    &-dot-4 {
+      position: absolute;
+      top: -96px;
+      right: -70px;
+      width: 4px;
+      height: 4px;
+      border-radius: 100%;
+      background-color: #50E3C1;
+    }
+
+    &-dot-5 {
+      position: absolute;
+      bottom: 164px;
+      right: -57px;
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      background-color: #50E3C1;
+      box-shadow: 0px 0px 6px #50E3C1;
+    }
 
     &-left {
 
@@ -282,6 +343,22 @@ export default {
     &-talk {
       flex-direction: column;
       margin-top: 108px;
+
+      &-dot-2 {
+        display: none;
+      }
+
+      &-dot-3 {
+        display: none;
+      }
+
+      &-dot-4 {
+        display: none;
+      }
+
+      &-dot-5 {
+        display: none;
+      }
 
       &-left {
 

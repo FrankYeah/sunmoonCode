@@ -21,6 +21,7 @@
 
 <script>
 
+import * as echarts from 'echarts'
 export default {
   head: {
     title: 'No Result',
@@ -162,7 +163,25 @@ export default {
           {
             type: 'line',
             showSymbol:false,
-            areaStyle: {},
+            areaStyle: {
+              normal:{
+                // 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { 
+                  offset: 0,
+                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: .43,
+                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(253,196,63,0.3)'
+                  }
+                ])
+              }
+            },
             itemStyle:{
               normal:{
                 color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
@@ -173,20 +192,20 @@ export default {
             },
             data: dataY1,
           },
-        {
-          type: 'line',
-          showSymbol:false,
-          areaStyle: {},
-          itemStyle:{
-            normal:{
-              color:'rgba(253,196,63,0.3)'
+          {
+            type: 'line',
+            showSymbol:false,
+            areaStyle: {},
+            itemStyle:{
+              normal:{
+                color:'rgba(253,196,63,0.3)'
+              },
             },
+            lineStyle: {
+              color: 'rgb(253,196,63)'
+            },
+            data: dataY2,
           },
-          lineStyle: {
-            color: 'rgb(253,196,63)'
-          },
-          data: dataY2,
-        },
         ]
       }
       return chart

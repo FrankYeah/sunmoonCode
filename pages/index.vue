@@ -82,9 +82,17 @@
         </div>  
       </div>
     </div>
+    
 
     <!-- chart -->
-    <div id="startChart" class="index-chart">
+    <div class="index-chart">
+      <div class="index-chart-dot-1"></div>
+      <div class="index-chart-dot-2"></div>
+      <div class="index-chart-dot-3"></div>
+      <div class="index-chart-dot-4"></div>
+      <div class="index-chart-dot-5"></div>
+      <div class="index-chart-dot-6"></div>
+      <div class="index-chart-float" id="startChart"></div>
       <div class="index-chart-head">Get started with the chart!</div>
       <div class="index-chart-box">
         <div class="index-chart-left">
@@ -102,7 +110,7 @@
             <div class="index-chart-btn">Contact us for more info</div>
           </a>
           <div class="index-chart-desc">
-            <div class="index-chart-desc-text">Default boundary</div>
+            <div :class="['index-chart-desc-text', {'index-chart-desc-text-3': chartData[0].dataY1[0] > chartData[0].dataY2[0] }]">Default boundary</div>
             <div class="index-chart-desc-text-2">Lower boundary</div>
           </div>
         </div>
@@ -112,6 +120,7 @@
     <!-- Technical Report -->
 
     <div class="index-report">
+      <div class="index-report-dot-1"></div>
       <div class="index-report-head">Technical Report</div>
       <div class="index-report-box">
         <div class="index-report-pre">The technical reports and their associated addendum in the section explain in details the CRI’s working models for credit ratings and the implementation requirements in its operations. By design, a technical report published later includes all charges made to the earlier versions and the associate addendum. Please refer to the user guide for the chronicle of the document releasing.</div>
@@ -287,12 +296,29 @@ export default {
           {
             type: 'line',
             areaStyle: {
-            },
-            itemStyle:{
               normal:{
-                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
-              },
+                // 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { 
+                  offset: 0,
+                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: .43,
+                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(253,196,63,0.3)'
+                  }
+                ])
+              }
             },
+            // itemStyle:{
+            //   normal:{
+            //     color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+            //   },
+            // },
             lineStyle: {
               color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
             },
@@ -300,25 +326,7 @@ export default {
           },
           {
             type: 'line',
-            areaStyle: {
-              normal:{
-                // 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
-                // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                //   { 
-                //   offset: 0,
-                //   color: 'red'
-                //   },
-                //   {
-                //     offset: .1,
-                //     color: 'rgba(253,196,63,0.3)
-                //   },
-                //   {
-                //     offset: 1,
-                //     color: 'rgba(253,196,63,0.3)'
-                //   }
-                // ])
-              }
-            },
+            areaStyle: {},
             itemStyle:{
               normal:{
                 color:'rgba(253,196,63,0.3)'
@@ -609,6 +617,73 @@ export default {
     width: 100%;
     margin: 180px auto 0px auto;
 
+    &-dot-1 {
+      position: absolute;
+      top: -166px;
+      left: 61px;
+      width: 4px;
+      height: 4px;
+      border-radius: 100%;
+      background-color: #50E3C1;
+    }
+
+    &-dot-2 {
+      position: absolute;
+      top: -141px;
+      left: 173px;
+      width: 4px;
+      height: 4px;
+      border-radius: 100%;
+      background-color: #50E3C1;
+    }
+
+    &-dot-3 {
+      position: absolute;
+      top: 10px;
+      left: 138px;
+      width: 4px;
+      height: 4px;
+      border-radius: 100%;
+      background-color: #50E3C1;
+    }
+
+    &-dot-4 {
+      position: absolute;
+      top: 46px;
+      right: 0px;
+      width: 4px;
+      height: 4px;
+      border-radius: 100%;
+      background-color: #50E3C1;
+    }
+
+    &-dot-5 {
+      position: absolute;
+      top: -96px;
+      right: -42px;
+      width: 4px;
+      height: 4px;
+      border-radius: 100%;
+      background-color: #50E3C1;
+    }
+
+    &-dot-6 {
+      position: absolute;
+      top: -10px;
+      right: 248px;
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      background-color: #50E3C1;
+      box-shadow: 0px 0px 6px #50E3C1;
+    }
+
+    &-float {
+      position: absolute;
+      left: 0px;
+      top: -100px;
+    }
+
     &-head {
       font-size: 40px;
       font-weight: bold;
@@ -699,6 +774,7 @@ export default {
     &-desc-text {
       position: relative;
       padding-left: 32px;
+      color: #D2D2D2;
 
       &:before {
         content: '';
@@ -712,8 +788,17 @@ export default {
       }
     }
 
+    &-desc-text-3 {
+      
+
+      &:before {
+        background-color: #50E3C1;
+      }
+    }
+
     &-desc-text-2 {
       position: relative;
+      color: #D2D2D2;
 
       &:before {
         content: '';
@@ -731,13 +816,26 @@ export default {
   // Technical Report
 
   &-report {
+    position: relative;
     max-width: 1100px;
     width: 100%;
     margin: 80px auto 0px auto;
 
+    &-dot-1 {
+      position: absolute;
+      top: 0px;
+      left: 248px;
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      background-color: #50E3C1;
+      box-shadow: 0px 0px 6px #50E3C1;
+    }
+
     &-head {
       font-size: 40px;
       font-weight: bold;
+      text-align: center;
     }
 
     &-box {
@@ -795,26 +893,28 @@ export default {
       }
 
       &-search {
-        margin: 36px auto 0px;
+        margin: 76px auto 0px;
         text-align: center;
+        background-color: white;
       }
 
       &-search-icon {
         width: 22px;
         top: 19px;
-        left: 32px;
+        left: 20px;
       }
 
       &-search-input {
-        padding: 0px 0px 0px 58px;
-        width: calc(100% - 74px);
+        width: calc(100% - 46px);
         height: 58px;
         padding: 0px 0px 0px 46px;
+        background-color: white;
+        outline: none;
       }
 
       &-search-btn {
         top: 8px;
-        right: 18px;
+        right: 8px;
         width: 80px;
         height: 44px;
         line-height: 44px;
@@ -1018,6 +1118,35 @@ export default {
       width: calc(100% - 42px);
       margin-top: 95px;
 
+      &-dot-1 {
+        top: 25px;
+        left: 17px;
+      }
+
+      &-dot-2 {
+        display: none;
+      }
+
+      &-dot-3 {
+        display: none;
+      }
+
+      &-dot-4 {
+        display: none;
+      }
+
+      &-dot-5 {
+        display: none;
+      }
+
+      &-dot-6 {
+        top: -50px;
+        right: 52px;
+        width: 4px;
+        height: 4px;
+        
+      }
+
       &-head {
         font-size: 20px;
       }
@@ -1115,6 +1244,10 @@ export default {
       max-width: initial;
       width: calc(100vw - 42px);
       margin-top: 136px;
+
+      &-dot-1 {
+
+      }
 
       &-head {
         font-size: 20px;

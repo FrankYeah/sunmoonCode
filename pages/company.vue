@@ -21,7 +21,7 @@
               <div class="company-chart-btn">Contact us for more info</div>
             </a>
             <div class="company-chart-desc">
-              <div class="company-chart-desc-text">Default boundary</div>
+              <div :class="['company-chart-desc-text', {'company-chart-desc-text-3': chartData[0].dataY1[0] > chartData[0].dataY2[0] }]">Default boundary</div>
               <div class="company-chart-desc-text-2">Lower boundary</div>
             </div>
           </div>
@@ -85,10 +85,8 @@
             <div class="company-relate-desc-title">Agilent Technologies</div>
             <div class="company-relate-desc-text">
               Status:
-              <span
-                :style="`color : ${relate.dataY1[0] > relate.dataY2[0] ? '#50E3C1' : '#FF4866'}`"
-              >Danger
-              </span>
+              <span v-if="relate.dataY1[0] > relate.dataY2[0]" style="color: #50E3C1">Safe</span>
+              <span v-else style="color: #FF4866">Danger</span>
             </div>
             <div class="company-relate-desc-text">Industry: Biotechnology</div>
           </div>
@@ -103,6 +101,7 @@
 
 <script>
 
+import * as echarts from 'echarts'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 export default {
   head: {
@@ -370,12 +369,30 @@ export default {
           {
             type: 'line',
             showSymbol:false,
-            areaStyle: {},
-            itemStyle:{
+            areaStyle: {
               normal:{
-                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
-              },
+                // 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { 
+                  offset: 0,
+                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: .43,
+                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(253,196,63,0.3)'
+                  }
+                ])
+              }
             },
+            // itemStyle:{
+            //   normal:{
+            //     color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+            //   },
+            // },
             lineStyle: {
               color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
             },
@@ -472,30 +489,48 @@ export default {
         series: [
           {
             type: 'line',
-            areaStyle: {},
-            itemStyle:{
+            areaStyle: {
               normal:{
-                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
-              },
+                // 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { 
+                  offset: 0,
+                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: .43,
+                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(253,196,63,0.3)'
+                  }
+                ])
+              }
             },
+            // itemStyle:{
+            //   normal:{
+            //     color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+            //   },
+            // },
             lineStyle: {
               color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
             },
             data: dataY1,
           },
-        {
-          type: 'line',
-          areaStyle: {},
-          itemStyle:{
-            normal:{
-              color:'rgba(253,196,63,0.3)'
+          {
+            type: 'line',
+            areaStyle: {},
+            itemStyle:{
+              normal:{
+                color:'rgba(253,196,63,0.3)'
+              },
             },
+            lineStyle: {
+              color: 'rgb(253,196,63)'
+            },
+            data: dataY2,
           },
-          lineStyle: {
-            color: 'rgb(253,196,63)'
-          },
-          data: dataY2,
-        },
         ]
       }
       return chart
@@ -619,6 +654,13 @@ export default {
         height: 16px;
         border-radius: 100%;
         background-color: #FF4866;
+      }
+    }
+
+    &-desc-text-3 {
+
+      &:before {
+        background-color: #50E3C1;
       }
     }
 
