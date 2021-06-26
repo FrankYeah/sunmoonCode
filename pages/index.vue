@@ -205,6 +205,9 @@ export default {
       }
     },
     goToCompany (name) {
+      let mo = function (e) { e.preventDefault() } 
+      document.body.style.overflow = ''
+      document.removeEventListener('touchmove', mo, false)
       // this.searchText = name
       if (name == 'error') {
         this.$router.push({
