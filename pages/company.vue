@@ -42,7 +42,7 @@
                 :id="chart.title"
               ></div>
               <div class="company-rotate-desc">
-                <div class="company-rotate-desc-text">Default boundary</div>
+                <div :class="['company-rotate-desc-text', {'company-rotate-desc-text-3': chart.dataY1[0] > chart.dataY2[0] }]">Default boundary</div>
                 <div class="company-rotate-desc-text-2">Lower boundary</div>
               </div>
               <div class="company-rotate-hint">Industry: Petroleum</div>
@@ -389,11 +389,11 @@ export default {
                 ])
               }
             },
-            // itemStyle:{
-            //   normal:{
-            //     color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
-            //   },
-            // },
+            itemStyle:{
+              normal:{
+                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+              },
+            },
             lineStyle: {
               color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
             },
@@ -509,11 +509,11 @@ export default {
                 ])
               }
             },
-            // itemStyle:{
-            //   normal:{
-            //     color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
-            //   },
-            // },
+            itemStyle:{
+              normal:{
+                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+              },
+            },
             lineStyle: {
               color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
             },
@@ -981,6 +981,13 @@ export default {
           height: 16px;
           border-radius: 100%;
           background-color: #FF4866;
+        }
+      }
+
+      &-desc-text-3 {
+
+        &:before {
+          background-color: #50E3C1;
         }
       }
 

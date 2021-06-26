@@ -314,11 +314,11 @@ export default {
                 ])
               }
             },
-            // itemStyle:{
-            //   normal:{
-            //     color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
-            //   },
-            // },
+            itemStyle:{
+              normal:{
+                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+              },
+            },
             lineStyle: {
               color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
             },
@@ -1281,7 +1281,10 @@ export default {
       margin-top: 136px;
 
       &-dot-1 {
-
+        top: -20px;
+        left: 57px;
+        width: 4px;
+        height: 4px;
       }
 
       &-head {

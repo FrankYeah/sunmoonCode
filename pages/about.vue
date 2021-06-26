@@ -42,11 +42,11 @@
       </div>
 
       <div class="about-talk-right">
-        <input v-model="sendMessage.name" @focus="inputText('name')" :class="['about-talk-input', {'about-talk-input-wrong': validation.name}]" type="text" placeholder="Your name">
+        <input v-model="sendMessage.name" @focus="inputText('name')" :class="['about-talk-input', {'about-talk-input-wrong': validation.name}]" type="text" placeholder="Your name*">
         <div v-if="validation.name" class="about-talk-wrong-text">Please fill out this field.</div>
-        <input v-model="sendMessage.mail" @focus="inputText('mail')" :class="['about-talk-input', {'about-talk-input-wrong': validation.mail}]" type="text" placeholder="Email address">
+        <input v-model="sendMessage.mail" @focus="inputText('mail')" :class="['about-talk-input', {'about-talk-input-wrong': validation.mail}]" type="text" placeholder="Email address*">
         <div v-if="validation.mail" class="about-talk-wrong-text">Incorrect email format.</div>
-        <textarea v-model="sendMessage.message" @focus="inputText('message')" :class="['about-talk-textarea', {'about-talk-input-wrong': validation.message}]" cols="30" rows="10" placeholder="Message"></textarea>
+        <textarea v-model="sendMessage.message" @focus="inputText('message')" :class="['about-talk-textarea', {'about-talk-input-wrong': validation.message}]" cols="30" rows="10" placeholder="Message*"></textarea>
         <div v-if="validation.message" class="about-talk-wrong-text">Please fill out this field.</div>
         <div @click="sendData()" class="about-talk-btn">Send</div>
       </div>
@@ -529,7 +529,8 @@ export default {
 
       &-textarea {
         width: calc(100% - 20px);
-        padding: 0px 0px 0px 20px;
+        height: 132px;
+        padding: 20px 0px 0px 20px;
       }
 
       &-input-wrong {
@@ -537,8 +538,8 @@ export default {
       }
 
       &-wrong-text {
-        font-size: 16px;
         margin: 8px 0px 32px 20px;
+        font-size: 16px;
       }
 
       &-btn {
@@ -551,23 +552,34 @@ export default {
 
 
       &-box {
-
+        width: 100%;
+        height: 100%;
+        padding: 0px;
+        border-radius: 0px;
       }
 
       &-icon {
-
+        width: 100px;
+        margin-top: 145px;
       }
 
       &-text {
-
+        width: 215px;
+        line-height: 22px;
+        margin-top: 36px;
+        font-size: 16px;
       }
 
       &-btn-box {
-
+        width: 100%;
+        position: absolute;
+        bottom: 55px;
+        left: 0px;
+        margin: 0px;
       }
 
       &-btn {
-
+        width: calc(100% - 42px);
       }
     }
 
