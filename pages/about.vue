@@ -418,6 +418,28 @@ export default {
 
 }
 
+@media( max-width: 1200px ){
+
+  .about-talk-dot-2 {
+    top: -15px;
+    left: 20px;
+  }
+
+  .about-talk-dot-3 {
+    right: 20px;
+  }
+
+  .about-talk-dot-4 {
+    right: 0px;
+  }
+
+  .about-talk-dot-5 {
+    right: 20px;
+  }
+
+}
+
+
 @media( max-width: 500px ){
 
   .about {

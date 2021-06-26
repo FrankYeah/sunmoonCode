@@ -891,6 +891,30 @@ export default {
 
 }
 
+@media( max-width: 1300px ){
+
+  .index-intro-city {
+    right: -42px;
+  }
+
+}
+
+@media( max-width: 1200px ){
+
+  .index-intro-city {
+    right: 0px;
+  }
+
+  .index-chart-dot-5 {
+    right: 0px;
+  }
+
+  .index-chart-dot-6 {
+    right: 10px;
+  }
+
+}
+
 @media( max-width: 500px ){
 
   .index {
