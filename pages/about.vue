@@ -42,12 +42,37 @@
       </div>
 
       <div class="about-talk-right">
-        <input class="about-talk-input" type="text" placeholder="Your name">
-        <input class="about-talk-input" type="text" placeholder="Email address">
-        <textarea class="about-talk-textarea" cols="30" rows="10" placeholder="Message"></textarea>
-        <div class="about-talk-btn">Send</div>
+        <input v-model="sendMessage.name" @focus="inputText('name')" :class="['about-talk-input', {'about-talk-input-wrong': validation.name}]" type="text" placeholder="Your name">
+        <div v-if="validation.name" class="about-talk-wrong-text">Please fill out this field.</div>
+        <input v-model="sendMessage.mail" @focus="inputText('mail')" :class="['about-talk-input', {'about-talk-input-wrong': validation.mail}]" type="text" placeholder="Email address">
+        <div v-if="validation.mail" class="about-talk-wrong-text">Incorrect email format.</div>
+        <textarea v-model="sendMessage.message" @focus="inputText('message')" :class="['about-talk-textarea', {'about-talk-input-wrong': validation.message}]" cols="30" rows="10" placeholder="Message"></textarea>
+        <div v-if="validation.message" class="about-talk-wrong-text">Please fill out this field.</div>
+        <div @click="sendData()" class="about-talk-btn">Send</div>
+      </div>
+
+    </div>
+
+    <div v-if="popup.success" @click="popup.success = false" class="about-popup">
+      <div class="about-popup-box">
+        <img class="about-popup-icon" src="@/assets/img/about/icon-check.svg" alt="check">
+        <div class="about-popup-text">Thank you! We’ll reply you as soon as possible.</div>
+        <div class="about-popup-btn-box">
+          <div @click="popup.success = false" class="about-popup-btn">OK</div>
+        </div>
       </div>
     </div>
+
+    <div v-if="popup.wrong" @click="popup.wrong = false" class="about-popup">
+      <div class="about-popup-box">
+        <img class="about-popup-icon" src="@/assets/img/about/icon-wrong.svg" alt="check">
+        <div class="about-popup-text">Something went wrong, please try again later.</div>
+        <div class="about-popup-btn-box">
+          <div @click="popup.wrong = false" class="about-popup-btn">OK</div>
+        </div>
+      </div>
+    </div>
+
 
   </div>
 </template>
@@ -68,6 +93,21 @@ export default {
   data () {
     return {
       screenWidth: null,
+      validation: {
+        name: false,
+        mail: false,
+        message: false,
+        checkMail: false
+      },
+      sendMessage: {
+        name: '',
+        mail: '',
+        message: ''
+      },
+      popup: {
+        success: false,
+        wrong: false
+      }
     }
   },
   mounted () {
@@ -77,7 +117,37 @@ export default {
 
   },
   methods: {
+    inputText(content) {
+      if (content == 'name') {
+        this.validation.name = false
+      } else if (content == 'mail') {
+        this.validation.mail = false
+      } else {
+        this.validation.message = false
+      }
+    },
+    sendData() {
+      let regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      if (regex.test(this.sendMessage.mail)) {
+        this.validation.checkMail = false
+      } else {
+        this.validation.checkMail = true
+      }
 
+      if (!this.sendMessage.name || this.validation.checkMail || !this.sendMessage.message) {
+        if (!this.sendMessage.name) {
+          this.validation.name = true
+        }
+        if (this.validation.checkMail) {
+          this.validation.mail = true
+        }
+        if (!this.sendMessage.message) {
+          this.validation.message = true
+        }
+      } else {
+        this.popup.success = true
+      }
+    }
   },
   watch: {
     
@@ -266,6 +336,16 @@ export default {
       border-bottom: 1px solid #D2D2D2;
     }
 
+    &-input-wrong {
+      border: 1px solid #FF4866;
+      margin-bottom: 0px;
+    }
+
+    &-wrong-text {
+      margin: 8px 0px 32px 28px;
+      color: #FF4866;
+    }
+
     &-btn {
       margin: 40px 0px 0px 486px;
       width: 185px;
@@ -273,6 +353,60 @@ export default {
       line-height: 48px;
       font-size: 14px;
       text-align: center;
+      border: 1px solid #D2D2D2;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &-popup {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(46, 46, 46, 0.65);
+    z-index: 4;
+
+    &-box {
+      width: 250px;
+      height: 248px;
+      padding: 40px 25px;
+      text-align: center;
+      background: #FFFFFF 0% 0% no-repeat padding-box;
+      box-shadow: 0px 3px 6px #00000029;
+      border-radius: 10px;
+      color: #646464;
+    }
+
+    &-icon {
+      width: 92px;
+      height: auto;
+    }
+
+    &-text {
+      width: 225px;
+      line-height: 24px;
+      margin: 32px auto 0px;
+    }
+
+    &-btn-box {
+      margin-top: 33px;
+    }
+
+    &-btn {
+      width: 202px;
+      height: 48px;
+      line-height: 48px;
+      margin: auto;
+      text-align: center;
+      background: #F7F7F7 0% 0% no-repeat padding-box;
       border: 1px solid #D2D2D2;
       cursor: pointer;
 
@@ -396,7 +530,15 @@ export default {
       &-textarea {
         width: calc(100% - 20px);
         padding: 0px 0px 0px 20px;
-        margin-top: 32px;
+      }
+
+      &-input-wrong {
+
+      }
+
+      &-wrong-text {
+        font-size: 16px;
+        margin: 8px 0px 32px 20px;
       }
 
       &-btn {
@@ -404,6 +546,31 @@ export default {
         margin: 40px 0px 0px 0px;
       }
     }
+
+    &-popup {
+
+
+      &-box {
+
+      }
+
+      &-icon {
+
+      }
+
+      &-text {
+
+      }
+
+      &-btn-box {
+
+      }
+
+      &-btn {
+
+      }
+    }
+
   }
 
 }
