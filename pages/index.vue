@@ -62,25 +62,28 @@
         </div>
       </div>
 
-      <img class="index-wave-img" alt="wave"
-        :src="require(`@/assets/img/index/mountain-light-${randomNum}.svg`)"
+      <div class="index-wave-img"
         :style="[
           { backgroundImage: 'url(' + require('@/assets/img/index/mountain-light-'+ randomNum +'.svg') + ')' }
         ]"
       >
-      <div @click="goToCompany('valaris')"
-        :class="`index-wave-talk index-wave-talk-${randomNum}`"
-      >
-        <div class="index-wave-talk-left">
-          <div class="index-wave-year">JAN, 2021</div>
-          <div class="index-wave-name">Valaris plc</div>
-          <div class="index-wave-industry">Petroleum industry</div>
+
+        <div @click="goToCompany('valaris')"
+          :class="`index-wave-talk index-wave-talk-${randomNum}`"
+        >
+          <div class="index-wave-talk-left">
+            <div class="index-wave-year">JAN, 2021</div>
+            <div class="index-wave-name">Valaris plc</div>
+            <div class="index-wave-industry">Petroleum industry</div>
+          </div>
+          <div class="index-wave-talk-right">
+            <img class="index-wave-arrow" src="@/assets/img/icon/arrow-green.svg" alt="arrow">
+            <div class="index-wave-arrown-text">SAFE</div>
+          </div>  
         </div>
-        <div class="index-wave-talk-right">
-          <img class="index-wave-arrow" src="@/assets/img/icon/arrow-green.svg" alt="arrow">
-          <div class="index-wave-arrown-text">SAFE</div>
-        </div>  
+      
       </div>
+
     </div>
     
 
@@ -537,15 +540,23 @@ export default {
     }
     
     &-img {
+      max-width: 1400px;
+      width: 100%;
+      height: 370px;
       position: absolute;
       top: -239px;
-      right: 0px;
+      left: 50%;
+      transform: translatex(-50%);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position-x: center;
+      background-position-y: top;
       z-index: -1;
     }
 
     &-talk {
       position: absolute;
-      top: -397px;
+      top: -158px;
       width: 314px;
       height: 140px;
       display: flex;
@@ -584,15 +595,15 @@ export default {
     }
 
     &-talk-1 {
-      right: 287px;
+      right: 278px;
     }
 
     &-talk-2 {
-      right: 223px;
+      right: 213px;
     }
 
     &-talk-3 {
-      right: 102px;
+      right: 93px;
     }
 
     &-talk-left {
@@ -891,10 +902,38 @@ export default {
 
 }
 
+@media( max-width: 1350px ){
+
+  .index-wave-talk-1 {
+    right: calc(37% - 235px);
+  }
+
+  .index-wave-talk-2 {
+    right: 14%;
+  }
+
+  .index-wave-talk-3 {
+    right: 6%;
+  }
+
+}
+
 @media( max-width: 1300px ){
 
   .index-intro-city {
     right: -42px;
+  }
+
+  .index-wave-talk-1 {
+
+  }
+
+  .index-wave-talk-2 {
+    right: 14%;
+  }
+
+  .index-wave-talk-3 {
+    right: 5%;
   }
 
 }
@@ -902,7 +941,19 @@ export default {
 @media( max-width: 1200px ){
 
   .index-intro-city {
-    right: 0px;
+    right: calc(37.5% - 235px);
+  }
+
+  .index-wave-talk-1 {
+    right: calc(38% - 235px);
+  }
+
+  .index-wave-talk-2 {
+    right: 13%;
+  }
+
+  .index-wave-talk-3 {
+    right: 4%;
   }
 
   .index-chart-dot-5 {
@@ -911,6 +962,38 @@ export default {
 
   .index-chart-dot-6 {
     right: 10px;
+  }
+
+}
+
+@media( max-width: 1050px ){
+
+  .index-wave-talk-1 {
+    right: calc(38.5% - 235px);
+  }
+
+  .index-wave-talk-2 {
+    right: 11%;
+  }
+
+  .index-wave-talk-3 {
+    right: 2%;
+  }
+
+}
+
+@media( max-width: 950px ){
+
+  .index-wave-talk-1 {
+    right: calc(39.5% - 235px);
+  }
+
+  .index-wave-talk-2 {
+    right: 9%;
+  }
+
+  .index-wave-talk-3 {
+    right: 1%;
   }
 
 }
@@ -1099,7 +1182,7 @@ export default {
         width: 500px;
         background-image: url('../assets/img/icon/icon-talk.svg');
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: contain;
         background-position-x: center;
         background-position-y: top;
       }
