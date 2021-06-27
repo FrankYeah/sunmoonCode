@@ -595,15 +595,15 @@ export default {
     }
 
     &-talk-1 {
-      right: 278px;
+      right: calc(31% - 154px);
     }
 
     &-talk-2 {
-      right: 213px;
+      right: calc(26% - 156px);
     }
 
     &-talk-3 {
-      right: 93px;
+      right: calc(17% - 147px);
     }
 
     &-talk-left {
@@ -902,38 +902,10 @@ export default {
 
 }
 
-@media( max-width: 1350px ){
-
-  .index-wave-talk-1 {
-    right: calc(37% - 235px);
-  }
-
-  .index-wave-talk-2 {
-    right: 14%;
-  }
-
-  .index-wave-talk-3 {
-    right: 6%;
-  }
-
-}
-
 @media( max-width: 1300px ){
 
   .index-intro-city {
     right: -42px;
-  }
-
-  .index-wave-talk-1 {
-
-  }
-
-  .index-wave-talk-2 {
-    right: 14%;
-  }
-
-  .index-wave-talk-3 {
-    right: 5%;
   }
 
 }
@@ -944,56 +916,12 @@ export default {
     right: calc(37.5% - 235px);
   }
 
-  .index-wave-talk-1 {
-    right: calc(38% - 235px);
-  }
-
-  .index-wave-talk-2 {
-    right: 13%;
-  }
-
-  .index-wave-talk-3 {
-    right: 4%;
-  }
-
   .index-chart-dot-5 {
     right: 0px;
   }
 
   .index-chart-dot-6 {
     right: 10px;
-  }
-
-}
-
-@media( max-width: 1050px ){
-
-  .index-wave-talk-1 {
-    right: calc(38.5% - 235px);
-  }
-
-  .index-wave-talk-2 {
-    right: 11%;
-  }
-
-  .index-wave-talk-3 {
-    right: 2%;
-  }
-
-}
-
-@media( max-width: 950px ){
-
-  .index-wave-talk-1 {
-    right: calc(39.5% - 235px);
-  }
-
-  .index-wave-talk-2 {
-    right: 9%;
-  }
-
-  .index-wave-talk-3 {
-    right: 1%;
   }
 
 }
