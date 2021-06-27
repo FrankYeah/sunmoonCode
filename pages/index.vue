@@ -1179,7 +1179,8 @@ export default {
       
       &-img {
         top: 0px;
-        width: 500px;
+        width: 100%;
+        height: 250px;
         background-image: url('../assets/img/icon/icon-talk.svg');
         background-repeat: no-repeat;
         background-size: contain;
@@ -1188,23 +1189,24 @@ export default {
       }
 
       &-talk {
-        top: -92px;
+        top: -76px;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        width: 184px;
-        height: 103px;
+        width: 125px;
+        height: 75px;
+        background-image: url('../assets/img/icon/icon-talk-rwd.svg');
 
         &::before {
-          bottom: -16px;
-          left: 72px;
+          bottom: -24px;
+          left: 45px;
           width: 40px;
           height: 40px;
         }
 
         &::after {
-          bottom: 5px;
-          left: 89px;
+          bottom: -8px;
+          left: 60px;
           width: 10px;
           height: 10px;
           border-radius: 100%;
@@ -1212,20 +1214,20 @@ export default {
       }
 
       &-talk-1 {
-        right: 65px;
+        right: calc(30% - 56px);
       }
 
       &-talk-2 {
-        right: 41px;
+        right: calc(23.3% - 49px);
       }
 
       &-talk-3 {
-        right: -2px;
+        right: calc(15% - 50px);
       }
 
       &-talk-left {
         padding: 0px;
-        margin-top: 23px;
+        margin-top: 15px;
       }
 
       &-year {
