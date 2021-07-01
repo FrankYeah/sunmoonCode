@@ -37,7 +37,7 @@
     <div v-if="showRwdInput" class="index-intro-rwd-search-popup">
       <div class="index-intro-rwd-search-input-box">
         <img @click="showRwdInput = false" class="index-intro-rwd-search-arrow" src="@/assets/img/icon/grey-arrow.svg" alt="arrow">
-        <input v-model="searchText" ref="rwdInput"
+        <input v-model="searchText" ref="rwdInputs"
           @keypress.enter="goToCompany(searchText)"
           class="index-intro-rwd-search-input"  type="text"
         >
@@ -202,7 +202,10 @@ export default {
     focusInput () {
       if (this.screenWidth < 500) {
         this.showRwdInput = true
-        // this.$refs.rwdInput.focus()
+        // 解決無法 refs 的問題
+        this.$nextTick(() => {
+          this.$refs.rwdInputs.focus()
+        })
       } else {
         this.showAutocompleteIndex = true
       }
@@ -356,6 +359,19 @@ export default {
           let mo = function (e) { e.preventDefault() }
           document.body.style.overflow='hidden'
           document.addEventListener('touchmove', mo, false)
+          // 解決 iphone 鍵盤導致 scroll 的問題
+          // 參考 https://segmentfault.com/q/1010000017874433?utm_source=sf-similar-question
+          if (!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+            let [timeout, beforeTop] = [null, 0]
+            $('input, textarea').on('focus', () => {
+              beforeTop = document.body.scrollTop
+              clearTimeout(timeout)
+            }).on('blur', () => {
+              timeout = setTimeout(() => {
+                document.body.scrollTop = beforeTop
+              }, 100)
+            })
+          }
         } else {
           let mo = function (e) { e.preventDefault() } 
           document.body.style.overflow = ''
