@@ -964,8 +964,9 @@ export default {
 
       &-desc {
         width: calc(100% - 16px);
-        padding: 0px 8px;
+        padding: 0px 0px;
         display: flex;
+        justify-content: space-between;
         // margin-top: 0px;
       }
       
