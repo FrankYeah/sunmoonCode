@@ -114,11 +114,13 @@ export default {
   },
   methods: {
     focusInput () {
-      
       if (this.screenWidth < 500) {
         this.isMenu = false
         this.showRwdInput = true
-        // this.$refs.rwdInput.focus()
+        // 解決無法 refs 的問題
+        this.$nextTick(() => {
+          this.$refs.rwdInput.focus()
+        })
       } else {
         this.showAutocomplete = true
       }
@@ -173,6 +175,19 @@ export default {
           let mo = function (e) { e.preventDefault() }
           document.body.style.overflow='hidden'
           document.addEventListener('touchmove', mo, false)
+          // 解決 iphone 鍵盤導致 scroll 的問題
+          // 參考 https://segmentfault.com/q/1010000017874433?utm_source=sf-similar-question
+          if (!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+            let [timeout, beforeTop] = [null, 0]
+            $('input, textarea').on('focus', () => {
+              beforeTop = document.body.scrollTop
+              clearTimeout(timeout)
+            }).on('blur', () => {
+              timeout = setTimeout(() => {
+                document.body.scrollTop = beforeTop
+              }, 100)
+            })
+          }
         } else {
           let mo = function (e) { e.preventDefault() } 
           document.body.style.overflow = ''
@@ -421,8 +436,13 @@ export default {
       top: 0px;
       left: 0px;
       width: 100vw;
-      height: 100vh;
+      height: 100%;
       background-color: #fff;
+      overflow: hidden;
+    }
+
+    &-rwd-search-popup-noscroll {
+      overflow: hidden;
     }
 
     &-rwd-search-input-box {

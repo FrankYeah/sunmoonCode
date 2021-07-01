@@ -53,7 +53,7 @@
 
     </div>
 
-    <div v-if="popup.success" @click="popup.success = false" class="about-popup">
+    <div v-if="popup.success" @click="closePopup()" class="about-popup">
       <div class="about-popup-box">
         <img class="about-popup-icon" src="@/assets/img/about/icon-check.svg" alt="check">
         <div class="about-popup-text">Thank you! We’ll reply you as soon as possible.</div>
@@ -63,7 +63,7 @@
       </div>
     </div>
 
-    <div v-if="popup.wrong" @click="popup.wrong = false" class="about-popup">
+    <div v-if="popup.wrong" @click="closePopup()" class="about-popup">
       <div class="about-popup-box">
         <img class="about-popup-icon" src="@/assets/img/about/icon-wrong.svg" alt="check">
         <div class="about-popup-text">Something went wrong, please try again later.</div>
@@ -147,10 +147,41 @@ export default {
       } else {
         this.popup.success = true
       }
+    },
+    closePopup() {
+      if (this.screenWidth > 500) {
+        this.popup.success = false
+        this.popup.wrong = false
+      }
     }
   },
   watch: {
-    
+    'popup.success': {
+      handler: function(change) {
+        if (change) {
+          let mo = function (e) { e.preventDefault() }
+          document.body.style.overflow='hidden'
+          document.addEventListener('touchmove', mo, false)
+        } else {
+          let mo = function (e) { e.preventDefault() } 
+          document.body.style.overflow = ''
+          document.removeEventListener('touchmove', mo, false)
+        }
+      },
+    },
+    'popup.wrong': {
+      handler: function(change) {
+        if (change) {
+          let mo = function (e) { e.preventDefault() }
+          document.body.style.overflow='hidden'
+          document.addEventListener('touchmove', mo, false)
+        } else {
+          let mo = function (e) { e.preventDefault() } 
+          document.body.style.overflow = ''
+          document.removeEventListener('touchmove', mo, false)
+        }
+      },
+    }
   }
 }
 </script>
