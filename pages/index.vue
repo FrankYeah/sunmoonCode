@@ -34,7 +34,7 @@
 
     <!-- rwd input popup -->
 
-    <div v-if="showRwdInput" class="index-intro-rwd-search-popup">
+    <div v-if="showRwdInput" id="rwdSearchPopups" class="index-intro-rwd-search-popup">
       <div class="index-intro-rwd-search-input-box">
         <img @click="showRwdInput = false" class="index-intro-rwd-search-arrow" src="@/assets/img/icon/grey-arrow.svg" alt="arrow">
         <input v-model="searchText" ref="rwdInputs"
@@ -358,20 +358,11 @@ export default {
         if (change) {
           let mo = function (e) { e.preventDefault() }
           document.body.style.overflow='hidden'
-          document.addEventListener('touchmove', mo, false)
-          // 解決 iphone 鍵盤導致 scroll 的問題
-          // 參考 https://segmentfault.com/q/1010000017874433?utm_source=sf-similar-question
-          if (!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
-            let [timeout, beforeTop] = [null, 0]
-            $('input, textarea').on('focus', () => {
-              beforeTop = document.body.scrollTop
-              clearTimeout(timeout)
-            }).on('blur', () => {
-              timeout = setTimeout(() => {
-                document.body.scrollTop = beforeTop
-              }, 100)
-            })
-          }
+          document.addEventListener('touchmove', mo, {passive:false})
+          this.$nextTick(() => {
+            document.getElementById('rwdSearchPopups').style.overflow='hidden'
+            document.getElementById('rwdSearchPopups').addEventListener('touchmove', mo, {passive:false})
+          })
         } else {
           let mo = function (e) { e.preventDefault() } 
           document.body.style.overflow = ''
@@ -1018,8 +1009,9 @@ export default {
         top: 0px;
         left: 0px;
         width: 100vw;
-        height: 100vh;
+        height: 100%;
         background-color: #fff;
+        overflow: hidden;
         z-index: 3;
       }
 
