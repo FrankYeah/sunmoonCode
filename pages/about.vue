@@ -597,7 +597,7 @@ export default {
       &-btn-box {
         width: 100%;
         position: absolute;
-        bottom: 55px;
+        bottom: 100px;
         left: 0px;
         margin: 0px;
       }

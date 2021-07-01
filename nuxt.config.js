@@ -110,8 +110,8 @@ export default {
   css: [
     '~assets/styles/global.css',
     '~assets/styles/global.scss',
-    '~assets/fonts/goudy/goudy.css',
     'swiper/swiper-bundle.css',
+    '~assets/fonts/sfpro/sfpro.css'
   ],
   /*@nuxtjs/style-resources*/
   styleResources: {

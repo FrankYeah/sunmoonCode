@@ -76,10 +76,10 @@ body {
 	line-height: 1;
   margin: 0px;
   padding: 0px;
-  font-family: 'Noto Sans TC', 'Noto Sans SC' ,sans-serif;
+  // font-family: 'Noto Sans TC', 'Noto Sans SC' ,sans-serif;
   font-size: 16px;
   color: #646464;
-  font-family: 'SF Pro';
+  font-family: 'SF';
   // font-family: 'SF Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,PingFang TC,Hiragino Sans GB,Microsoft JhengHei,sans-serif!important';
 }
 ol, ul {
@@ -120,6 +120,7 @@ input {
 }
 
 textarea {
+  font-family: 'SF';
 
   &:focus {
     outline: none;
