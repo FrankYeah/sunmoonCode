@@ -358,7 +358,7 @@ export default {
         if (change) {
           let mo = function (e) { e.preventDefault() }
           document.body.style.overflow='hidden'
-          document.addEventListener('touchmove', mo, {passive:false})
+          document.addEventListener('touchmove', mo, false)
           this.$nextTick(() => {
             document.getElementById('rwdSearchPopups').style.overflow='hidden'
             document.getElementById('rwdSearchPopups').addEventListener('touchmove', mo, {passive:false})
