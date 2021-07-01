@@ -122,7 +122,7 @@ export default {
         mousewheel: true,
         grabCursor: true,
         mousewheelControl: true,
-        spaceBetween: -6,
+        spaceBetween: -14,
         // autoplay: {
         //   delay: 2500,
         //   disableOnInteraction: false
@@ -696,7 +696,7 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      margin: 0px 0px 0px 12px;
+      margin: 0px 0px 0px 18px;
       box-shadow: 0px 3px 6px #00000014;
       border: 1px solid #EDEDED;
       border-radius: 10px;
@@ -946,7 +946,7 @@ export default {
       margin-top: 20px;
 
       &-box {
-        width: calc(100% - 20px);
+        width: calc(100% - 30px);
         height: 380px;
         margin: 0px 0px 0px 0px;
         padding: 24px 0px;
@@ -962,8 +962,9 @@ export default {
       }
 
       &-desc {
+        width: calc(100% - 16px);
+        padding: 0px 8px;
         display: flex;
-        justify-content: space-between;
         // margin-top: 0px;
       }
       
@@ -1010,9 +1011,10 @@ export default {
 
       &-hint {
         display: block;
+        margin: 24px 0px 0px 16px;
         margin-top: 24px;
         font-size: 16px;
-        transform: translateX(-63px);
+        align-self: baseline;
       }
 
       &-arrow-left{

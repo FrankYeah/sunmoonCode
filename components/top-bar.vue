@@ -114,6 +114,7 @@ export default {
   },
   methods: {
     focusInput () {
+      this.isMenu = false
       if (this.screenWidth < 500) {
         this.showRwdInput = true
         // this.$refs.rwdInput.focus()
@@ -313,6 +314,7 @@ export default {
       
       div {
         color: #FDC43F;
+        font-weight: bold;
       }
     }
 
@@ -335,12 +337,12 @@ export default {
     }
 
     &-sun {
-      margin: 0px 0px 6px 8px;
+      margin: 0px 0px 7px 8px;
       transition: all 0.2s;
     }
 
     &-moon {
-      margin: 0px 0px 6px 42px;
+      margin: 0px 0px 7px 42px;
       transition: all 0.2s;
     }
 
@@ -457,6 +459,7 @@ export default {
 
     &-rwd-search-text-box {
       display: flex;
+      align-items: center;
       width: calc(100% - 48px);
       margin: 28px auto 0px;
     }
@@ -466,7 +469,7 @@ export default {
     }
 
     &-rwd-search-text {
-      font-size: 16px;
+      font-size: 18px;
     }
 
 
@@ -484,7 +487,7 @@ export default {
       flex-direction: column;
       height: initial;
       width: 100%;
-      padding: 20px 0px 46px;
+      padding: 20px 0px 23px;
       background-color: #fff;
       box-shadow: 0px 6px 6px #2E2E2E14;
     }

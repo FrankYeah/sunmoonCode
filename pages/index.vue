@@ -385,13 +385,14 @@ export default {
 
     &-head {
       font-size: 48px;
+      line-height: 56px;
       font-weight: bold;
       color: #2E2E2E;
     }
 
     &-text {
       width: 500px;
-      line-height: 35px;
+      line-height: 25px;
       font-size: 20px;
       margin-top: 20px;
     }
@@ -607,7 +608,7 @@ export default {
     }
 
     &-talk-left {
-      padding: 40px 0px 0px 45px;
+      padding: 47px 0px 0px 58px;
     }
 
     &-year {
@@ -628,7 +629,7 @@ export default {
     }
 
     &-talk-right {
-      padding: 36px 50px 0px 0px;
+      padding: 39px 55px 0px 0px;
     }
 
     &-arrow {
@@ -659,6 +660,7 @@ export default {
       width: 4px;
       height: 4px;
       border-radius: 100%;
+      box-shadow: 0px 0px 6px #50E3C1;
       background-color: #50E3C1;
     }
 
@@ -669,6 +671,7 @@ export default {
       width: 4px;
       height: 4px;
       border-radius: 100%;
+      box-shadow: 0px 0px 6px #50E3C1;
       background-color: #50E3C1;
     }
 
@@ -679,6 +682,7 @@ export default {
       width: 4px;
       height: 4px;
       border-radius: 100%;
+      box-shadow: 0px 0px 6px #50E3C1;
       background-color: #50E3C1;
     }
 
@@ -689,6 +693,7 @@ export default {
       width: 4px;
       height: 4px;
       border-radius: 100%;
+      box-shadow: 0px 0px 6px #50E3C1;
       background-color: #50E3C1;
     }
 
@@ -699,6 +704,7 @@ export default {
       width: 4px;
       height: 4px;
       border-radius: 100%;
+      box-shadow: 0px 0px 6px #50E3C1;
       background-color: #50E3C1;
     }
 
@@ -941,6 +947,7 @@ export default {
 
       &-head {
         width: 270px;
+        line-height: 28px;
         font-size: 24px;
       }
 

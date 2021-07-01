@@ -199,7 +199,7 @@ export default {
 
     &-img {
       width: 322px;
-      height: 80px;
+      height: 100%;
     }
 
     &-right {
@@ -260,6 +260,7 @@ export default {
       height: 4px;
       border-radius: 100%;
       background-color: #50E3C1;
+      box-shadow: 0px 0px 6px #50E3C1;
     }
 
     &-dot-4 {
@@ -270,6 +271,7 @@ export default {
       height: 4px;
       border-radius: 100%;
       background-color: #50E3C1;
+      box-shadow: 0px 0px 6px #50E3C1;
     }
 
     &-dot-5 {

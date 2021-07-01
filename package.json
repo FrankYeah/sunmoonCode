@@ -34,6 +34,7 @@
     "nuxt": "^2.7.1",
     "postcss": "^7.0.32",
     "sass-loader": "^7.1.0",
+    "svg-sprite-loader": "^6.0.9",
     "vue-multiselect": "^2.1.6"
   },
   "browserslist": [

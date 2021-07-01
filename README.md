@@ -2,9 +2,9 @@
 
 <!-- https://github.com/Atinux/nuxt-demo -->
 
-Nuxt.js Demo for my 2019 talks.
+<!-- Nuxt.js Demo for my 2019 talks.
 
-[See demo](https://nuxt-demo.surge.sh).
+[See demo](https://nuxt-demo.surge.sh). -->
 
 ## Setup
 
