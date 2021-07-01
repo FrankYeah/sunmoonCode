@@ -1,5 +1,6 @@
 const Sass = require('sass')
 const Fiber = require('fibers')
+const { resolve } = require('path')
 
 export default {
   mode: 'universal',
@@ -49,7 +50,21 @@ export default {
     },
     /*
     ** You can extend webpack config here
+    
     */
+    extend(config,context){
+      // 排除 nuxt 原配置的影响,Nuxt 默认有vue-loader,会处理svg,img等
+      // 找到匹配.svg的规则,然后将存放svg文件的目录排除
+      const svgRule = config.module.rules.find(rule => rule.test.test('.svg'))
+      svgRule.exclude = [resolve(__dirname, 'assets/icons/svg')]
+
+      //添加loader规则
+      config.module.rules.push({
+        test: /\.svg$/, //匹配.svg
+        include: [resolve(__dirname, 'assets/icons/svg')], //将存放svg的目录加入到loader处理目录
+        use: [{ loader: 'svg-sprite-loader',options: {symbolId: 'icon-[name]'}}]
+      })
+    },
    // 在 console 可以看見 css 位置
     cssSourceMap: true,
     parallel: true,
@@ -89,7 +104,8 @@ export default {
     //     browsers: ['> 5%']
     //   })
     // ],
-    transpile: ['vue-echarts', 'resize-detector']
+    transpile: ['vue-echarts', 'resize-detector'],
+
   },
   css: [
     '~assets/styles/global.css',
@@ -113,7 +129,8 @@ export default {
     '~/plugins/vue-multiselect.js',
     '~/plugins/component.js',
     '~/plugins/vue-awesome-swiper',
-    '~/plugins/echarts'
+    '~/plugins/echarts',
+    '~/plugins/svg-icon'
   ],
   modules: [
     '@nuxtjs/pwa',

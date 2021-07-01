@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 
-// add global components here
-Vue.component('svg-icon', require('~/components/common/svg-icon.vue').default)
+// // add global components here
+// Vue.component('svg-icon', require('~/components/common/svg-icon.vue').default)

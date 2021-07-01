@@ -12,7 +12,7 @@
 <script>
 export default {
   created() {
-    try { require(`~/assets/img/icon/${this.name}.svg?sprite`).default }
+    try { require(`~/assets/icons/${this.name}.svg?sprite`).default }
     catch (err) {}
   },
   props: {

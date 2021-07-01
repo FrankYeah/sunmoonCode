@@ -114,8 +114,9 @@ export default {
   },
   methods: {
     focusInput () {
-      this.isMenu = false
+      
       if (this.screenWidth < 500) {
+        this.isMenu = false
         this.showRwdInput = true
         // this.$refs.rwdInput.focus()
       } else {

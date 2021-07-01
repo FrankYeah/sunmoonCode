@@ -55,6 +55,17 @@
         <img v-if="swiperIndex != 9" @click="nextSlide" class="company-rotate-arrow-right"
           src="@/assets/img/icon/grey-arrow.svg" alt="arrow"
         >
+        <div style="width: 100px; height: 100px; background: red;">
+          <!-- <svg-icon icon-class="grey-arrow" />
+          <svg-icon icon-class="avarta" />
+          <svg-icon icon-class="icon-close" /> -->
+          <svg-icon name="grey-arrow" />
+          <svg-icon name="avarta" />
+          <svg-icon name="icon-close" />
+          <!-- <svg-icon style="color: green; width: 50px; height: 50px;" icon-class="close" />
+          <svg-icon style="color: green; width: 50px; height: 50px;" icon-class="avarta" /> -->
+        </div>
+        
         <a href="./about">
           <div class="company-rotate-contact">Contact us for more info</div>
         </a>
