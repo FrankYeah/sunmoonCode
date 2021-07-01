@@ -1050,6 +1050,7 @@ export default {
 
       &-rwd-search-text-box {
         display: flex;
+        align-items: center;
         width: calc(100% - 48px);
         margin: 28px auto 0px;
       }
@@ -1059,7 +1060,7 @@ export default {
       }
 
       &-rwd-search-text {
-
+        font-size: 16px;
       }
 
       // rwd
