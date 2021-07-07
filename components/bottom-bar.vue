@@ -36,6 +36,7 @@ export default {
 <style lang="scss">
 
 .bottom {
+  height: 59px;
 
   &-line {
     border-top: 1px solid #D2D2D2;
@@ -57,6 +58,7 @@ export default {
 @media( max-width: 500px ){
 
 .bottom {
+  height: 42px;
 
   &-line {
     max-width: initial;
@@ -66,7 +68,7 @@ export default {
 
   &-text {
     font-size: 12px;
-    margin: 12px 0px 18px;
+    margin: 12px 0px 16px;
   }
 
 }

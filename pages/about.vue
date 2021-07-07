@@ -145,7 +145,16 @@ export default {
           this.validation.message = true
         }
       } else {
+
+        // Call API
+        
+        // 成功
         this.popup.success = true
+        this.sendMessage.name = ''
+        this.sendMessage.mail = ''
+        this.sendMessage.message = ''
+
+        // 失敗
       }
     },
     closePopup() {

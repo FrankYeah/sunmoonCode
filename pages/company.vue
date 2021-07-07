@@ -21,7 +21,7 @@
               <div class="company-chart-btn">Contact us for more info</div>
             </a>
             <div class="company-chart-desc">
-              <div :class="['company-chart-desc-text', {'company-chart-desc-text-3': chartData[0].dataY1[0] > chartData[0].dataY2[0] }]">Default boundary</div>
+              <div :class="['company-chart-desc-text', {'company-chart-desc-text-3': chartData[currentMonth].dataY1[0] > chartData[currentMonth].dataY2[0] }]">Default boundary</div>
               <div class="company-chart-desc-text-2">Lower boundary</div>
             </div>
           </div>
@@ -36,7 +36,7 @@
             v-for="(chart, index) in chartData"
             :key="index"
           >
-            <div class="company-rotate-box">
+            <div @click="changeMonthDisplay(index)" class="company-rotate-box">
               <div class="company-rotate-title">{{ chart.title }}</div>
               <div class="company-rotate-chart"
                 :id="chart.title"
@@ -141,6 +141,7 @@ export default {
       },
       swiperIndex: 0,
       isload: false,
+      currentMonth: 0,
       relateData: [
         {
           title: 'Jan, 2021',
@@ -314,6 +315,15 @@ export default {
     },
     nextSlide () {
       this.swiper.slideNext()
+    },
+    changeMonthDisplay (month) {
+      this.currentMonth = month
+      let myChart = this.$echarts.init(document.getElementById('myChart'))
+      myChart.setOption(this.completeChart(
+        this.chartData[month].dataX,
+        this.chartData[month].dataY1,
+        this.chartData[month].dataY2
+      ),true)
     },
     lessChart (dataX, dataY1, dataY2) {
       let chart = {
@@ -966,7 +976,7 @@ export default {
         width: calc(100% - 16px);
         padding: 0px 0px;
         display: flex;
-        justify-content: space-between;
+        // justify-content: space-between;
         // margin-top: 0px;
       }
       
@@ -979,7 +989,7 @@ export default {
           content: '';
           position: absolute;
           left: 0px;
-          top: 1px;
+          top: -1px;
           width: 16px;
           height: 16px;
           border-radius: 100%;
@@ -996,14 +1006,14 @@ export default {
 
       &-desc-text-2 {
         position: relative;
-        padding-left: 32px;
+        padding-left: 34px;
         color: #D2D2D2;
 
         &:before {
           content: '';
           position: absolute;
-          left: 8px;
-          top: 0px;
+          left: 10px;
+          top: -1px;
           width: 16px;
           height: 16px;
           border-radius: 100%;

@@ -344,12 +344,12 @@ export default {
     }
 
     &-sun {
-      margin: 0px 0px 5px 8px;
+      margin: 0px 0px 1px 8px;
       transition: all 0.2s;
     }
 
     &-moon {
-      margin: 0px 0px 4px 42px;
+      margin: 0px 0px 1px 42px;
       transition: all 0.2s;
     }
 

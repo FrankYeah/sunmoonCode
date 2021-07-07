@@ -545,6 +545,7 @@ export default {
       color: #9C9C9C;
       width: 132px;
       margin-left: 16px;
+      line-height: 19px;
     }
     
     &-img {
@@ -1095,11 +1096,11 @@ export default {
       }
 
       &-down-1 {
-        transform: translate(-14px, 12px);
+        transform: translate(0px, 12px);
       }
 
       &-down-2 {
-        transform: translate(-14px, -12px);
+        transform: translate(0px, -12px);
       }
 
       &-down-3 {
@@ -1119,6 +1120,7 @@ export default {
 
       &-down-text {
         margin-left: 8px;
+        line-height: 19px;
       }
       
       &-img {
