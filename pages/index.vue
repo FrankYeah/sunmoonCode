@@ -193,7 +193,7 @@ export default {
 
   },
   computed: {
-
+    lightMode() { return this.$store.state.lightMode },
   },
   methods: {
     scrollEvent (id) {

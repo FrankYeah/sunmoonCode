@@ -300,6 +300,7 @@ export default {
   },
   computed: {
     swiper () { return this.$refs.mySwiper.$swiper },
+    lightMode() { return this.$store.state.lightMode },
   },
   methods: {
     goToCompany (name) {

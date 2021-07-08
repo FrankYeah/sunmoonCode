@@ -58,8 +58,8 @@
         <a :class="['top-link', {'top-link-on': currentRoute == 'about'}]" href="./about">
           <div>ABOUT US</div>
         </a>
-        <div @click="isDark = !isDark" class="top-switch">
-          <img v-if="!isDark" class="top-sun" src="@/assets/img/icon/icon-sun.svg" alt="sun">
+        <div @click="isLight = !isLight" class="top-switch">
+          <img v-if="isLight" class="top-sun" src="@/assets/img/icon/icon-sun.svg" alt="sun">
           <img v-else class="top-moon" src="@/assets/img/icon/icon-moon.svg" alt="moon">
         </div>
       </div>
@@ -80,7 +80,7 @@ export default {
     isMenu: false,
     showRwdInput: false,
     searchText: '',
-    isDark: false,
+    isLight: true,
     showAutocomplete: false,
     isScroll: false,
     currentRoute: null,
@@ -161,6 +161,9 @@ export default {
       }
     },
   },
+  computed: {
+    lightMode() { return this.$store.state.lightMode },
+  },
   watch: {
     '$route.name': {
       handler: function(route) {
@@ -168,6 +171,11 @@ export default {
       },
       deep: true,
       immediate: true
+    },
+    isLight: {
+      handler: function(mode) {
+        this.$store.commit('switchMode', mode)
+      },
     },
     showRwdInput: {
       handler: function(change) {
