@@ -109,9 +109,9 @@
         <div class="index-chart-right">
           <div class="index-chart-industry">Industry: Petroleum</div>
           <div class="index-chart-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis id enim pharetra aliquam. Maecenas aliquet facilisis massa eu fringilla.</div>
-          <a class="index-chart-btn-href" href="./about">
+          <router-link to="./about" class="index-chart-btn-href">
             <div class="index-chart-btn">Contact us for more info</div>
-          </a>
+          </router-link>
           <div class="index-chart-desc">
             <div :class="['index-chart-desc-text', {'index-chart-desc-text-3': chartData[0].dataY1[0] > chartData[0].dataY2[0] }]">Default boundary</div>
             <div class="index-chart-desc-text-2">Lower boundary</div>
@@ -379,6 +379,10 @@ export default {
 .index {
   position: relative;
   margin: 92px 0px 159px;
+
+  &-dbg {
+    background-color: #242345;
+  }
 
   &-intro {
     position: relative;

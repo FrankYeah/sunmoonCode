@@ -38,6 +38,10 @@ export default {
 .bottom {
   height: 59px;
 
+  &-dbg {
+    background-color: #242345;
+  }
+
   &-line {
     border-top: 1px solid #D2D2D2;
     max-width: 1100px;

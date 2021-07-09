@@ -1,47 +1,52 @@
 <template>
   <div
-  :class="['top', {'top-scroll': isScroll}]"
+  :class="['top', {'top-scroll': isScroll}, {'top-dbg': !isLight}]"
   >
     <div class="top-box">
       <div class="top-left">
 
-        <a v-if="$route.name != 'index' && screenWidth < 500" href="./">
+        <router-link to="./" v-if="$route.name != 'index' && screenWidth < 500">
           <img class="top-small-logo" src="@/assets/img/icon/icon-single-logo.png" alt="sunmoon">
-        </a>
-        <a v-else href="./">
-          <img class="top-logo" src="@/assets/img/sunmoon-logo-bg.png" alt="sunmoon">
-        </a>
+        </router-link>
+        <router-link to="./" v-else>
+          <img v-if="isLight" class="top-logo" src="@/assets/img/sunmoon-logo-bg.png" alt="sunmoon">
+          <img v-else class="top-logo" src="@/assets/img/sunmoon-logo-dark.png" alt="sunmoon">
+        </router-link>
         
         <div v-if="$route.name != 'index'" class="top-search">
-          <img class="top-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
+          <img v-if="isLight" class="top-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
+          <img v-else class="top-search-icon" src="@/assets/img/icon/icon-search-dark.svg" alt="search">
           <input v-model="searchText" @click="focusInput" @keypress.enter="goToCompany(searchText)"
-            class="top-search-input" type="text" placeholder="Company name"
+            :class="['top-search-input', {'top-search-input-dark': !isLight}]" type="text" placeholder="Company name"
           >
-          <div v-if="showAutocomplete" class="top-search-popup">
+          <div v-if="showAutocomplete" :class="['top-search-popup', {'top-search-popup-dark': !isLight}]">
             <div v-for="(company, index) in companyList"
               :key="index"
               @click="goToCompany(company.name)"
-              class="top-search-recommend"
+              :class="['top-search-recommend', {'top-search-recommend-dark': !isLight}]"
             >{{ company.name }}</div>
           </div>
         </div>
 
-        <div v-if="showRwdInput" id="rwdSearchPopup" class="top-rwd-search-popup">
+        <div v-if="showRwdInput" id="rwdSearchPopup" :class="['top-rwd-search-popup', {'top-rwd-search-popup-dark': !isLight}]">
           <div class="top-rwd-search-input-box">
-            <img @click="showRwdInput = false" class="top-rwd-search-arrow" src="@/assets/img/icon/grey-arrow.svg" alt="arrow">
+            <img v-if="isLight" @click="showRwdInput = false" class="top-rwd-search-arrow" src="@/assets/img/icon/grey-arrow.svg" alt="arrow">
+            <img v-else @click="showRwdInput = false" class="top-rwd-search-arrow" src="@/assets/img/icon/grey-arrow-dark.svg" alt="arrow">
             <input v-model="searchText" ref="rwdInput"
               @keypress.enter="goToCompany(searchText)"
-              class="top-rwd-search-input"  type="text"
+              :class="['top-rwd-search-input', {'top-rwd-search-input-dark': !isLight}]" type="text"
             >
-            <img @click="searchText = ''" v-if="searchText" class="top-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
+            <img @click="searchText = ''" v-if="searchText && isLight" class="top-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
+            <img @click="searchText = ''" v-if="searchText && !isLight" class="top-rwd-search-close"  src="@/assets/img/icon/icon-close-dark.svg" alt="close">
           </div>
           <div v-for="(company, index) in companyList"
             :key="index"
             @click="goToCompany(company.name)"
             class="top-rwd-search-text-box"
           >
-            <img class="top-rwd-search-search"  src="@/assets/img/icon/icon-search.svg" alt="search">
-            <div class="top-rwd-search-text" >{{ company.name }}</div>
+            <img v-if="isLight" class="top-rwd-search-search"  src="@/assets/img/icon/icon-search.svg" alt="search">
+            <img v-else class="top-rwd-search-search"  src="@/assets/img/icon/icon-search-dark.svg" alt="search">
+            <div :class="['top-rwd-search-text', {'top-rwd-search-text-dark': !isLight}]">{{ company.name }}</div>
           </div>
         </div>
 
@@ -51,14 +56,18 @@
 
       </div>
 
-      <div v-if="isMenu" class="top-right">
-        <a :class="['top-link', {'top-link-on': currentRoute == 'index'}]" href="./">
+      <div v-if="isMenu" :class="['top-right', {'top-right-dark': !isLight}]">
+        <router-link to="./" :class="[
+          'top-link', {'top-link-dark': !isLight}, {'top-link-on': currentRoute == 'index' && isLight}, {'top-link-on-dark': currentRoute == 'index' && !isLight}
+        ]">
           <div>HOME</div>
-        </a>
-        <a :class="['top-link', {'top-link-on': currentRoute == 'about'}]" href="./about">
+        </router-link>
+        <router-link to="./about" :class="[
+          'top-link', {'top-link-dark': !isLight}, {'top-link-on': currentRoute == 'about' && isLight}, {'top-link-on-dark': currentRoute == 'about' && !isLight}
+        ]">
           <div>ABOUT US</div>
-        </a>
-        <div @click="isLight = !isLight" class="top-switch">
+        </router-link>
+        <div @click="isLight = !isLight" :class="['top-switch', {'top-switch-dark': !isLight}]">
           <img v-if="isLight" class="top-sun" src="@/assets/img/icon/icon-sun.svg" alt="sun">
           <img v-else class="top-moon" src="@/assets/img/icon/icon-moon.svg" alt="moon">
         </div>
@@ -174,6 +183,11 @@ export default {
     },
     isLight: {
       handler: function(mode) {
+        if (mode) {
+          document.querySelector('body').setAttribute("class", "top-body-light")
+        } else {
+          document.querySelector('body').setAttribute("class", "top-body-dark")
+        }
         this.$store.commit('switchMode', mode)
       },
     },
@@ -198,7 +212,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
   .top {
     position: fixed;
@@ -208,6 +222,20 @@ export default {
     height: 72px;
     background-color: white;
     z-index: 3;
+
+    &-dbg {
+      background-color: #242345;
+    }
+
+    &-body-light {
+      background-color:#fff;
+      color:#646464;
+    }
+
+    &-body-dark {
+      background-color:#242345;
+      color:#BAC0E6;
+    }
 
     &-desktop {
       display: block;
@@ -272,6 +300,16 @@ export default {
       border: 1px solid #D2D2D2;
       border-radius: 31px;
       font-size: 16px;
+      background-color: transparent;
+    }
+
+    &-search-input-dark {
+      border: 1px solid #747BAA;
+      color: #EAECF4;
+
+      &::placeholder {
+        color: #747BAA;
+      }
     }
 
     &-search-popup {
@@ -286,6 +324,11 @@ export default {
       z-index: 1;
     }
 
+    &-search-popup-dark {
+      box-shadow: 0px 3px 24px #00000029;
+      background-color:#BAC0E6;
+    }
+
     &-search-recommend {
       padding: 10px 45px;
       text-align: left;
@@ -294,6 +337,15 @@ export default {
       &:hover {
         opacity: 0.8;
         background: #F7F7F7;
+      }
+    }
+
+    &-search-recommend-dark {
+      color: #242345;
+
+      &:hover {
+        background-color: #747BAA;
+        color: #EAECF4;
       }
     }
 
@@ -311,6 +363,10 @@ export default {
       height: 72px;
     }
 
+    &-right-dark {
+
+    }
+
     &-link {
       margin-right: 48px;
       letter-spacing: 1.5px;
@@ -325,10 +381,26 @@ export default {
       }
     }
 
+    &-link-dark {
+
+      div {
+        color: #ddd;
+      }
+
+    }
+
     &-link-on {
       
       div {
         color: #FDC43F;
+        font-weight: bold;
+      }
+    }
+
+    &-link-on-dark {
+      
+      div {
+        color: #F5DD82;
         font-weight: bold;
       }
     }
@@ -349,6 +421,11 @@ export default {
           opacity: 0.8;
         }
       }
+    }
+    
+    &-switch-dark {
+      box-shadow: 0px 0px 5px #3F729F;
+      border: 1px solid #3F729F;
     }
 
     &-sun {
@@ -440,6 +517,10 @@ export default {
       overflow: hidden;
     }
 
+    &-rwd-search-popup-dark {
+      background-color: #242345;
+    }
+
     &-rwd-search-popup-noscroll {
       overflow: hidden;
     }
@@ -467,6 +548,11 @@ export default {
       border: 0px;
       border-bottom: 1px solid #D2D2D2;
       font-size: 20px;
+      background-color: transparent;
+    }
+
+    &-rwd-search-input-dark {
+      color: #EAECF4;
     }
 
     &-rwd-search-close {
@@ -492,6 +578,10 @@ export default {
       font-size: 18px;
     }
 
+    &-rwd-search-text {
+      color: #EAECF4;
+    }
+
 
 
     // right
@@ -510,6 +600,10 @@ export default {
       padding: 20px 0px 23px;
       background-color: #fff;
       box-shadow: 0px 6px 6px #2E2E2E14;
+    }
+
+    &-right-dark {
+      background-color: #242345;
     }
 
     &-link {

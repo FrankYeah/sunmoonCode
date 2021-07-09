@@ -223,6 +223,10 @@ export default {
   margin: 88px auto 148px;
   text-align: center;
 
+  &-dbg {
+    background-color: #242345;
+  }
+
   &-title {
     font-size: 24px;
     font-weight: bold;

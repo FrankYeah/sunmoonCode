@@ -17,9 +17,9 @@
           <div class="company-chart-right">
             <div class="company-chart-industry">Industry: Petroleum</div>
             <div class="company-chart-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis id enim pharetra aliquam. Maecenas aliquet facilisis massa eu fringilla.</div>
-            <a href="./about">
+            <router-link to="./about">
               <div class="company-chart-btn">Contact us for more info</div>
-            </a>
+            </router-link>
             <div class="company-chart-desc">
               <div :class="['company-chart-desc-text', {'company-chart-desc-text-3': chartData[currentMonth].dataY1[0] > chartData[currentMonth].dataY2[0] }]">Default boundary</div>
               <div class="company-chart-desc-text-2">Lower boundary</div>
@@ -56,9 +56,9 @@
           src="@/assets/img/icon/grey-arrow.svg" alt="arrow"
         >
         
-        <a href="./about">
+        <router-link to="./about">
           <div class="company-rotate-contact">Contact us for more info</div>
-        </a>
+        </router-link>
       </div>
       
 
@@ -562,6 +562,10 @@ export default {
   max-width: 1100px;
   width: 100%;
   margin: 86px auto 148px auto;
+
+  &-dbg {
+    background-color: #242345;
+  }
 
   &-title {
     font-size: 48px;

@@ -203,6 +203,10 @@ export default {
   width: 100%;
   margin: 69px auto 144px;
 
+  &-dbg {
+    background-color: #242345;
+  }
+
   &-title {
     font-size: 48px;
     font-weight: bold;

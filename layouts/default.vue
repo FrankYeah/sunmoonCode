@@ -42,6 +42,10 @@ export default {
   margin-top: 180px;
 }
 
+.dark-bg {
+  background-color: #242345;
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
