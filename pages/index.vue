@@ -6,20 +6,21 @@
 
       <!-- intro left -->
       <div class="index-intro-left">
-        <div class="index-intro-head">Credit risks prediction Made simple</div>
+        <div :class="['index-intro-head', {'index-intro-head-dark': !isLight}]">Credit risks prediction Made simple</div>
         <div class="index-intro-text">Explore the brand new way to easily find the right company with us!</div>
         
         <div class="index-intro-search">
-          <img class="index-intro-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
+          <img v-if="isLight" class="index-intro-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
+          <img v-else class="index-intro-search-icon" src="@/assets/img/icon/icon-search-dark.svg" alt="search">
           <input v-model="searchText" @click.stop="focusInput" @keypress.enter="goToCompany(searchText)"
-            placeholder="Company name" class="index-intro-search-input" type="text"
+            placeholder="Company name" :class="['index-intro-search-input', {'index-intro-search-input-dark': !isLight}]" type="text"
           >
-          <div @click="goToCompany(searchText)" class="index-intro-search-btn">Search</div>
-          <div v-if="showAutocompleteIndex" class="index-intro-search-popup">
+          <div @click="goToCompany(searchText)" :class="['index-intro-search-btn', {'index-intro-search-btn-dark': !isLight}]">Search</div>
+          <div v-if="showAutocompleteIndex" :class="['index-intro-search-popup', {'index-intro-search-popup-dark': !isLight}]">
             <div v-for="(company, index) in companyList"
               :key="index"
               @click.stop="goToCompany(company.name)"
-              class="index-intro-search-recommend"
+              :class="['index-intro-search-recommend', {'index-intro-search-recommend-dark': !isLight}]"
             >{{ company.name }}</div>
           </div>
         </div>
@@ -28,28 +29,32 @@
       </div>
 
       <!-- intro right -->
-      <img class="index-intro-city" src="@/assets/img/index/map-light.png" alt="map">
+      <img v-if="isLight" class="index-intro-city" src="@/assets/img/index/map-light.png" alt="map">
+      <img v-else class="index-intro-city" src="@/assets/img/index/map-dark.png" alt="map">
 
     </div>
 
     <!-- rwd input popup -->
 
-    <div v-if="showRwdInput" id="rwdSearchPopups" class="index-intro-rwd-search-popup">
+    <div v-if="showRwdInput" id="rwdSearchPopups" :class="['index-intro-rwd-search-popup', {'index-intro-rwd-search-popup-dark': !isLight}]">
       <div class="index-intro-rwd-search-input-box">
-        <img @click="showRwdInput = false" class="index-intro-rwd-search-arrow" src="@/assets/img/icon/grey-arrow.svg" alt="arrow">
+        <img v-if="isLight" @click="showRwdInput = false" class="index-intro-rwd-search-arrow" src="@/assets/img/icon/grey-arrow.svg" alt="arrow">
+        <img v-else @click="showRwdInput = false" class="index-intro-rwd-search-arrow" src="@/assets/img/icon/grey-arrow-dark.svg" alt="arrow">
         <input v-model="searchText" ref="rwdInputs"
           @keypress.enter="goToCompany(searchText)"
-          class="index-intro-rwd-search-input"  type="text"
+          :class="['index-intro-rwd-search-input', {'index-intro-rwd-search-input-dark': !isLight}]" type="text"
         >
-        <img @click="searchText = ''" v-if="searchText"  class="index-intro-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
+        <img @click="searchText = ''" v-if="searchText && isLight"  class="index-intro-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
+        <img @click="searchText = ''" v-if="searchText && !isLight"  class="index-intro-rwd-search-close"  src="@/assets/img/icon/icon-close-dark.svg" alt="close">
       </div>
       <div v-for="(company, index) in companyList"
         :key="index"
         @click="goToCompany(company.name)"
         class="index-intro-rwd-search-text-box"
       >
-        <img class="index-intro-rwd-search-search"  src="@/assets/img/icon/icon-search.svg" alt="search">
-        <div class="index-intro-rwd-search-text" >{{ company.name }}</div>
+        <img v-if="isLight" class="index-intro-rwd-search-search"  src="@/assets/img/icon/icon-search.svg" alt="search">
+        <img v-else class="index-intro-rwd-search-search"  src="@/assets/img/icon/icon-search-dark.svg" alt="search">
+        <div :class="['index-intro-rwd-search-text', {'index-intro-rwd-search-text-dark': !isLight}]">{{ company.name }}</div>
       </div>
     </div>
 
@@ -57,24 +62,24 @@
     <div class="index-wave">
       <div class="index-wave-down-box">
         <div @click="scrollEvent('startChart')" :class="`index-wave-down index-wave-down-${randomNum}`">
-          <div class="index-wave-down-btn"></div>
-          <div class="index-wave-down-text">Learn about the Graphic rapidly</div>
+          <div :class="['index-wave-down-btn', {'index-wave-down-btn-dark': !isLight}]"></div>
+          <div :class="['index-wave-down-text', {'index-wave-down-text-dark': !isLight}]">Learn about the Graphic rapidly</div>
         </div>
       </div>
 
       <div class="index-wave-img"
-        :style="[
-          { backgroundImage: 'url(' + require('@/assets/img/index/mountain-light-'+ randomNum +'.svg') + ')' }
-        ]"
+        :style="[isLight ? {'backgroundImage': 'url(' + require('@/assets/img/index/mountain-light-'+ randomNum +'.svg') + ')'}
+          : {'backgroundImage': 'url(' + require('@/assets/img/index/mountain-dark-'+ randomNum +'.svg') + ')'}]
+        "
       >
 
         <div @click="goToCompany('valaris')"
           :class="`index-wave-talk index-wave-talk-${randomNum}`"
         >
           <div class="index-wave-talk-left">
-            <div class="index-wave-year">JAN, 2021</div>
-            <div class="index-wave-name">Valaris plc</div>
-            <div class="index-wave-industry">Petroleum industry</div>
+            <div :class="['index-wave-year', {'index-wave-year-dark': !isLight}]">JAN, 2021</div>
+            <div :class="['index-wave-name', {'index-wave-name-dark': !isLight}]">Valaris plc</div>
+            <div :class="['index-wave-industry', {'index-wave-industry-dark': !isLight}]">Petroleum industry</div>
           </div>
           <div class="index-wave-talk-right">
             <img class="index-wave-arrow" src="@/assets/img/icon/arrow-green.svg" alt="arrow">
@@ -89,16 +94,16 @@
 
     <!-- chart -->
     <div class="index-chart">
-      <div class="index-chart-dot-1"></div>
-      <div class="index-chart-dot-2"></div>
-      <div class="index-chart-dot-3"></div>
-      <div class="index-chart-dot-4"></div>
-      <div class="index-chart-dot-5"></div>
-      <div class="index-chart-dot-6"></div>
+      <div :class="['index-chart-dot-1', {'index-chart-small-dot-dark': !isLight}]"></div>
+      <div :class="['index-chart-dot-2', {'index-chart-small-dot-dark': !isLight}]"></div>
+      <div :class="['index-chart-dot-3', {'index-chart-small-dot-dark': !isLight}]"></div>
+      <div :class="['index-chart-dot-4', {'index-chart-small-dot-dark': !isLight}]"></div>
+      <div :class="['index-chart-dot-5', {'index-chart-small-dot-dark': !isLight}]"></div>
+      <div :class="['index-chart-dot-6', {'index-chart-dot-dark': !isLight}]"></div>
       <div class="index-chart-float" id="startChart"></div>
-      <div class="index-chart-head">Get started with the chart!</div>
-      <div class="index-chart-box">
-        <div class="index-chart-left">
+      <div  class="index-chart-head">Get started with the chart!</div>
+      <div :class="['index-chart-box', {'index-chart-box-dark': !isLight}]">
+        <div :class="['index-chart-left', {'index-chart-left-dark': !isLight}]">
           <div class="index-chart-chart">
             <div class="index-chart-level">Level</div>
             <div class="index-chart-period">Period of time</div>
@@ -123,7 +128,7 @@
     <!-- Technical Report -->
 
     <div class="index-report">
-      <div class="index-report-dot-1"></div>
+      <div :class="['index-report-dot-1', {'index-report-dot-dark': !isLight}]"></div>
       <div class="index-report-head">Technical Report</div>
       <div class="index-report-box">
         <div class="index-report-pre">The technical reports and their associated addendum in the section explain in details the CRI’s working models for credit ratings and the implementation requirements in its operations. By design, a technical report published later includes all charges made to the earlier versions and the associate addendum. Please refer to the user guide for the chronicle of the document releasing.</div>
@@ -183,17 +188,25 @@ export default {
     this.screenWidth = window.screen.width
     this.randomNum = Math.floor(Math.random()*3) + 1
     let myChart = this.$echarts.init(document.getElementById('myChart'))
-    myChart.setOption(this.completeChart(
-      this.chartData[0].dataX,
-      this.chartData[0].dataY1,
-      this.chartData[0].dataY2
-    ))
+    if (this.isLight) {
+      myChart.setOption(this.completeChart(
+        this.chartData[0].dataX,
+        this.chartData[0].dataY1,
+        this.chartData[0].dataY2
+      ))
+    } else {
+      myChart.setOption(this.completeChartDark(
+        this.chartData[0].dataX,
+        this.chartData[0].dataY1,
+        this.chartData[0].dataY2
+      ))
+    }
   },
   destroyed () {
 
   },
   computed: {
-    lightMode() { return this.$store.state.lightMode },
+    isLight() { return this.$store.state.lightMode },
   },
   methods: {
     scrollEvent (id) {
@@ -350,6 +363,125 @@ export default {
       }
       return chart
     },
+    completeChartDark (dataX, dataY1, dataY2) {
+      let chart = {
+        title: {
+          text: ''
+        },
+        // 移動到 chart
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          }
+        },
+        // chart 跟四周的距離
+        grid: {
+          top: '30px',
+          left: '30px',
+          right: '30px',
+          bottom: '30px',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            // 是否顯示 x 格線
+            axisTick: {
+              show: true
+            },
+            //  改變x軸顏色
+            axisLine:{
+              lineStyle:{
+                color:'#747BAA'
+              }
+            },  
+            // x 座標值的顏色/大小
+            axisLabel: {
+              textStyle: {
+                color: '#747BAA',
+                fontSize:'14'
+              },
+            }, 
+            data: dataX
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            max:Math.max(...dataY1.concat(dataY2)),
+            min:Math.min(...dataY1.concat(dataY2)),
+            splitNumber:3,
+            // minInterval: 0.05,
+            axisTick: {
+              show: false
+            },
+            axisLine:{
+              lineStyle:{
+                show: false,
+              }
+            }, 
+            axisLabel: {
+              textStyle: {
+                color: '#747BAA',
+                fontSize:'14'
+              },
+            }, 
+          }
+        ],
+        series: [
+          {
+            type: 'line',
+            areaStyle: {
+              normal:{
+                // 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { 
+                  offset: 0,
+                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: .43,
+                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(47,46,78,0.3)'
+                  }
+                ])
+              }
+            },
+            itemStyle:{
+              normal:{
+                color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+              },
+            },
+            lineStyle: {
+              color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+            },
+            data: dataY1,
+          },
+          {
+            type: 'line',
+            areaStyle: {},
+            itemStyle:{
+              normal:{
+                color:'rgba(129,146,255, 0.3)'
+              },
+            },
+            lineStyle: {
+              color: 'rgba(129,146,255, 0.3)'
+            },
+            data: dataY2,
+          },
+        ]
+      }
+      return chart
+    },
 
   },
   watch: {
@@ -369,6 +501,24 @@ export default {
           document.removeEventListener('touchmove', mo, false)
         }
       },
+    },
+    isLight: {
+      handler: function(light) {
+        let myChart = this.$echarts.init(document.getElementById('myChart'))
+        if (this.isLight) {
+          myChart.setOption(this.completeChart(
+            this.chartData[0].dataX,
+            this.chartData[0].dataY1,
+            this.chartData[0].dataY2
+          ), true)
+        } else {
+          myChart.setOption(this.completeChartDark(
+            this.chartData[0].dataX,
+            this.chartData[0].dataY1,
+            this.chartData[0].dataY2
+          ), true)
+        }
+      }
     }
   }
 }
@@ -401,6 +551,10 @@ export default {
       color: #2E2E2E;
     }
 
+    &-head-dark {
+      color: #EAECF4;
+    }
+
     &-text {
       width: 500px;
       line-height: 25px;
@@ -427,6 +581,16 @@ export default {
       border: 1px solid #D2D2D2;
       border-radius: 31px;
       font-size: 16px;
+      background-color: transparent;
+    }
+
+    &-search-input-dark {
+      border: 1px solid #747BAA;
+      color: #EAECF4;
+
+      &::placeholder {
+        color: #747BAA;
+      }
     }
 
     &-search-btn {
@@ -438,7 +602,7 @@ export default {
       line-height: 48px;
       color: white;
       text-align: center;
-      background: #FDC43F;
+      background-color: #FDC43F;
       box-shadow: 3px 0px 18px #F5DD82;
       border-radius: 31px;
       cursor: pointer;
@@ -446,6 +610,12 @@ export default {
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    &-search-btn-dark {
+      color: #242345;
+      background-color: #F5DD82;
+      box-shadow: 3px 0px 18px #F5DD82;
     }
 
     &-search-popup {
@@ -460,6 +630,11 @@ export default {
       z-index: 1;
     }
 
+    &-search-popup-dark {
+      background-color: #BAC0E6;
+      box-shadow: 0px 3px 24px #00000029;
+    }
+
     &-search-recommend {
       padding: 10px 45px;
       text-align: left;
@@ -467,7 +642,16 @@ export default {
 
       &:hover {
         opacity: 0.8;
-        background: #F7F7F7;
+        background-color: #F7F7F7;
+      }
+    }
+
+    &-search-recommend-dark {
+      color: #242345;
+
+      &:hover {
+        background-color: #747BAA;
+        color: #EAECF4;
       }
     }
 
@@ -545,11 +729,23 @@ export default {
       }
     }
 
+    &-down-btn-dark {
+      border: 1px solid #747BAA;
+
+      &:before {
+        border-color: #747BAA transparent transparent transparent;
+      }
+    }
+
     &-down-text {
       color: #9C9C9C;
       width: 132px;
       margin-left: 16px;
       line-height: 19px;
+    }
+
+    &-down-text-dark {
+      color: #747BAA;
     }
     
     &-img {
@@ -628,16 +824,28 @@ export default {
       color: #9C9C9C;
     }
 
+    &-year-dark {
+      color: #A5ABD6;
+    }
+
     &-name {
       font-size: 20px;
       color: #EFB86D;
       margin-top: 4px;
     }
 
+    &-name-dark {
+      color: #001A90;
+    }
+
     &-industry {
       font-size: 14px;
       color: #646464;
       margin-top: 4px;
+    }
+
+    &-industry-dark {
+      color: #747BAA;
     }
 
     &-talk-right {
@@ -731,6 +939,17 @@ export default {
       box-shadow: 0px 0px 6px #50E3C1;
     }
 
+    
+    &-dot-dark {
+      background: #F5DD82 0% 0% no-repeat padding-box;
+      box-shadow: 0px 0px 6px #F5DD82;
+    }
+
+    &-small-dot-dark {
+      background: #FFFFFF 0% 0% no-repeat padding-box;
+      box-shadow: 0px 0px 6px #FFFFFF;
+    }
+
     &-float {
       position: absolute;
       left: 0px;
@@ -753,10 +972,21 @@ export default {
       border: 1px solid #EDEDED;
       border-radius: 10px;
     }
+
+    &-box-dark {
+      background: #2F2E4E 0% 0% no-repeat padding-box;
+      box-shadow: 0px 3px 6px #00000029;
+      border: 1px solid #2F2E4E;
+    }
     
     &-left {
       width: 590px;
       text-align: center;
+      color: #9C9C9C;
+    }
+
+    &-left-dark {
+      color: #BAC0E6;
     }
     
     &-chart {
@@ -773,20 +1003,17 @@ export default {
       position: absolute;
       left: -30px;
       top: 180px;
-      color: #9C9C9C;
       transform: rotate(270deg);
     }
 
     &-period {
       margin-left: 70px;
       font-size: 20px;
-      color: #9C9C9C;
     }
 
     &-horizon {
       margin-left: 70px;
       text-align: center;
-      color: #9C9C9C;
     }
     
     &-right {
@@ -885,6 +1112,11 @@ export default {
       box-shadow: 0px 0px 6px #50E3C1;
     }
 
+    &-dot-dark {
+      background: #F5DD82 0% 0% no-repeat padding-box;
+      box-shadow: 0px 0px 6px #F5DD82;
+    }
+
     &-head {
       font-size: 40px;
       font-weight: bold;
@@ -973,7 +1205,7 @@ export default {
       &-search {
         margin: 76px auto 0px;
         text-align: center;
-        background-color: white;
+        background-color: transparent;
       }
 
       &-search-icon {
@@ -986,9 +1218,16 @@ export default {
         width: calc(100% - 46px);
         height: 58px;
         padding: 0px 0px 0px 46px;
-        background-color: white;
+        background-color: transparent;
         outline: none;
       }
+
+      &-search-input-dark {
+
+      &::placeholder {
+        
+      }
+    }
 
       &-search-btn {
         top: 8px;
@@ -1020,6 +1259,11 @@ export default {
         z-index: 3;
       }
 
+      &-rwd-search-popup-dark {
+        background-color: #242345;
+        
+      }
+
       &-rwd-search-input-box {
         height: 42px;
         display: flex;
@@ -1042,7 +1286,12 @@ export default {
         padding: 0px 0px 11px 36px;
         border: 0px;
         border-bottom: 1px solid #D2D2D2;
+        background-color: transparent;
         font-size: 20px;
+      }
+
+      &-rwd-search-input-dark {
+        color: #EAECF4;
       }
 
       &-rwd-search-close {
@@ -1066,6 +1315,10 @@ export default {
 
       &-rwd-search-text {
         font-size: 16px;
+      }
+
+      &-rwd-search-text-dark {
+        color: #EAECF4;
       }
 
       // rwd

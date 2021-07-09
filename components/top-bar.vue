@@ -171,6 +171,7 @@ export default {
     },
   },
   computed: {
+    // only here name it
     lightMode() { return this.$store.state.lightMode },
   },
   watch: {

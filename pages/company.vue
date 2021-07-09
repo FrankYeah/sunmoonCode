@@ -259,50 +259,85 @@ export default {
     this.swiper.on('slideChange', () => {
       this.swiperIndex = this.swiper.activeIndex
     })
-    // 首圖和 swiper
-    if (this.screenWidth > 500) {
-      this.swiperOption.spaceBetween = 0
-      let myChart = this.$echarts.init(document.getElementById('myChart'))
-      myChart.setOption(this.completeChart(
-        this.chartData[0].dataX,
-        this.chartData[0].dataY1,
-        this.chartData[0].dataY2
-      ))
-    }
 
-    // 輪播圖
-    for (let i = 0; i < this.chartData.length; i++) {
-      if(this.screenWidth > 500) {
-        this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.lessChart(
-          this.chartData[i].dataX,
-          this.chartData[i].dataY1,
-          this.chartData[i].dataY2
-        ))
-      } else {
-        this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.completeChart(
-          this.chartData[i].dataX,
-          this.chartData[i].dataY1,
-          this.chartData[i].dataY2
-        ))
-      }
-      
-    }
-    
-    // 相關搜尋
-    for (let i = 0; i < this.relateData.length; i++) {
-      this.$echarts.init(document.getElementById(this.relateData[i].title)).setOption(this.lessChart(
-        this.relateData[i].dataX,
-        this.relateData[i].dataY1,
-        this.relateData[i].dataY2
-      ))
-    }
+    this.drawAllChart()
 
   },
   computed: {
     swiper () { return this.$refs.mySwiper.$swiper },
-    lightMode() { return this.$store.state.lightMode },
+    isLight() { return this.$store.state.lightMode },
   },
   methods: {
+    drawAllChart () {
+      // 首圖和 swiper
+      if (this.screenWidth > 500) {
+        this.swiperOption.spaceBetween = 0
+        let myChart = this.$echarts.init(document.getElementById('myChart'))
+        if (this.isLight) {
+          myChart.setOption(this.completeChart(
+            this.chartData[0].dataX,
+            this.chartData[0].dataY1,
+            this.chartData[0].dataY2
+          ), true)
+        } else {
+          myChart.setOption(this.completeChartDark(
+            this.chartData[0].dataX,
+            this.chartData[0].dataY1,
+            this.chartData[0].dataY2
+          ), true)
+        }
+      }
+
+      // 輪播圖
+      for (let i = 0; i < this.chartData.length; i++) {
+        if(this.screenWidth > 500) {
+          if (this.isLight) {
+            this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.lessChart(
+              this.chartData[i].dataX,
+              this.chartData[i].dataY1,
+              this.chartData[i].dataY2
+            ), true)
+          } else {
+            this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.lessChartDark(
+              this.chartData[i].dataX,
+              this.chartData[i].dataY1,
+              this.chartData[i].dataY2
+            ), true)
+          }
+        } else {
+          if (this.isLight) {
+            this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.completeChart(
+              this.chartData[i].dataX,
+              this.chartData[i].dataY1,
+              this.chartData[i].dataY2
+            ), true)
+          } else {
+            this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.completeChartDark(
+              this.chartData[i].dataX,
+              this.chartData[i].dataY1,
+              this.chartData[i].dataY2
+            ), true)
+          }
+        }
+      }
+      
+      // 相關搜尋
+      for (let i = 0; i < this.relateData.length; i++) {
+        if (this.isLight) {
+          this.$echarts.init(document.getElementById(this.relateData[i].title)).setOption(this.lessChart(
+            this.relateData[i].dataX,
+            this.relateData[i].dataY1,
+            this.relateData[i].dataY2
+          ), true)
+        } else {
+          this.$echarts.init(document.getElementById(this.relateData[i].title)).setOption(this.lessChartDark(
+            this.relateData[i].dataX,
+            this.relateData[i].dataY1,
+            this.relateData[i].dataY2
+          ), true)
+        }
+      }
+    },
     goToCompany (name) {
       this.$router.push({
         path: '/company',
@@ -429,6 +464,109 @@ export default {
       }
       return chart
     },
+    lessChartDark (dataX, dataY1, dataY2) {
+      let chart = {
+        title: {
+          text: ''
+        },
+         tooltip : {
+           show: false,
+            },   
+        grid: {
+          top: '20px',
+          left: '10px',
+          right: '10px',
+          bottom: '20px',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            axisTick: {
+              show: false
+            },
+            axisLine:{
+              show: false,
+            },  
+            axisLabel: {
+              show: false,
+            }, 
+            data: dataX
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            max:Math.max(...dataY1.concat(dataY2)),
+            min:Math.min(...dataY1.concat(dataY2)),
+            splitNumber:3,
+            // minInterval: 0.05,
+            axisTick: {
+              show: false
+            },
+            axisLine:{
+              show: false,
+            },  
+            splitLine: {
+              show: false,
+            },
+            axisLabel: {
+              show: false,
+            }, 
+          }
+        ],
+        series: [
+          {
+            type: 'line',
+            showSymbol:false,
+            areaStyle: {
+              normal:{
+                // 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { 
+                  offset: 0,
+                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: .43,
+                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(47,46,78,0.3)'
+                  }
+                ])
+              }
+            },
+            itemStyle:{
+              normal:{
+                color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+              },
+            },
+            lineStyle: {
+              color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+            },
+            data: dataY1,
+          },
+        {
+          type: 'line',
+          showSymbol:false,
+          areaStyle: {},
+          itemStyle:{
+            normal:{
+              color: 'rgba(129,146,255, 0.3)'
+            },
+          },
+          lineStyle: {
+            color: 'rgba(129,146,255, 0.3)'
+          },
+          data: dataY2,
+        },
+        ]
+      }
+      return chart
+    },
     completeChart (dataX, dataY1, dataY2) {
       let chart = {
         title: {
@@ -536,11 +674,130 @@ export default {
             areaStyle: {},
             itemStyle:{
               normal:{
-                color:'rgba(253,196,63,0.3)'
+                color:'rgba(253,196,63, 0.3)'
               },
             },
             lineStyle: {
-              color: 'rgb(253,196,63)'
+              color: 'rgba(253,196,63, 0.3)'
+            },
+            data: dataY2,
+          },
+        ]
+      }
+      return chart
+    },
+    completeChartDark (dataX, dataY1, dataY2) {
+      let chart = {
+        title: {
+          text: ''
+        },
+        // 移動到 chart
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985'
+            }
+          }
+        },
+        // chart 跟四周的距離
+        grid: {
+          top: '30px',
+          left: '30px',
+          right: '30px',
+          bottom: '30px',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            // 是否顯示 x 格線
+            axisTick: {
+              show: true
+            },
+            //  改變x軸顏色
+            axisLine:{
+              lineStyle:{
+                color:'#747BAA'
+              }
+            },  
+            // x 座標值的顏色/大小
+            axisLabel: {
+              textStyle: {
+                color: '#747BAA',
+                fontSize:'14'
+              },
+            }, 
+            data: dataX
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            max:Math.max(...dataY1.concat(dataY2)),
+            min:Math.min(...dataY1.concat(dataY2)),
+            splitNumber:3,
+            // minInterval: 0.05,
+            axisTick: {
+              show: false
+            },
+            axisLine:{
+              lineStyle:{
+                show: false,
+              }
+            }, 
+            axisLabel: {
+              textStyle: {
+                color: '#747BAA',
+                fontSize:'14'
+              },
+            }, 
+          }
+        ],
+        series: [
+          {
+            type: 'line',
+            areaStyle: {
+              normal:{
+                // 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { 
+                  offset: 0,
+                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: .43,
+                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(47,46,78,0.3)'
+                  }
+                ])
+              }
+            },
+            itemStyle:{
+              normal:{
+                color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+              },
+            },
+            lineStyle: {
+              color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+            },
+            data: dataY1,
+          },
+          {
+            type: 'line',
+            areaStyle: {},
+            itemStyle:{
+              normal:{
+                color:'rgba(129,146,255, 0.3)'
+              },
+            },
+            lineStyle: {
+              color: 'rgba(129,146,255, 0.3)'
             },
             data: dataY2,
           },
@@ -550,7 +807,11 @@ export default {
     },
   },
   watch: {
-    
+    isLight: {
+      handler: function(light) {
+        this.drawAllChart()
+      }
+    }
   }
 }
 </script>

@@ -114,7 +114,7 @@ export default {
     this.screenWidth = window.screen.width
   },
   computed: {
-    lightMode() { return this.$store.state.lightMode },
+    isLight() { return this.$store.state.lightMode },
   },
   methods: {
     inputText(content) {

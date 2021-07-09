@@ -1,7 +1,7 @@
 <template>
   <div class="bottom">
-    <div class="bottom-line"></div>
-    <div class="bottom-text">Copyright © 2021 Sunmoon credit. All rights reserved.</div>
+    <div :class="['bottom-line', {'bottom-line-dark': !isLight}]"></div>
+    <div :class="['bottom-text', {'bottom-text-dark': !isLight}]">Copyright © 2021 Sunmoon credit. All rights reserved.</div>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
     this.screenWidth = window.screen.width
   },
   computed: {
-    lightMode() { return this.$store.state.lightMode },
+    isLight() { return this.$store.state.lightMode },
   },
   methods: {
 
@@ -49,11 +49,19 @@ export default {
     margin: 0px auto 0px;
   }
 
+  &-line-dark {
+    border-top: 1px solid #747BAA;
+  }
+
   &-text {
     font-size: 14px;
     color: #D2D2D2;
     margin: 12px 0px 32px;
     text-align: center;
+  }
+
+  &-text-dark {
+    color: #747BAA;
   }
 
 }
