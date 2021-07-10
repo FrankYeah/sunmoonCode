@@ -4,7 +4,7 @@
     <div class="result-subtitle">It seems we can’t find any results based on your search. Try these top search companies below or search again!</div>
     <div class="result-main">Top search queries</div>
     <div class="result-chart-outer">
-      <div :class="['result-chart-box', {'result-chart-box-none': index > 2 && !isload}]"
+      <div :class="['result-chart-box',{'result-chart-box-dark': !isLight}, {'result-chart-box-none': index > 2 && !isload}]"
         v-for="(chart, index) in resultData"
         :key="index"
         @click="goToCompany(chart.title)"
@@ -15,7 +15,7 @@
       </div>
 
     </div>
-    <div v-if="!isload" @click="isload = true" class="result-load">Load more</div>
+    <div v-if="!isload" @click="isload = true" :class="['result-load', {'result-load-dark': !isLight}]">Load more</div>
   </div>
 </template>
 
@@ -86,19 +86,30 @@ export default {
   mounted () {
     this.screenWidth = window.screen.width
     // 相關搜尋
-    for (let i = 0; i < this.resultData.length; i++) {
-      this.$echarts.init(document.getElementById(this.resultData[i].title)).setOption(this.lessChart(
-        this.resultData[i].dataX,
-        this.resultData[i].dataY1,
-        this.resultData[i].dataY2
-      ))
-    }
-
+    this.drawChart()
   },
   computed: {
     isLight() { return this.$store.state.lightMode },
   },
   methods: {
+    drawChart () {
+      for (let i = 0; i < this.resultData.length; i++) {
+        if (this.isLight) {
+          this.$echarts.init(document.getElementById(this.resultData[i].title)).setOption(this.lessChart(
+            this.resultData[i].dataX,
+            this.resultData[i].dataY1,
+            this.resultData[i].dataY2
+          ), true)
+        } else {
+          this.$echarts.init(document.getElementById(this.resultData[i].title)).setOption(this.lessChartDark(
+            this.resultData[i].dataX,
+            this.resultData[i].dataY1,
+            this.resultData[i].dataY2
+          ), true)
+        }
+        
+      }
+    },
     goToCompany (name) {
       this.$router.push({
         path: '/company',
@@ -210,9 +221,116 @@ export default {
       }
       return chart
     },
+    lessChartDark (dataX, dataY1, dataY2) {
+      let chart = {
+        title: {
+          text: ''
+        },
+         tooltip : {
+           show: false,
+            },   
+        grid: {
+          top: '20px',
+          left: '10px',
+          right: '10px',
+          bottom: '20px',
+          containLabel: true
+        },
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            axisTick: {
+              show: false
+            },
+            axisLine:{
+              show: false,
+            },  
+            axisLabel: {
+              show: false,
+            }, 
+            data: dataX
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            max:Math.max(...dataY1.concat(dataY2)),
+            min:Math.min(...dataY1.concat(dataY2)),
+            splitNumber:3,
+            // minInterval: 0.05,
+            axisTick: {
+              show: false
+            },
+            axisLine:{
+              show: false,
+            },  
+            splitLine: {
+              show: false,
+            },
+            axisLabel: {
+              show: false,
+            }, 
+          }
+        ],
+        series: [
+          {
+            type: 'line',
+            showSymbol:false,
+            areaStyle: {
+              normal:{
+                // 颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { 
+                  offset: 0,
+                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: .43,
+                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(47,46,78,0.3)'
+                  }
+                ])
+              }
+            },
+            itemStyle:{
+              normal:{
+                color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+              },
+            },
+            lineStyle: {
+              color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+            },
+            data: dataY1,
+          },
+          {
+            type: 'line',
+            showSymbol:false,
+            areaStyle: {},
+            itemStyle:{
+              normal:{
+                color:'rgba(129,146,255, 0.3)'
+              },
+            },
+            lineStyle: {
+              color: 'rgba(129,146,255, 0.3)'
+            },
+            data: dataY2,
+          },
+        ]
+      }
+      return chart
+    },
   },
   watch: {
-    
+    isLight: {
+      handler: function(light) {
+        this.drawChart()
+      }
+    }
   }
 }
 </script>
@@ -259,11 +377,19 @@ export default {
     border: 1px solid #EDEDED;
     border-radius: 10px;
     text-align: center;
+    color: #9C9C9C;
     cursor: pointer;
 
     &:hover {
       opacity: 0.8;
     }
+  }
+
+  &-chart-box-dark {
+    color: #A5ABD6;
+    background-color: #2F2E4E;
+    box-shadow: 0px 3px 6px #00000029;
+    border: 0px;
   }
 
   &-chart-box-none {
@@ -273,12 +399,10 @@ export default {
   &-chart-title {
     font-size: 20px;
     font-weight: bold;
-    color: #9C9C9C;
   }
 
   &-chart-subtitle {
     margin-top: 4px;
-    color: #9C9C9C;
   }
 
   &-chart {
@@ -298,6 +422,10 @@ export default {
     &:hover {
       opacity: 0.8;
     }
+  }
+
+  &-load-dark {
+    background-color: #2F2E4E;
   }
 
 }

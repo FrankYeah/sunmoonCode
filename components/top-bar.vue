@@ -50,8 +50,11 @@
           </div>
         </div>
 
-        <img @click="isMenu = !isMenu"
+        <img v-if="isLight" @click="isMenu = !isMenu"
           class="top-menu" src="@/assets/img/icon/rwd-menu.svg" alt="menu"
+        >
+        <img v-else @click="isMenu = !isMenu"
+          class="top-menu" src="@/assets/img/icon/rwd-menu-dark.svg" alt="menu"
         >
 
       </div>
@@ -60,12 +63,12 @@
         <router-link to="./" :class="[
           'top-link', {'top-link-dark': !isLight}, {'top-link-on': currentRoute == 'index' && isLight}, {'top-link-on-dark': currentRoute == 'index' && !isLight}
         ]">
-          <div>HOME</div>
+          <div @click="isMenu = !isMenu">HOME</div>
         </router-link>
         <router-link to="./about" :class="[
           'top-link', {'top-link-dark': !isLight}, {'top-link-on': currentRoute == 'about' && isLight}, {'top-link-on-dark': currentRoute == 'about' && !isLight}
         ]">
-          <div>ABOUT US</div>
+          <div @click="isMenu = !isMenu">ABOUT US</div>
         </router-link>
         <div @click="isLight = !isLight" :class="['top-switch', {'top-switch-dark': !isLight}]">
           <img v-if="isLight" class="top-sun" src="@/assets/img/icon/icon-sun.svg" alt="sun">

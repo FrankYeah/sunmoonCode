@@ -2,14 +2,14 @@
   <div class="company">
 
       <!-- 首圖 -->
-      <div class="company-title">Valaris plc</div>
+      <div :class="['company-title', {'company-title-dark': !isLight}]">Valaris plc</div>
           <!-- chart -->
       <div class="company-chart">
-        <div class="company-chart-box">
+        <div :class="['company-chart-box', {'company-chart-box-dark': !isLight}]">
           <div class="company-chart-left">
-            <div class="company-chart-chart">
+            <div :class="['company-chart-chart', {'company-chart-chart-dark': !isLight}]">
               <div class="company-chart-level">Level</div>
-              <div class="company-chart-period">Period of time</div>
+              <div :class="['company-chart-period', {'company-chart-period-dark': !isLight}]">Period of time</div>
               <div id="myChart"></div>
               <div class="company-chart-horizon">Horizon</div>
             </div>
@@ -18,11 +18,15 @@
             <div class="company-chart-industry">Industry: Petroleum</div>
             <div class="company-chart-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis id enim pharetra aliquam. Maecenas aliquet facilisis massa eu fringilla.</div>
             <router-link to="./about">
-              <div class="company-chart-btn">Contact us for more info</div>
+              <div :class="['company-chart-btn', {'company-chart-btn-dark': !isLight}]">Contact us for more info</div>
             </router-link>
-            <div class="company-chart-desc">
-              <div :class="['company-chart-desc-text', {'company-chart-desc-text-3': chartData[currentMonth].dataY1[0] > chartData[currentMonth].dataY2[0] }]">Default boundary</div>
-              <div class="company-chart-desc-text-2">Lower boundary</div>
+            <div :class="['company-chart-desc', {'company-chart-desc-dark': !isLight}]">
+              <div :class="[
+                'company-chart-desc-text', {'company-chart-desc-text-dark': !isLight},
+                {'company-chart-desc-text-3': chartData[currentMonth].dataY1[0] > chartData[currentMonth].dataY2[0] },
+                {'company-chart-desc-text-3-dark': chartData[currentMonth].dataY1[0] > chartData[currentMonth].dataY2[0] && !isLight }
+                ]">Default boundary</div>
+              <div :class="['company-chart-desc-text-2', {'company-chart-desc-text-2-dark': !isLight}]">Lower boundary</div>
             </div>
           </div>
         </div>
@@ -36,28 +40,38 @@
             v-for="(chart, index) in chartData"
             :key="index"
           >
-            <div @click="changeMonthDisplay(index)" class="company-rotate-box">
-              <div class="company-rotate-title">{{ chart.title }}</div>
+            <div @click="changeMonthDisplay(index)" :class="['company-rotate-box', {'company-rotate-box-dark': !isLight}]">
+              <div :class="['company-rotate-title', {'company-rotate-title-dark': !isLight}]">{{ chart.title }}</div>
               <div class="company-rotate-chart"
                 :id="chart.title"
               ></div>
-              <div class="company-rotate-desc">
-                <div :class="['company-rotate-desc-text', {'company-rotate-desc-text-3': chart.dataY1[0] > chart.dataY2[0] }]">Default boundary</div>
-                <div class="company-rotate-desc-text-2">Lower boundary</div>
+              <div :class="['company-rotate-desc', {'company-rotate-desc-dark': !isLight}]">
+                <div :class="[
+                  'company-rotate-desc-text', {'company-rotate-desc-text-dark': !isLight},
+                  {'company-rotate-desc-text-3': chart.dataY1[0] > chart.dataY2[0] },
+                  {'company-rotate-desc-text-3-dark': chart.dataY1[0] > chart.dataY2[0]  && !isLight }
+                ]">Default boundary</div>
+                <div :class="['company-rotate-desc-text-2', {'company-rotate-desc-text-2-dark': !isLight}]">Lower boundary</div>
               </div>
-              <div class="company-rotate-hint">Industry: Petroleum</div>
+              <div :class="['company-rotate-hint', {'company-rotate-hint-dark': !isLight}]">Industry: Petroleum</div>
             </div>
           </swiper-slide>
         </swiper>
-        <img v-if="swiperIndex != 0" @click="nextPrev" class="company-rotate-arrow-left"
+        <img v-if="swiperIndex != 0 && isLight" @click="nextPrev" class="company-rotate-arrow-left"
           src="@/assets/img/icon/grey-arrow.svg" alt="arrow"
         >
-        <img v-if="swiperIndex != 9" @click="nextSlide" class="company-rotate-arrow-right"
+        <img v-if="swiperIndex != 0 && !isLight" @click="nextPrev" class="company-rotate-arrow-left"
+          src="@/assets/img/icon/grey-arrow-dark.svg" alt="arrow"
+        >
+        <img v-if="swiperIndex != 9 && isLight" @click="nextSlide" class="company-rotate-arrow-right"
           src="@/assets/img/icon/grey-arrow.svg" alt="arrow"
+        >
+        <img v-if="swiperIndex != 9 && !isLight" @click="nextSlide" class="company-rotate-arrow-right"
+          src="@/assets/img/icon/grey-arrow-dark.svg" alt="arrow"
         >
         
         <router-link to="./about">
-          <div class="company-rotate-contact">Contact us for more info</div>
+          <div :class="['company-rotate-contact', {'company-rotate-contact-dark': !isLight}]">Contact us for more info</div>
         </router-link>
       </div>
       
@@ -66,18 +80,18 @@
       <div class="company-relate">
 
         <div class="company-relate-title-box">
-          <div class="company-relate-line"></div>
-          <div class="company-relate-title">Related Companies</div>
-          <div class="company-relate-line"></div>
+          <div :class="['company-relate-line', {'company-relate-line-dark': !isLight}]"></div>
+          <div :class="['company-relate-title', {'company-relate-title-dark': !isLight}]">Related Companies</div>
+          <div :class="['company-relate-line', {'company-relate-line-dark': !isLight}]"></div>
         </div>
 
-        <div class="company-relate-box"
+        <div :class="['company-relate-box', {'company-relate-box-dark': !isLight}]"
           v-for="(relate, index) in relateData"
           v-show="index < 2 || isload"
           :key="index"
           @click="goToCompany()"
         >
-          <div class="company-relate-chart-box">
+          <div :class="['company-relate-chart-box', {'company-relate-chart-box-dark': !isLight}]">
             <div class="company-relate-chart-subtitle">{{ relate.subtitle }}</div>
             <div class="company-relate-chart-title">{{ relate.title }}</div>
             <div class="company-relate-chart" :id="relate.title"></div>
@@ -93,7 +107,7 @@
           </div>
         </div>
 
-        <div v-if="!isload" @click="isload = true" class="company-relate-load">Load more</div>
+        <div v-if="!isload" @click="isload = true" :class="['company-relate-load', {'company-relate-load-dark': !isLight}]">Load more</div>
 
       </div>
 
@@ -720,13 +734,13 @@ export default {
             //  改變x軸顏色
             axisLine:{
               lineStyle:{
-                color:'#747BAA'
+                color:'#A5ABD6'
               }
             },  
             // x 座標值的顏色/大小
             axisLabel: {
               textStyle: {
-                color: '#747BAA',
+                color: '#A5ABD6',
                 fontSize:'14'
               },
             }, 
@@ -747,10 +761,17 @@ export default {
               lineStyle:{
                 show: false,
               }
-            }, 
+            },
+            splitLine: {
+              show: true,
+              //  改變軸線顏色
+              lineStyle: {
+                  color: ['#A5ABD6']
+              }                            
+            },
             axisLabel: {
               textStyle: {
-                color: '#747BAA',
+                color: '#A5ABD6',
                 fontSize:'14'
               },
             }, 
@@ -834,6 +855,10 @@ export default {
     color: #2E2E2E;
   }
 
+  &-title-dark {
+    color: #EAECF4;
+  }
+
   // chart
   &-chart {
 
@@ -847,6 +872,12 @@ export default {
       border: 1px solid #EDEDED;
       border-radius: 10px;
     }
+
+    &-box-dark {
+      background-color: #2F2E4E;
+      box-shadow: 0px 3px 6px #00000029;
+      border: 0px;
+    }
     
     &-left {
       width: 590px;
@@ -856,6 +887,11 @@ export default {
     &-chart {
       position: relative;
       margin-left: 50px;
+      color: #9C9C9C;
+    }
+
+    &-chart-dark {
+      color: #A5ABD6;
     }
 
     #myChart{
@@ -867,20 +903,21 @@ export default {
       position: absolute;
       left: -30px;
       top: 180px;
-      color: #9C9C9C;
       transform: rotate(270deg);
     }
 
     &-period {
       margin-left: 70px;
       font-size: 20px;
-      color: #9C9C9C;
+    }
+
+    &-period-dark {
+      color: #BAC0E6;
     }
 
     &-horizon {
       margin-left: 70px;
       text-align: center;
-      color: #9C9C9C;
     }
     
     &-right {
@@ -911,17 +948,27 @@ export default {
         opacity: 0.8;
       }
     }
+
+    &-btn-dark {
+      background-color: #2F2E4E;
+      border: 1px solid #747BAA;
+      color: #BAC0E6;
+    }
     
     &-desc {
       display: flex;
       justify-content: space-between;
       margin-top: 37px;
+      color: #D2D2D2;
+    }
+
+    &-desc-dark {
+      color: #747BAA;
     }
     
     &-desc-text {
       position: relative;
       padding-left: 32px;
-      color: #D2D2D2;
 
       &:before {
         content: '';
@@ -935,6 +982,13 @@ export default {
       }
     }
 
+    &-desc-text-dark {
+
+      &:before {
+        background-color: #ff778d;
+      }
+    }
+
     &-desc-text-3 {
 
       &:before {
@@ -942,9 +996,15 @@ export default {
       }
     }
 
+    &-desc-text-3-dark {
+      
+      &:before {
+        background-color: #50E3C1;
+      }
+    }
+
     &-desc-text-2 {
       position: relative;
-      color: #D2D2D2;
 
       &:before {
         content: '';
@@ -955,6 +1015,13 @@ export default {
         height: 16px;
         border-radius: 100%;
         background-color: #FDC43F;
+      }
+    }
+
+    &-desc-text-2-dark {
+
+      &:before {
+        background-color: #8192FF;
       }
     }
   }
@@ -977,11 +1044,18 @@ export default {
       box-shadow: 0px 3px 6px #00000014;
       border: 1px solid #EDEDED;
       border-radius: 10px;
+      color: #9C9C9C;
+    }
+
+    &-box-dark {
+      background-color: #2F2E4E;
+      box-shadow: 0px 3px 6px #00000029;
+      border: 0px;
+      color: #A5ABD6;
     }
 
     &-title {
       text-align: center;
-      color: #9C9C9C;
       margin-top: 20px;
     }
 
@@ -1065,9 +1139,17 @@ export default {
       background-color: #D2D2D2;
     }
 
+    &-line-dark {
+      background-color: #747BAA;
+    }
+
     &-title {
       font-size: 20px;
       color: #D2D2D2;
+    }
+
+    &-title-dark {
+      color: #747BAA;
     }
 
     &-box {
@@ -1084,6 +1166,12 @@ export default {
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    &-box-dark {
+      border: 0px;
+      box-shadow: 0px 3px 6px #00000029;
+      background-color: #2F2E4E;
     }
 
     &-chart-box {
@@ -1130,6 +1218,10 @@ export default {
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    &-load-dark {
+      background-color: #2F2E4E;
     }
   }
 
@@ -1233,6 +1325,10 @@ export default {
         margin-top: 0px;
       }
 
+      &-title-dark {
+        color: #BAC0E6;
+      }
+
       &-chart {
         width: 295px;
         height: 300px;
@@ -1242,14 +1338,18 @@ export default {
         width: calc(100% - 16px);
         padding: 0px 0px;
         display: flex;
+        color: #D2D2D2;
         // justify-content: space-between;
         // margin-top: 0px;
+      }
+
+      &-desc-dark {
+        color: #747BAA;
       }
       
       &-desc-text {
         position: relative;
         padding-left: 24px;
-        color: #D2D2D2;
 
         &:before {
           content: '';
@@ -1263,6 +1363,13 @@ export default {
         }
       }
 
+      &-desc-text-dark {
+
+      &:before {
+        background-color: #ff778d;
+      }
+    }
+
       &-desc-text-3 {
 
         &:before {
@@ -1270,10 +1377,16 @@ export default {
         }
       }
 
+      &-desc-text-3-dark {
+      
+      &:before {
+        background-color: #50E3C1;
+      }
+    }
+
       &-desc-text-2 {
         position: relative;
         padding-left: 34px;
-        color: #D2D2D2;
 
         &:before {
           content: '';
@@ -1287,12 +1400,23 @@ export default {
         }
       }
 
+      &-desc-text-2-dark {
+
+      &:before {
+        background-color: #8192FF;
+      }
+    }
+
       &-hint {
         display: block;
         margin: 24px 0px 0px 16px;
         margin-top: 24px;
         font-size: 16px;
         align-self: baseline;
+      }
+
+      &-hint-dark {
+        color: #BAC0E6;
       }
 
       &-arrow-left{
@@ -1312,6 +1436,12 @@ export default {
         text-align: center;
         color: #646464;
         border: 1px solid #D2D2D2;
+      }
+
+      &-contact-dark {
+        border: 1px solid #747BAA;
+        background-color: transparent;
+        color: #BAC0E6;
       }
     }
 
@@ -1341,6 +1471,11 @@ export default {
         margin-right: 0px;
         height: 220px;
         margin: 0px auto;
+        color: #9C9C9C;
+      }
+
+      &-chart-box-dark {
+        color: #A5ABD6;
       }
 
       &-chart-subtitle {
@@ -1348,14 +1483,12 @@ export default {
         text-align: center;
         font-size: 20px;
         font-weight: bold;
-        color: #9C9C9C;
         margin-top: 16px;
       }
 
       &-chart-title {
         text-align: center;
         margin-top: 4px;
-        color: #9C9C9C;
       }
 
       &-chart {

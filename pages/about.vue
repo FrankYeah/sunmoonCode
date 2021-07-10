@@ -1,23 +1,24 @@
 <template>
   <div class="about">
 
-    <div class="about-title">About us</div>
-    <div class="about-dot-1"></div>
-    <div class="about-line"></div>
+    <div :class="['about-title', {'about-title-dark': !isLight}]">About us</div>
+    <div :class="['about-dot-1', {'about-talk-dot-dark': !isLight}]"></div>
+    <div :class="['about-line', {'about-line-dark': !isLight}]"></div>
 
     <div class="about-intro">
       <div class="about-intro-box">
 
-        <img class="about-intro-img" src="@/assets/img/sunmoon-logo-bg.png" alt="sunmoon">
+        <img v-if="isLight" class="about-intro-img" src="@/assets/img/sunmoon-logo-bg.png" alt="sunmoon">
+        <img v-else class="about-intro-img" src="@/assets/img/sunmoon-logo-dark.png" alt="sunmoon">
         <div class="about-intro-right">
-          <div class="about-intro-text">We’re here to manifest your purpose and inspire your audience through brand identity that’s relevant and enduring. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis id enim pharetra aliquam. Maecenas aliquet facilisis massa eu fringilla.</div>
+          <div :class="['about-intro-text', {'about-intro-text-dark': !isLight}]">We’re here to manifest your purpose and inspire your audience through brand identity that’s relevant and enduring. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis id enim pharetra aliquam. Maecenas aliquet facilisis massa eu fringilla.</div>
           <div class="about-intro-desc-box">
             <div class="about-intro-desc">
-              <div class="about-intro-desc-head">Find your right company</div>
+              <div :class="['about-intro-desc-head', {'about-intro-desc-head-dark': !isLight}]">Find your right company</div>
               <div class="about-intro-desc-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
             </div>
             <div class="about-intro-desc">
-              <div class="about-intro-desc-head">Let’s get growing</div>
+              <div :class="['about-intro-desc-head', {'about-intro-desc-head-dark': !isLight}]">Let’s get growing</div>
               <div class="about-intro-desc-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
             </div>
           </div>
@@ -31,48 +32,47 @@
 
     <div class="about-talk">
 
-      <div class="about-talk-dot-2"></div>
-      <div class="about-talk-dot-3"></div>
-      <div class="about-talk-dot-4"></div>
-      <div class="about-talk-dot-5"></div>
+      <div :class="['about-talk-dot-2', {'about-talk-dot-dark': !isLight}]"></div>
+      <div :class="['about-talk-dot-3', {'about-talk-dot-small-dark': !isLight}]"></div>
+      <div :class="['about-talk-dot-4', {'about-talk-dot-small-dark': !isLight}]"></div>
+      <div :class="['about-talk-dot-5', {'about-talk-dot-dark': !isLight}]"></div>
 
       <div class="about-talk-left">
-        <div class="about-talk-title">Let’s talk!</div>
-        <div class="about-talk-text">Sunmooncredit@gmail.com</div>
+        <div :class="['about-talk-title', {'about-talk-title-dark': !isLight}]">Let’s talk!</div>
+        <div :class="['about-talk-text', {'about-talk-text-dark': !isLight}]">Sunmooncredit@gmail.com</div>
       </div>
 
-      <div class="about-talk-right">
-        <input v-model="sendMessage.name" @focus="inputText('name')" :class="['about-talk-input', {'about-talk-input-wrong': validation.name}]" type="text" placeholder="Your name*">
+      <div :class="['about-talk-right', {'about-talk-right-dark': !isLight}]">
+        <input v-model="sendMessage.name" @focus="inputText('name')" :class="['about-talk-input', {'about-talk-input-dark': !isLight}, {'about-talk-input-wrong': validation.name}]" type="text" placeholder="Your name*">
         <div v-if="validation.name" class="about-talk-wrong-text">Please fill out this field.</div>
-        <input v-model="sendMessage.mail" @focus="inputText('mail')" :class="['about-talk-input', {'about-talk-input-wrong': validation.mail}]" type="text" placeholder="Email address*">
+        <input v-model="sendMessage.mail" @focus="inputText('mail')" :class="['about-talk-input', {'about-talk-input-dark': !isLight}, {'about-talk-input-wrong': validation.mail}]" type="text" placeholder="Email address*">
         <div v-if="validation.mail" class="about-talk-wrong-text">Incorrect email format.</div>
-        <textarea v-model="sendMessage.message" @focus="inputText('message')" :class="['about-talk-textarea', {'about-talk-input-wrong': validation.message}]" cols="30" rows="10" placeholder="Message*"></textarea>
+        <textarea v-model="sendMessage.message" @focus="inputText('message')" :class="['about-talk-textarea', {'about-talk-textarea-dark': !isLight}, {'about-talk-input-wrong': validation.message}]" cols="30" rows="10" placeholder="Message*"></textarea>
         <div v-if="validation.message" class="about-talk-wrong-text">Please fill out this field.</div>
-        <div @click="sendData()" class="about-talk-btn">Send</div>
+        <div @click="sendData()" :class="['about-talk-btn', {'about-talk-btn-dark': !isLight}]">Send</div>
       </div>
 
     </div>
 
     <div v-if="popup.success" @click="closePopup()" class="about-popup">
-      <div class="about-popup-box">
+      <div :class="['about-popup-box', {'about-popup-box-dark': !isLight}]">
         <img class="about-popup-icon" src="@/assets/img/about/icon-check.svg" alt="check">
         <div class="about-popup-text">Thank you! We’ll reply you as soon as possible.</div>
         <div class="about-popup-btn-box">
-          <div @click="popup.success = false" class="about-popup-btn">OK</div>
+          <div @click="popup.success = false" :class="['about-popup-btn', {'about-popup-btn-dark': !isLight}]">OK</div>
         </div>
       </div>
     </div>
 
     <div v-if="popup.wrong" @click="closePopup()" class="about-popup">
-      <div class="about-popup-box">
+      <div :class="['about-popup-box', {'about-popup-box-dark': !isLight}]">
         <img class="about-popup-icon" src="@/assets/img/about/icon-wrong.svg" alt="check">
         <div class="about-popup-text">Something went wrong, please try again later.</div>
         <div class="about-popup-btn-box">
-          <div @click="popup.wrong = false" class="about-popup-btn">OK</div>
+          <div @click="popup.wrong = false" :class="['about-popup-btn', {'about-popup-btn-dark': !isLight}]">OK</div>
         </div>
       </div>
     </div>
-
 
   </div>
 </template>
@@ -214,6 +214,10 @@ export default {
     text-align: center;
   }
 
+  &-title-dark {
+    color: #EAECF4;
+  } 
+
   &-dot-1 {
     position: absolute;
     top: -10px;
@@ -231,6 +235,10 @@ export default {
     height: 60px;
     background-color: #D2D2D2;
     transform: translateX(-92px);
+  }
+
+  &-line-dark {
+    background-color: #747BAA;
   }
 
   &-intro {
@@ -256,6 +264,10 @@ export default {
       line-height: 30px;
     }
 
+    &-text-dark {
+      color: #BAC0E6;
+    }
+
     &-desc-box {
       display: flex;
       justify-content: space-between;
@@ -270,6 +282,10 @@ export default {
       font-size: 24px;
       font-weight: bold;
       color: #2E2E2E;
+    }
+
+    &-desc-head-dark {
+      color: #EAECF4;
     }
 
     &-desc-text {
@@ -329,6 +345,16 @@ export default {
       box-shadow: 0px 0px 6px #50E3C1;
     }
 
+    &-dot-dark {
+      background-color: #F5DD82;
+      box-shadow: 0px 0px 6px #F5DD82;
+    }
+
+    &-dot-small-dark {
+      background-color: #FFFFFF;
+      box-shadow: 0px 0px 6px #FFFFFF;
+    }
+
     &-left {
 
     }
@@ -337,6 +363,10 @@ export default {
       font-size: 32px;
       font-weight: bold;
       color: #2E2E2E;
+    }
+
+    &-title-dark {
+      color: #EAECF4;
     }
 
     &-text {
@@ -352,6 +382,14 @@ export default {
       }
     }
 
+    &-text-dark {
+
+      &::before {
+        content: url('../assets/img/icon/icon-mail-dark.svg');
+      }
+
+    }
+
     &-right {
       width: 635px;
       height: 516px;
@@ -363,6 +401,12 @@ export default {
       border-radius: 10px;
     }
 
+    &-right-dark {
+      background-color: #2F2E4E;
+      box-shadow: 0px 3px 6px #00000029;
+      border: 0px;
+    }
+
     &-input {
       width: 100%;
       height: 62px;
@@ -371,6 +415,16 @@ export default {
       margin-bottom: 32px;
       border: 0px;
       border-bottom: 1px solid #D2D2D2;
+      background-color: transparent;
+    }
+
+    &-input-dark {
+      color: #EAECF4;
+      border-bottom: 1px solid #747BAA;
+
+      &::placeholder {
+        color: #747BAA;
+      }
     }
 
     &-textarea {
@@ -380,6 +434,16 @@ export default {
       font-size: 16px;
       border: 0px;
       border-bottom: 1px solid #D2D2D2;
+      background-color: transparent;
+    }
+
+    &-textarea-dark {
+      color: #EAECF4;
+      border-bottom: 1px solid #747BAA;
+
+      &::placeholder {
+        color: #747BAA;
+      }
     }
 
     &-input-wrong {
@@ -406,6 +470,10 @@ export default {
         opacity: 0.8;
       }
     }
+
+    &-btn-dark {
+      border: 1px solid #747BAA;
+    }
   }
 
   &-popup {
@@ -429,6 +497,12 @@ export default {
       box-shadow: 0px 3px 6px #00000029;
       border-radius: 10px;
       color: #646464;
+    }
+
+    &-box-dark {
+      background-color: #2F2E4E;
+      box-shadow: 0px 3px 6px #00000029;
+      color: #BAC0E6;
     }
 
     &-icon {
@@ -459,6 +533,11 @@ export default {
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    &-btn-dark {
+      background-color: #242345;
+      border: 1px solid #747BAA;
     }
   }
 

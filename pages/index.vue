@@ -106,7 +106,7 @@
         <div :class="['index-chart-left', {'index-chart-left-dark': !isLight}]">
           <div class="index-chart-chart">
             <div class="index-chart-level">Level</div>
-            <div class="index-chart-period">Period of time</div>
+            <div :class="['index-chart-period', {'index-chart-period-dark': !isLight}]">Period of time</div>
             <div id="myChart"></div>
             <div class="index-chart-horizon">Horizon</div>
           </div>
@@ -115,11 +115,15 @@
           <div class="index-chart-industry">Industry: Petroleum</div>
           <div class="index-chart-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis id enim pharetra aliquam. Maecenas aliquet facilisis massa eu fringilla.</div>
           <router-link to="./about" class="index-chart-btn-href">
-            <div class="index-chart-btn">Contact us for more info</div>
+            <div :class="['index-chart-btn', {'index-chart-btn-dark': !isLight}]">Contact us for more info</div>
           </router-link>
-          <div class="index-chart-desc">
-            <div :class="['index-chart-desc-text', {'index-chart-desc-text-3': chartData[0].dataY1[0] > chartData[0].dataY2[0] }]">Default boundary</div>
-            <div class="index-chart-desc-text-2">Lower boundary</div>
+          <div :class="['index-chart-desc', {'index-chart-desc-dark': !isLight}]">
+            <div :class="[
+              'index-chart-desc-text', {'index-chart-desc-text-dark': !isLight},
+              {'index-chart-desc-text-3': chartData[0].dataY1[0] > chartData[0].dataY2[0] },
+              {'index-chart-desc-text-3-dark': chartData[0].dataY1[0] > chartData[0].dataY2[0] && !isLight }
+            ]">Default boundary</div>
+            <div :class="['index-chart-desc-text-2', {'index-chart-desc-text-2-dark': !isLight}]">Lower boundary</div>
           </div>
         </div>
       </div>
@@ -130,16 +134,16 @@
     <div class="index-report">
       <div :class="['index-report-dot-1', {'index-report-dot-dark': !isLight}]"></div>
       <div class="index-report-head">Technical Report</div>
-      <div class="index-report-box">
-        <div class="index-report-pre">The technical reports and their associated addendum in the section explain in details the CRI’s working models for credit ratings and the implementation requirements in its operations. By design, a technical report published later includes all charges made to the earlier versions and the associate addendum. Please refer to the user guide for the chronicle of the document releasing.</div>
+      <div :class="['index-report-box', {'index-report-box-dark': !isLight}]">
+        <div :class="['index-report-pre', {'index-report-pre-dark': !isLight}]">The technical reports and their associated addendum in the section explain in details the CRI’s working models for credit ratings and the implementation requirements in its operations. By design, a technical report published later includes all charges made to the earlier versions and the associate addendum. Please refer to the user guide for the chronicle of the document releasing.</div>
         <div class="index-report-title">User Guide for Technical Documents and Addenda</div>
         <div class="index-report-subtitle">2020</div>
-        <div class="index-report-text">- Version 2020 Update 2 Addendum 1: Replacement of Switzerland’s 1-year and 3-month interest rates.</div>
-        <div class="index-report-text">- Version 2020 Update 2</div>
-        <div class="index-report-text">- Version 2020 Update 1 Addendum 1: Increasing the updating frequency for one DTD parameter from monthly to daily</div>
-        <div class="index-report-text">- Version 2020 Update 1</div>
-        <div class="index-report-text">- Version 2020 Update 1 Addendum 15: Replacement of stock index in Egypt</div>
-        <div class="index-report-text">- Version 2017 Update 1 Addendum 14: Replacement of stock index in Italy and Ghana’s 1-year interest rate</div>
+        <div :class="['index-report-text', {'index-report-text-dark': !isLight}]">- Version 2020 Update 2 Addendum 1: Replacement of Switzerland’s 1-year and 3-month interest rates.</div>
+        <div :class="['index-report-text', {'index-report-text-dark': !isLight}]">- Version 2020 Update 2</div>
+        <div :class="['index-report-text', {'index-report-text-dark': !isLight}]">- Version 2020 Update 1 Addendum 1: Increasing the updating frequency for one DTD parameter from monthly to daily</div>
+        <div :class="['index-report-text', {'index-report-text-dark': !isLight}]">- Version 2020 Update 1</div>
+        <div :class="['index-report-text', {'index-report-text-dark': !isLight}]">- Version 2020 Update 1 Addendum 15: Replacement of stock index in Egypt</div>
+        <div :class="['index-report-text', {'index-report-text-dark': !isLight}]">- Version 2017 Update 1 Addendum 14: Replacement of stock index in Italy and Ghana’s 1-year interest rate</div>
       </div>
     </div>
 
@@ -187,20 +191,7 @@ export default {
   mounted () {
     this.screenWidth = window.screen.width
     this.randomNum = Math.floor(Math.random()*3) + 1
-    let myChart = this.$echarts.init(document.getElementById('myChart'))
-    if (this.isLight) {
-      myChart.setOption(this.completeChart(
-        this.chartData[0].dataX,
-        this.chartData[0].dataY1,
-        this.chartData[0].dataY2
-      ))
-    } else {
-      myChart.setOption(this.completeChartDark(
-        this.chartData[0].dataX,
-        this.chartData[0].dataY1,
-        this.chartData[0].dataY2
-      ))
-    }
+    this.drawChart()
   },
   destroyed () {
 
@@ -209,6 +200,22 @@ export default {
     isLight() { return this.$store.state.lightMode },
   },
   methods: {
+    drawChart () {
+      let myChart = this.$echarts.init(document.getElementById('myChart'))
+      if (this.isLight) {
+        myChart.setOption(this.completeChart(
+          this.chartData[0].dataX,
+          this.chartData[0].dataY1,
+          this.chartData[0].dataY2
+        ), true)
+      } else {
+        myChart.setOption(this.completeChartDark(
+          this.chartData[0].dataX,
+          this.chartData[0].dataY1,
+          this.chartData[0].dataY2
+        ), true)
+      }
+    },
     scrollEvent (id) {
       document.getElementById(id).scrollIntoView({ behavior: 'smooth' })
     },
@@ -397,16 +404,16 @@ export default {
             //  改變x軸顏色
             axisLine:{
               lineStyle:{
-                color:'#747BAA'
+                color:'#A5ABD6'
               }
             },  
             // x 座標值的顏色/大小
             axisLabel: {
               textStyle: {
-                color: '#747BAA',
+                color: '#A5ABD6',
                 fontSize:'14'
               },
-            }, 
+            },
             data: dataX
           }
         ],
@@ -424,10 +431,17 @@ export default {
               lineStyle:{
                 show: false,
               }
-            }, 
+            },
+            splitLine: {
+              show: true,
+              //  改變軸線顏色
+              lineStyle: {
+                  color: ['#A5ABD6']
+              }                            
+            },
             axisLabel: {
               textStyle: {
-                color: '#747BAA',
+                color: '#A5ABD6',
                 fontSize:'14'
               },
             }, 
@@ -504,20 +518,7 @@ export default {
     },
     isLight: {
       handler: function(light) {
-        let myChart = this.$echarts.init(document.getElementById('myChart'))
-        if (this.isLight) {
-          myChart.setOption(this.completeChart(
-            this.chartData[0].dataX,
-            this.chartData[0].dataY1,
-            this.chartData[0].dataY2
-          ), true)
-        } else {
-          myChart.setOption(this.completeChartDark(
-            this.chartData[0].dataX,
-            this.chartData[0].dataY1,
-            this.chartData[0].dataY2
-          ), true)
-        }
+        this.drawChart()
       }
     }
   }
@@ -986,7 +987,7 @@ export default {
     }
 
     &-left-dark {
-      color: #BAC0E6;
+      color: #A5ABD6;
     }
     
     &-chart {
@@ -1009,6 +1010,10 @@ export default {
     &-period {
       margin-left: 70px;
       font-size: 20px;
+    }
+
+    &-period-dark {
+      color: #BAC0E6;
     }
 
     &-horizon {
@@ -1044,33 +1049,55 @@ export default {
         opacity: 0.8;
       }
     }
+
+    &-btn-dark {
+      border: 1px solid #747BAA;
+      color: #BAC0E6;
+    }
     
     &-desc {
       display: flex;
       justify-content: space-between;
       margin-top: 37px;
+      color: #D2D2D2;
+    }
+
+    &-desc-dark {
+      color: #747BAA;
     }
     
     &-desc-text {
       position: relative;
       padding-left: 32px;
-      color: #D2D2D2;
 
       &:before {
         content: '';
         position: absolute;
         left: 0px;
-        top: 1px;
+        top: 0px;
         width: 16px;
         height: 16px;
         border-radius: 100%;
-        background-color: #FF4866;
+        background-color: #646464;
       }
     }
 
-    &-desc-text-3 {
-      
+    &-desc-text-dark {
 
+      &:before {
+        background-color: #ff778d;
+      }
+    }
+
+    &-desc-text-3 {  
+
+      &:before {
+        background-color: #50E3C1;
+      }
+    }
+
+    &-desc-text-3-dark {
+      
       &:before {
         background-color: #50E3C1;
       }
@@ -1078,17 +1105,23 @@ export default {
 
     &-desc-text-2 {
       position: relative;
-      color: #D2D2D2;
 
       &:before {
         content: '';
         position: absolute;
         left: -32px;
-        top: 1px;
+        top: 0px;
         width: 16px;
         height: 16px;
         border-radius: 100%;
         background-color: #FDC43F;
+      }
+    }
+
+    &-desc-text-2-dark {
+
+      &:before {
+        background-color: #8192FF;
       }
     }
   }
@@ -1128,10 +1161,18 @@ export default {
       padding: 64px 40px;
       border: 1px solid #D2D2D2;
     }
+
+    &-box-dark {
+      border: 1px solid #747BAA;
+    }
     
     &-pre {
       line-height: 20px;
       color: #9C9C9C;
+    }
+
+    &-pre-dark {
+      color: #A5ABD6;
     }
     
     &-title {
@@ -1147,6 +1188,10 @@ export default {
     &-text {
       margin-top: 32px;
       color: #9C9C9C;
+    }
+
+    &-text-dark {
+      color: #A5ABD6;
     }
   }
 
@@ -1570,7 +1615,7 @@ export default {
         padding-left: 18px;
 
         &:before {
-          top: 4px;
+          top: 3px;
           width: 12px;
           height: 12px;
         }
@@ -1580,7 +1625,7 @@ export default {
         padding-left: 18px;
 
         &:before {
-          top: 4px;
+          top: 3px;
           left: 0px;
           width: 12px;
           height: 12px;
