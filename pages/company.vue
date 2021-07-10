@@ -369,11 +369,19 @@ export default {
     changeMonthDisplay (month) {
       this.currentMonth = month
       let myChart = this.$echarts.init(document.getElementById('myChart'))
-      myChart.setOption(this.completeChart(
-        this.chartData[month].dataX,
-        this.chartData[month].dataY1,
-        this.chartData[month].dataY2
-      ),true)
+      if (this.isLight) {
+        myChart.setOption(this.completeChart(
+          this.chartData[month].dataX,
+          this.chartData[month].dataY1,
+          this.chartData[month].dataY2
+        ),true)
+      } else {
+        myChart.setOption(this.completeChartDark(
+          this.chartData[month].dataX,
+          this.chartData[month].dataY1,
+          this.chartData[month].dataY2
+        ),true)
+      }
     },
     lessChart (dataX, dataY1, dataY2) {
       let chart = {

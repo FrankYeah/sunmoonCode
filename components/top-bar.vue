@@ -6,11 +6,11 @@
       <div class="top-left">
 
         <router-link to="./" v-if="$route.name != 'index' && screenWidth < 500">
-          <img class="top-small-logo" src="@/assets/img/icon/icon-single-logo.png" alt="sunmoon">
+          <img @click="closeRwdMenu()" class="top-small-logo" src="@/assets/img/icon/icon-single-logo.png" alt="sunmoon">
         </router-link>
         <router-link to="./" v-else>
-          <img v-if="isLight" class="top-logo" src="@/assets/img/sunmoon-logo-bg.png" alt="sunmoon">
-          <img v-else class="top-logo" src="@/assets/img/sunmoon-logo-dark.png" alt="sunmoon">
+          <img v-if="isLight" @click="closeRwdMenu()" class="top-logo" src="@/assets/img/sunmoon-logo-bg.png" alt="sunmoon">
+          <img v-else @click="closeRwdMenu()" class="top-logo" src="@/assets/img/sunmoon-logo-dark.png" alt="sunmoon">
         </router-link>
         
         <div v-if="$route.name != 'index'" class="top-search">
@@ -63,12 +63,12 @@
         <router-link to="./" :class="[
           'top-link', {'top-link-dark': !isLight}, {'top-link-on': currentRoute == 'index' && isLight}, {'top-link-on-dark': currentRoute == 'index' && !isLight}
         ]">
-          <div @click="isMenu = !isMenu">HOME</div>
+          <div @click="closeRwdMenu()">HOME</div>
         </router-link>
         <router-link to="./about" :class="[
           'top-link', {'top-link-dark': !isLight}, {'top-link-on': currentRoute == 'about' && isLight}, {'top-link-on-dark': currentRoute == 'about' && !isLight}
         ]">
-          <div @click="isMenu = !isMenu">ABOUT US</div>
+          <div @click="closeRwdMenu()">ABOUT US</div>
         </router-link>
         <div @click="isLight = !isLight" :class="['top-switch', {'top-switch-dark': !isLight}]">
           <img v-if="isLight" class="top-sun" src="@/assets/img/icon/icon-sun.svg" alt="sun">
@@ -150,6 +150,11 @@ export default {
       if (!this.showAutocomplete) return false
       if (!this.$el.contains(evt.target)) {
         this.showAutocomplete = false
+      }
+    },
+    closeRwdMenu () {
+      if (this.screenWidth < 500) {
+        this.isMenu = false
       }
     },
     goToCompany (name) {
@@ -582,7 +587,7 @@ export default {
       font-size: 18px;
     }
 
-    &-rwd-search-text {
+    &-rwd-search-text-dark {
       color: #EAECF4;
     }
 
