@@ -155,7 +155,7 @@
 import * as echarts from 'echarts'
 export default {
   head: {
-    title: 'Intro',
+    title: 'Sunmoon',
   },
   layout: 'default',
   components: {

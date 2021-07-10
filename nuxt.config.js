@@ -10,7 +10,7 @@ export default {
     base: '/sunmoon/'
   },
   head: {
-    titleTemplate: '%s - sunmoon',
+    titleTemplate: '',
     title: 'sunmoon',
     htmlAttrs: {
       lang: 'en'
@@ -18,10 +18,13 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'og:image' , property: 'og:image' , content: 'icon-single-logo.png'},
+      { hid: 'og:type' , property: 'og:type' , content: 'website'},
+      { hid: 'description', name: 'description', content: 'Credit risks prediction Made simple. Explore the brand new way to easily find the right company with us!' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' }
     ]
   },
   // SCSS 配置

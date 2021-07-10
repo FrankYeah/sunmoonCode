@@ -81,7 +81,7 @@
 
 export default {
   head: {
-    title: 'Company',
+    title: 'About',
   },
   layout: 'default',
   components: {
