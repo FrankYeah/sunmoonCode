@@ -36,7 +36,7 @@ export default {
 <style lang="scss">
 
 .bottom {
-  height: 59px;
+  height: 80px;
 
   &-dbg {
     background-color: #242345;
@@ -54,9 +54,9 @@ export default {
   }
 
   &-text {
+    line-height: 80px;
     font-size: 14px;
     color: #D2D2D2;
-    margin: 12px 0px 32px;
     text-align: center;
   }
 
@@ -70,7 +70,7 @@ export default {
 @media( max-width: 500px ){
 
 .bottom {
-  height: 42px;
+  height: 50px;
 
   &-line {
     max-width: initial;
@@ -79,8 +79,8 @@ export default {
   }
 
   &-text {
+    line-height: 50px;
     font-size: 12px;
-    margin: 12px 0px 16px;
   }
 
 }

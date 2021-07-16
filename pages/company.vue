@@ -289,15 +289,15 @@ export default {
         let myChart = this.$echarts.init(document.getElementById('myChart'))
         if (this.isLight) {
           myChart.setOption(this.completeChart(
-            this.chartData[0].dataX,
-            this.chartData[0].dataY1,
-            this.chartData[0].dataY2
+            this.chartData[this.currentMonth].dataX,
+            this.chartData[this.currentMonth].dataY1,
+            this.chartData[this.currentMonth].dataY2
           ), true)
         } else {
           myChart.setOption(this.completeChartDark(
-            this.chartData[0].dataX,
-            this.chartData[0].dataY1,
-            this.chartData[0].dataY2
+            this.chartData[this.currentMonth].dataX,
+            this.chartData[this.currentMonth].dataY1,
+            this.chartData[this.currentMonth].dataY2
           ), true)
         }
       }
@@ -852,6 +852,7 @@ export default {
   max-width: 1100px;
   width: 100%;
   margin: 86px auto 148px auto;
+  transform: translateY(-90px);
 
   &-dbg {
     background-color: #242345;
@@ -1242,6 +1243,7 @@ export default {
     max-width: initial;
     width: calc(100% - 40px);
     margin-bottom: 80px;
+    transform: translateY(0px);
 
     &-title {
       font-size: 24px;
@@ -1338,7 +1340,8 @@ export default {
       }
 
       &-chart {
-        width: 295px;
+        width: calc(108% - 2px);
+        margin-right: 10px;
         height: 300px;
       }
 
@@ -1347,8 +1350,6 @@ export default {
         padding: 0px 0px;
         display: flex;
         color: #D2D2D2;
-        // justify-content: space-between;
-        // margin-top: 0px;
       }
 
       &-desc-dark {
@@ -1357,6 +1358,7 @@ export default {
       
       &-desc-text {
         position: relative;
+        width: calc(50% - 24px);
         padding-left: 24px;
 
         &:before {
@@ -1394,12 +1396,12 @@ export default {
 
       &-desc-text-2 {
         position: relative;
-        padding-left: 34px;
+        padding-left: 24px;
 
         &:before {
           content: '';
           position: absolute;
-          left: 10px;
+          left: 0px;
           top: -1px;
           width: 16px;
           height: 16px;
@@ -1522,6 +1524,38 @@ export default {
     }
 
 
+  }
+
+}
+
+@media( max-width: 430px ){
+
+  .company-rotate-chart {
+    width: calc(109% - 2px);
+  }
+
+}
+
+@media( max-width: 390px ){
+
+  .company-rotate-chart {
+    width: calc(110% - 2px);
+  }
+
+}
+
+@media( max-width: 350px ){
+
+  .company-rotate-chart {
+    width: calc(111% - 2px);
+  }
+
+}
+
+@media( max-width: 332px ){
+
+  .company-rotate-chart {
+    width: calc(112% - 2px);
   }
 
 }

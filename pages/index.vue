@@ -67,7 +67,7 @@
         </div>
       </div>
 
-      <div class="index-wave-img"
+      <div :class="`index-wave-img index-wave-img-${randomNum}`"
         :style="[isLight ? {'backgroundImage': 'url(' + require('@/assets/img/index/mountain-light-'+ randomNum +'.svg') + ')'}
           : {'backgroundImage': 'url(' + require('@/assets/img/index/mountain-dark-'+ randomNum +'.svg') + ')'}]
         "
@@ -83,7 +83,7 @@
           </div>
           <div class="index-wave-talk-right">
             <img class="index-wave-arrow" src="@/assets/img/icon/arrow-green.svg" alt="arrow">
-            <div class="index-wave-arrown-text">SAFE</div>
+            <div class="index-wave-arrow-text">SAFE</div>
           </div>  
         </div>
       
@@ -703,7 +703,7 @@ export default {
     }
 
     &-down-2 {
-      transform: translateY(-41px);
+      transform: translateY(-86px);
     }
 
     &-down-3 {
@@ -762,6 +762,10 @@ export default {
       background-position-x: center;
       background-position-y: top;
       z-index: -1;
+    }
+
+    &-img-2 {
+      top: -185px;
     }
 
     &-talk {
@@ -857,7 +861,8 @@ export default {
       
     }
 
-    &-arrown-text {
+    &-arrow-text {
+      margin-left: 6.5px;
       font-size: 14px;
       font-weight: bold;
       color: #50E3C1;
@@ -1436,6 +1441,10 @@ export default {
         background-position-y: top;
       }
 
+      &-img-2 {
+      top: 0px;
+    }
+
       &-talk {
         top: -76px;
         flex-direction: column;
@@ -1499,8 +1508,8 @@ export default {
         display: none;
       }
 
-      &-arrown-text {
-
+      &-arrow-text {
+        margin-left: 0px;
       }
 
 
