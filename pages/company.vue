@@ -269,6 +269,10 @@ export default {
   },
   mounted () {
     this.screenWidth = window.screen.width
+  
+    // window.onresize = () => { // 定義視窗大小變更通知事件
+
+    // }
 
     this.swiper.on('slideChange', () => {
       this.swiperIndex = this.swiper.activeIndex
@@ -283,6 +287,7 @@ export default {
   },
   methods: {
     drawAllChart () {
+      console.log('1234')
       // 首圖和 swiper
       if (this.screenWidth > 500) {
         this.swiperOption.spaceBetween = 0
@@ -840,7 +845,14 @@ export default {
       handler: function(light) {
         this.drawAllChart()
       }
-    }
+    },
+    screenWidth: {
+      handler: function() {
+        
+      },
+      deep: false,
+      immediate: false
+    },
   }
 }
 </script>
