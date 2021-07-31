@@ -260,10 +260,10 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'cross',
-            label: {
-              backgroundColor: '#6a7985'
-            }
+            // type: 'cross',
+            // label: {
+            //   backgroundColor: '#6a7985'
+            // }
           }
         },
         // chart 跟四周的距離
@@ -379,10 +379,10 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'cross',
-            label: {
-              backgroundColor: '#6a7985'
-            }
+            // type: 'cross',
+            // label: {
+            //   backgroundColor: '#6a7985'
+            // }
           }
         },
         // chart 跟四周的距離

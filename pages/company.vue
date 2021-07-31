@@ -287,7 +287,6 @@ export default {
   },
   methods: {
     drawAllChart () {
-      console.log('1234')
       // 首圖和 swiper
       if (this.screenWidth > 500) {
         this.swiperOption.spaceBetween = 0
@@ -603,10 +602,10 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'cross',
-            label: {
-              backgroundColor: '#6a7985'
-            }
+            // type: 'cross',
+            // label: {
+            //   backgroundColor: '#6a7985'
+            // }
           }
         },
         // chart 跟四周的距離
@@ -722,10 +721,10 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'cross',
-            label: {
-              backgroundColor: '#6a7985'
-            }
+            // type: 'cross',
+            // label: {
+            //   backgroundColor: '#6a7985'
+            // }
           }
         },
         // chart 跟四周的距離
@@ -874,6 +873,7 @@ export default {
     font-size: 48px;
     font-weight: bold;
     color: #2E2E2E;
+    transform: translate(0px, 10px);
   }
 
   &-title-dark {
@@ -1259,6 +1259,7 @@ export default {
 
     &-title {
       font-size: 24px;
+      transform: translate(0px, 0px);
     }
 
     // chart

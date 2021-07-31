@@ -43,12 +43,35 @@
       </div>
 
       <div :class="['about-talk-right', {'about-talk-right-dark': !isLight}]">
-        <input v-model="sendMessage.name" @focus="inputText('name')" :class="['about-talk-input', {'about-talk-input-dark': !isLight}, {'about-talk-input-wrong': validation.name}]" type="text" placeholder="Your name*">
-        <div v-if="validation.name" class="about-talk-wrong-text">Please fill out this field.</div>
-        <input v-model="sendMessage.mail" @focus="inputText('mail')" :class="['about-talk-input', {'about-talk-input-dark': !isLight}, {'about-talk-input-wrong': validation.mail}]" type="text" placeholder="Email address*">
-        <div v-if="validation.mail" class="about-talk-wrong-text">Incorrect email format.</div>
-        <textarea v-model="sendMessage.message" @focus="inputText('message')" :class="['about-talk-textarea', {'about-talk-textarea-dark': !isLight}, {'about-talk-input-wrong': validation.message}]" cols="30" rows="10" placeholder="Message*"></textarea>
-        <div v-if="validation.message" class="about-talk-wrong-text">Please fill out this field.</div>
+        <div class="about-talk-right-outter-box">
+          <div class="about-talk-right-box">
+            <div :class="['about-talk-right-title', {'about-talk-right-title-dark': !isLight}]">Your name*</div>
+            <input v-model="sendMessage.name" @focus="inputText('name')" :class="['about-talk-input', {'about-talk-input-dark': !isLight}, {'about-talk-input-wrong': validation.name}]" type="text">
+            <div v-if="validation.name" class="about-talk-wrong-text">Please fill out this field.</div>
+          </div>
+          <div class="about-talk-right-box">
+            <div :class="['about-talk-right-title', {'about-talk-right-title-dark': !isLight}]">Email address*</div>
+            <input v-model="sendMessage.mail" @focus="inputText('mail')" :class="['about-talk-input', {'about-talk-input-dark': !isLight}, {'about-talk-input-wrong': validation.mail}]" type="text">
+            <div v-if="validation.mail" class="about-talk-wrong-text">Incorrect email format.</div>
+          </div>
+        </div>
+        <div :class="['about-talk-right-title', {'about-talk-right-title-dark': !isLight}]">Message</div>
+        <div class="about-talk-right-bubble-box">
+          <div v-for="(bubble, index) in bubbles"
+            :key="index"
+            @click="bubble.selected = !bubble.selected"
+            :class="[
+              'about-talk-right-bubble',
+              {'about-talk-right-bubble-selected': bubble.selected},
+              {'about-talk-right-bubble-dark': !isLight},
+              {'about-talk-right-bubble-dark-selected': !isLight && bubble.selected},
+            ]"
+          >
+          {{ bubble.text }}
+          </div>
+        </div>
+        <div :class="['about-talk-right-title', {'about-talk-right-title-dark': !isLight}]">Remarks</div>
+        <input v-model="sendMessage.message" @focus="inputText('message')" :class="['about-talk-textarea', {'about-talk-textarea-dark': !isLight}]">
         <div @click="sendData()" :class="['about-talk-btn', {'about-talk-btn-dark': !isLight}]">Send</div>
       </div>
 
@@ -96,7 +119,6 @@ export default {
       validation: {
         name: false,
         mail: false,
-        message: false,
         checkMail: false
       },
       sendMessage: {
@@ -107,7 +129,12 @@ export default {
       popup: {
         success: false,
         wrong: false
-      }
+      },
+      bubbles: [
+        { text: 'How can we collaborate with you?', selected: false },
+        { text: 'Can you help me understand the model more?', selected: false },
+        { text: 'Can you help us to analyze some companies?', selected: false },
+      ]
     }
   },
   mounted () {
@@ -122,8 +149,6 @@ export default {
         this.validation.name = false
       } else if (content == 'mail') {
         this.validation.mail = false
-      } else {
-        this.validation.message = false
       }
     },
     sendData() {
@@ -140,9 +165,6 @@ export default {
         }
         if (this.validation.checkMail) {
           this.validation.mail = true
-        }
-        if (!this.sendMessage.message) {
-          this.validation.message = true
         }
       } else {
 
@@ -392,7 +414,7 @@ export default {
 
     &-right {
       width: 635px;
-      height: 516px;
+      height: auto;
       display: flex;
       flex-direction: column;
       padding: 48px 68px 40px;
@@ -407,10 +429,28 @@ export default {
       border: 0px;
     }
 
+    &-right-outter-box {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-right-box {
+      width: calc(50% - 12px);
+    }
+
+    &-right-title {
+      font-size: 16px;
+      color: #9C9C9C;
+    }
+
+    &-right-title-dark {
+      color: #747BAA;
+    }
+
     &-input {
-      width: 100%;
-      height: 62px;
-      padding-left: 28px;
+      width: calc(100%);
+      height: 52px;
+      margin-top: 10px;
       font-size: 16px;
       margin-bottom: 32px;
       border: 0px;
@@ -427,10 +467,43 @@ export default {
       }
     }
 
+    &-right-bubble-box {
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+    }
+
+    &-right-bubble {
+      color: #9C9C9C;
+      margin-top: 20px;
+      padding: 10px 20px;
+      text-align: left;
+      line-height: 1.3;
+      border: 1px solid #D2D2D2;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    &-right-bubble-dark {
+      color: #747BAA;
+      border: 1px solid #747BAA;
+    }
+
+    &-right-bubble-selected {
+      color: #2E2E2E;
+      background-color: #D2D2D2;
+    }
+
+    &-right-bubble-dark-selected {
+      color: #EAECF4;
+      background-color: #747BAA;
+    }
+
     &-textarea {
-      height: 152px;
-      width: 639px;
-      padding: 21px 0px 0px 28px;
+      width: 100%;
+      height: 52px;
+      margin-top: 10px;
       font-size: 16px;
       border: 0px;
       border-bottom: 1px solid #D2D2D2;
@@ -452,12 +525,12 @@ export default {
     }
 
     &-wrong-text {
-      margin: 8px 0px 32px 28px;
+      margin: 8px 0px 32px 0px;
       color: #FF4866;
     }
 
     &-btn {
-      margin: 40px 0px 0px 486px;
+      margin: 40px 0px 0px 450px;
       width: 185px;
       height: 48px;
       line-height: 48px;
@@ -668,16 +741,36 @@ export default {
         padding: 40px 20px;
       }
 
+      &-right-outter-box {
+        flex-direction: column;
+      }
+
+      &-right-box {
+        width: 100%;
+      }
+
+      &-right-title {
+        
+      }
+
       &-input {
-        width: calc(100% - 20px);
-        padding-left: 0px;
-        padding: 0px 0px 0px 20px;
+        width: calc(100% - 0px);
+        height: 30px;
+        padding: 0px;
+      }
+
+      &-right-bubble-box {
+
+      }
+
+      &-right-bubble {
+        font-size: 16px;
       }
 
       &-textarea {
-        width: calc(100% - 20px);
-        height: 132px;
-        padding: 20px 0px 0px 20px;
+        width: 100%;
+        height: 30px;
+        padding: 8px 0px 8px;
       }
 
       &-input-wrong {
