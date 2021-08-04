@@ -29,6 +29,7 @@ yarn generate
 
 
 ```
+nuxt：系統設定勿動
 Assets：使用資源
 components：組件
 dist：build 檔案
@@ -36,7 +37,7 @@ layouts：初始畫面
 node_modules：install 的檔案
 pages：每一頁
 plugins：使用的擴充工具
-static：靜態檔案
+static：靜態路由檔案
 store：跨組件溝通
 nuxt.config.js：系統設定
 package.json：要安裝的檔案與套件
@@ -51,8 +52,3 @@ pages：index/about/company/noResult
 ```
 
 
-## Nuxt 架構
-
-```
-
-```
