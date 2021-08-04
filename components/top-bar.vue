@@ -1,10 +1,16 @@
 <template>
   <div
-  :class="['top', {'top-scroll': isScroll}, {'top-dbg': !isLight}]"
+  :class="[
+    'top',
+    {'top-scroll': isScroll},
+    {'top-dbg': !isLight},
+    {'top-scroll-dark': !isLight && isScroll},
+  ]"
   >
     <div class="top-box">
       <div class="top-left">
 
+        <!-- 兩種 Logo 呈現 -->
         <router-link to="./" v-if="$route.name != 'index' && screenWidth < 500">
           <img @click="closeRwdMenu()" class="top-small-logo" src="@/assets/img/icon/icon-single-logo.png" alt="sunmoon">
         </router-link>
@@ -13,6 +19,7 @@
           <img v-else @click="closeRwdMenu()" class="top-logo" src="@/assets/img/sunmoon-logo-dark.png" alt="sunmoon">
         </router-link>
         
+        <!-- 搜尋框 -->
         <div v-if="$route.name != 'index'" class="top-search">
           <img v-if="isLight" class="top-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
           <img v-else class="top-search-icon" src="@/assets/img/icon/icon-search-dark.svg" alt="search">
@@ -28,6 +35,7 @@
           </div>
         </div>
 
+        <!-- g.手機版點擊搜尋框的畫面 -->
         <div v-if="showRwdInput" id="rwdSearchPopup" :class="['top-rwd-search-popup', {'top-rwd-search-popup-dark': !isLight}]">
           <div class="top-rwd-search-input-box">
             <img v-if="isLight" @click="showRwdInput = false" class="top-rwd-search-arrow" src="@/assets/img/icon/grey-arrow.svg" alt="arrow">
@@ -59,6 +67,7 @@
 
       </div>
 
+      <!-- 右測畫面 -->
       <div v-if="isMenu" :class="['top-right', {'top-right-dark': !isLight}]">
         <router-link to="./" :class="[
           'top-link', {'top-link-dark': !isLight}, {'top-link-on': currentRoute == 'index' && isLight}, {'top-link-on-dark': currentRoute == 'index' && !isLight}
@@ -203,6 +212,7 @@ export default {
     showRwdInput: {
       handler: function(change) {
         if (change) {
+          // 點開手機版輸入框時，要避免畫面滑動
           let mo = function (e) { e.preventDefault() }
           document.body.style.overflow='hidden'
           document.addEventListener('touchmove', mo, false)
@@ -256,6 +266,11 @@ export default {
 
     &-scroll {
       box-shadow: 0px 3px 12px #00000014;
+    }
+
+    &-scroll-dark {
+      background-color: #28274D;
+      box-shadow: 0px 3px 12px #00000029;
     }
 
     &-box {

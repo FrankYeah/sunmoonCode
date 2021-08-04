@@ -23,10 +23,7 @@
             </div>
           </div>
         </div>
-
       </div>
-
-      
 
     </div>
 
@@ -152,6 +149,7 @@ export default {
       }
     },
     sendData() {
+      // 驗證 email 格式
       let regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if (regex.test(this.sendMessage.mail)) {
         this.validation.checkMail = false
@@ -190,6 +188,7 @@ export default {
     'popup.success': {
       handler: function(change) {
         if (change) {
+          // 畫面不能滑動
           let mo = function (e) { e.preventDefault() }
           document.body.style.overflow='hidden'
           document.addEventListener('touchmove', mo, false)
@@ -203,6 +202,7 @@ export default {
     'popup.wrong': {
       handler: function(change) {
         if (change) {
+          // 畫面不能滑動
           let mo = function (e) { e.preventDefault() }
           document.body.style.overflow='hidden'
           document.addEventListener('touchmove', mo, false)

@@ -118,6 +118,7 @@
             <div :class="['index-chart-btn', {'index-chart-btn-dark': !isLight}]">Contact us for more info</div>
           </router-link>
           <div :class="['index-chart-desc', {'index-chart-desc-dark': !isLight}]">
+            <!-- 判斷光暗切換與紅綠燈號 -->
             <div :class="[
               'index-chart-desc-text', {'index-chart-desc-text-dark': !isLight},
               {'index-chart-desc-text-3': chartData[0].dataY1[0] > chartData[0].dataY2[0] },
@@ -660,7 +661,7 @@ export default {
     // intro right
 
     &-city {
-      width: 630px;
+      width: 530px;
       position: absolute;
       right: -98px;
       top: -38px;
@@ -699,7 +700,7 @@ export default {
     }
 
     &-down-1 {
-      transform: translateY(-71px);
+      transform: translateY(-43px);
     }
 
     &-down-2 {
@@ -707,7 +708,7 @@ export default {
     }
 
     &-down-3 {
-      transform: translateY(-97px);
+      transform: translateY(-49px);
     }
 
     &-down-btn {
@@ -754,7 +755,7 @@ export default {
       width: 100%;
       height: 370px;
       position: absolute;
-      top: -239px;
+      top: -200px;
       left: 50%;
       transform: translatex(-50%);
       background-repeat: no-repeat;
@@ -764,8 +765,16 @@ export default {
       z-index: -1;
     }
 
+    &-img-1 {
+      top: -240px;
+    }
+
     &-img-2 {
       top: -185px;
+    }
+
+    &-img-3 {
+      top: -180px;
     }
 
     &-talk {
@@ -1213,7 +1222,7 @@ export default {
 @media( max-width: 1200px ){
 
   .index-intro-city {
-    right: calc(37.5% - 235px);
+    right: calc(33.5% - 373px);
   }
 
   .index-chart-dot-5 {
@@ -1441,9 +1450,17 @@ export default {
         background-position-y: top;
       }
 
+      &-img-1 {
+        top: 0px;
+      }
+
       &-img-2 {
-      top: 0px;
-    }
+        top: 0px;
+      }
+
+      &-img-3 {
+        top: 0px;
+      }
 
       &-talk {
         top: -76px;

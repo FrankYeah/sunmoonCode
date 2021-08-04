@@ -269,11 +269,6 @@ export default {
   },
   mounted () {
     this.screenWidth = window.screen.width
-  
-    // window.onresize = () => { // 定義視窗大小變更通知事件
-
-    // }
-
     this.swiper.on('slideChange', () => {
       this.swiperIndex = this.swiper.activeIndex
     })
