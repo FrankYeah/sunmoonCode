@@ -704,7 +704,7 @@ export default {
     }
 
     &-down-2 {
-      transform: translateY(-86px);
+      transform: translateY(-66px);
     }
 
     &-down-3 {
@@ -770,7 +770,7 @@ export default {
     }
 
     &-img-2 {
-      top: -185px;
+      top: -162px;
     }
 
     &-img-3 {
@@ -1416,7 +1416,7 @@ export default {
       }
 
       &-down-2 {
-        transform: translate(0px, -12px);
+        transform: translate(0px, -19px);
       }
 
       &-down-3 {
