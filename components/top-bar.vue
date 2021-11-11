@@ -226,7 +226,26 @@ export default {
           document.removeEventListener('touchmove', mo, false)
         }
       },
-    }
+    },
+    searchText: {
+      handler: function(text) {
+        this.$axios.get(`http://139.162.106.118:8000/app/company/?text=${text}`)
+        .then(res => {
+          let temp = null
+          temp = res.data
+          this.companyList = []
+          for (let i = 0; i < temp.length; i++) {
+            this.companyList.push(
+              {
+                name: `${temp[i].name} | ${temp.industry_group} | ${temp.industry_subgroup}`
+              }
+            )
+          }
+        })
+        .catch(er => {
+        })
+      }
+    },
   }
 }
 </script>

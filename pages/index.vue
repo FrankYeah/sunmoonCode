@@ -12,14 +12,14 @@
         <div class="index-intro-search">
           <img v-if="isLight" class="index-intro-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
           <img v-else class="index-intro-search-icon" src="@/assets/img/icon/icon-search-dark.svg" alt="search">
-          <input v-model="searchText" @click.stop="focusInput" @keypress.enter="goToCompany(searchText)"
+          <input v-model="searchText" @click.stop="focusInput" @keypress.enter="goToCompany(0)"
             placeholder="Company name" :class="['index-intro-search-input', {'index-intro-search-input-dark': !isLight}]" type="text"
           >
-          <div @click="goToCompany(searchText)" :class="['index-intro-search-btn', {'index-intro-search-btn-dark': !isLight}]">Search</div>
+          <div @click="goToCompany(0)" :class="['index-intro-search-btn', {'index-intro-search-btn-dark': !isLight}]">Search</div>
           <div v-if="showAutocompleteIndex" :class="['index-intro-search-popup', {'index-intro-search-popup-dark': !isLight}]">
             <div v-for="(company, index) in companyList"
               :key="index"
-              @click.stop="goToCompany(company.name)"
+              @click.stop="goToCompany(index)"
               :class="['index-intro-search-recommend', {'index-intro-search-recommend-dark': !isLight}]"
             >{{ company.name }}</div>
           </div>
@@ -41,7 +41,7 @@
         <img v-if="isLight" @click="showRwdInput = false" class="index-intro-rwd-search-arrow" src="@/assets/img/icon/grey-arrow.svg" alt="arrow">
         <img v-else @click="showRwdInput = false" class="index-intro-rwd-search-arrow" src="@/assets/img/icon/grey-arrow-dark.svg" alt="arrow">
         <input v-model="searchText" ref="rwdInputs"
-          @keypress.enter="goToCompany(searchText)"
+          @keypress.enter="goToCompany(0)"
           :class="['index-intro-rwd-search-input', {'index-intro-rwd-search-input-dark': !isLight}]" type="text"
         >
         <img @click="searchText = ''" v-if="searchText && isLight"  class="index-intro-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
@@ -49,7 +49,7 @@
       </div>
       <div v-for="(company, index) in companyList"
         :key="index"
-        @click="goToCompany(company.name)"
+        @click="goToCompany(index)"
         class="index-intro-rwd-search-text-box"
       >
         <img v-if="isLight" class="index-intro-rwd-search-search"  src="@/assets/img/icon/icon-search.svg" alt="search">
@@ -173,11 +173,7 @@ export default {
       searchText: '',
       showAutocompleteIndex: false,
       companyList: [
-        { name: 'Apple inc. | Consumer electronic・Cupertino, California' },
-        { name: 'Adobe | Consumer electronic・San Francisco, CA' },
-        { name: 'Airbnb | Internet・San Francisco, CA' },
-        { name: 'Airbnb | Internet・San Francisco, CA' },
-        { name: 'Airbnb | Internet・San Francisco, CA' }
+        { name: '' }
       ],
       chartData: [
         {
@@ -193,6 +189,7 @@ export default {
     this.screenWidth = window.screen.width
     this.randomNum = Math.floor(Math.random()*3) + 1
     this.drawChart()
+    
   },
   destroyed () {
 
@@ -231,23 +228,26 @@ export default {
         this.showAutocompleteIndex = true
       }
     },
-    goToCompany (name) {
+    goToCompany (key) {
+      // 把最後搜尋的結果傳到 vuex
+      console.log(this.companyList[key].data)
+
       let mo = function (e) { e.preventDefault() } 
       document.body.style.overflow = ''
       document.removeEventListener('touchmove', mo, false)
       // this.searchText = name
-      if (name == 'error') {
+      if (key == 'error') {
         this.$router.push({
           path: '/noResult',
           query: {
-            step: name
+
           }
         })
       } else {
         this.$router.push({
           path: '/company',
           query: {
-            step: name
+
           }
         })
       }
@@ -521,7 +521,27 @@ export default {
       handler: function(light) {
         this.drawChart()
       }
-    }
+    },
+    searchText: {
+      handler: function(text) {
+        this.$axios.get(`http://139.162.106.118:8000/app/company/?text=${text}`)
+        .then(res => {
+          let temp = null
+          temp = res.data
+          this.companyList = []
+          for (let i = 0; i < temp.length; i++) {
+            this.companyList.push(
+              {
+                name: `${temp[i].name} | ${temp.industry_group} | ${temp.industry_subgroup}`,
+                data: temp[i]
+              }
+            )
+          }
+        })
+        .catch(er => {
+        })
+      }
+    },
   }
 }
 </script>

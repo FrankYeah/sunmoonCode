@@ -137,6 +137,7 @@ export default {
   ],
   modules: [
     '@nuxtjs/pwa',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@nuxtjs/axios'
   ]
 }
