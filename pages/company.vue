@@ -273,12 +273,24 @@ export default {
       this.swiperIndex = this.swiper.activeIndex
     })
 
+    // 取值後畫圖
+    Promise.all([
+      this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.id}`),
+      this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.id}`)
+    ]).then(res => {
+      console.log(res)
+    }).catch(er => {
+
+  })
+
     this.drawAllChart()
+
 
   },
   computed: {
     swiper () { return this.$refs.mySwiper.$swiper },
     isLight() { return this.$store.state.lightMode },
+    searchCompany() { return this.$store.state.searchCompany },
   },
   methods: {
     drawAllChart () {

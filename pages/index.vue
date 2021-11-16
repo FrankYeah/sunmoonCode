@@ -196,6 +196,7 @@ export default {
   },
   computed: {
     isLight() { return this.$store.state.lightMode },
+    searchCompany() { return this.$store.state.searchCompany },
   },
   methods: {
     drawChart () {
@@ -231,6 +232,7 @@ export default {
     goToCompany (key) {
       // 把最後搜尋的結果傳到 vuex
       console.log(this.companyList[key].data)
+      this.$store.commit('setSearchCompany', this.companyList[key].data)
 
       let mo = function (e) { e.preventDefault() } 
       document.body.style.overflow = ''

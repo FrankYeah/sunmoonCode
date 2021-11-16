@@ -90,6 +90,7 @@ export default {
   },
   computed: {
     isLight() { return this.$store.state.lightMode },
+    searchCompany() { return this.$store.state.searchCompany },
   },
   methods: {
     drawChart () {
