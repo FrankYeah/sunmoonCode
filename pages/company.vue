@@ -156,115 +156,29 @@ export default {
       swiperIndex: 0,
       isload: false,
       currentMonth: 0,
-      relateData: [
-        {
-          title: 'Jan, 2021',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
-          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
-        },
-        {
-          title: 'Feb, 2021',
-          subtitle: 'Adobe',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
-          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
-        },
-        {
-          title: 'Mar, 2021',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
-          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
-        },
-      ],
-      chartData: [
-        {
-          title: 'Jan, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
-          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
-        },
-        {
-          title: 'Feb, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
-          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
-        },
-        {
-          title: 'Mar, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
-          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
-        },
-        {
-          title: 'Apr, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
-          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
-        },
-        {
-          title: 'May, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
-          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
-        },
-        {
-          title: 'Jun, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
-          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
-        },
-        {
-          title: 'Jul, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
-          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
-        },
-        {
-          title: 'Aug, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
-          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
-        },
-        {
-          title: 'Sep, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
-          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
-        },
-        {
-          title: 'Oct, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
-          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
-        },
-        {
-          title: 'Nov, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
-          dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
-        },
-        {
-          title: 'Dec, 2020',
-          subtitle: 'Airbnb',
-          dataX: [0, 10 , 20 , 30 ,40 , 50],
-          dataY1: [0.94, 0.96, 0.98, 0.95, 0.93, 0.9],
-          dataY2: [0.92, 0.9, 0.87, 0.86, 0.85, 0.84]
-        },
-      ]
+      allDataX: [],
+      relateData: [],
+      chartData: []
+    }
+  },
+  created() {
+    for (let i = 0; i < 36; i++) {
+      this.chartData.push({
+        title: i,
+        subtitle: 'Airbnb',
+        dataX: [0, 10 , 20 , 30 ,40 , 50],
+        dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
+        dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
+      })
+    }
+    for (let i = 0; i < 6; i++) {
+      this.relateData.push({
+        title: i+'a',
+        subtitle: 'Airbnb',
+        dataX: [0, 10 , 20 , 30 ,40 , 50],
+        dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
+        dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
+      })
     }
   },
   mounted () {
@@ -273,19 +187,39 @@ export default {
       this.swiperIndex = this.swiper.activeIndex
     })
 
+    
+
+    for (let i = 1; i <= 60; i++) {
+      this.allDataX.push(i)
+    }
+
     // 取值後畫圖
     Promise.all([
       this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.id}`),
       this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.id}`)
     ]).then(res => {
-      console.log(res)
+      this.chartData = []
+      let dataLength = 0
+      dataLength = res[0].data.length - 1
+      
+      for (let i = 0; i < 24; i++) {
+        this.chartData.push({
+          title: res[0].data[dataLength-i].date,
+          subtitle: this.searchCompany.name,
+          dataY1: res[0].data[dataLength-i].next_60_m_prediction,
+          dataY2: res[1].data[dataLength-i].next_60_m_prediction
+        })
+      }
+      
+      console.log(this.chartData)
+      this.drawAllChart()
+      
+      // this.relateData = []
     }).catch(er => {
 
   })
 
-    this.drawAllChart()
-
-
+  
   },
   computed: {
     swiper () { return this.$refs.mySwiper.$swiper },
@@ -300,13 +234,15 @@ export default {
         let myChart = this.$echarts.init(document.getElementById('myChart'))
         if (this.isLight) {
           myChart.setOption(this.completeChart(
-            this.chartData[this.currentMonth].dataX,
+            // this.chartData[this.currentMonth].dataX,
+            this.allDataX,
             this.chartData[this.currentMonth].dataY1,
             this.chartData[this.currentMonth].dataY2
           ), true)
         } else {
           myChart.setOption(this.completeChartDark(
-            this.chartData[this.currentMonth].dataX,
+            // this.chartData[this.currentMonth].dataX,
+            this.allDataX,
             this.chartData[this.currentMonth].dataY1,
             this.chartData[this.currentMonth].dataY2
           ), true)
@@ -317,46 +253,54 @@ export default {
       for (let i = 0; i < this.chartData.length; i++) {
         if(this.screenWidth > 500) {
           if (this.isLight) {
-            this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.lessChart(
-              this.chartData[i].dataX,
+            this.$echarts.init(document.getElementById(i)).setOption(this.lessChart(
+              // this.chartData[i].dataX,
+              this.allDataX,
               this.chartData[i].dataY1,
               this.chartData[i].dataY2
             ), true)
           } else {
-            this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.lessChartDark(
-              this.chartData[i].dataX,
+            this.$echarts.init(document.getElementById(i)).setOption(this.lessChartDark(
+              // this.chartData[i].dataX,
+              this.allDataX,
               this.chartData[i].dataY1,
               this.chartData[i].dataY2
             ), true)
           }
         } else {
           if (this.isLight) {
-            this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.completeChart(
-              this.chartData[i].dataX,
+            this.$echarts.init(document.getElementById(i)).setOption(this.completeChart(
+              // this.chartData[i].dataX,
+              this.allDataX,
               this.chartData[i].dataY1,
               this.chartData[i].dataY2
             ), true)
           } else {
-            this.$echarts.init(document.getElementById(this.chartData[i].title)).setOption(this.completeChartDark(
-              this.chartData[i].dataX,
+            this.$echarts.init(document.getElementById(i)).setOption(this.completeChartDark(
+              // this.chartData[i].dataX,
+              this.allDataX,
               this.chartData[i].dataY1,
               this.chartData[i].dataY2
             ), true)
           }
         }
       }
+
+      console.log('即將相關搜尋')
       
       // 相關搜尋
       for (let i = 0; i < this.relateData.length; i++) {
         if (this.isLight) {
-          this.$echarts.init(document.getElementById(this.relateData[i].title)).setOption(this.lessChart(
-            this.relateData[i].dataX,
+          this.$echarts.init(document.getElementById(i+'a')).setOption(this.lessChart(
+            // this.relateData[i].dataX,
+            this.allDataX,
             this.relateData[i].dataY1,
             this.relateData[i].dataY2
           ), true)
         } else {
-          this.$echarts.init(document.getElementById(this.relateData[i].title)).setOption(this.lessChartDark(
-            this.relateData[i].dataX,
+          this.$echarts.init(document.getElementById(i+'a')).setOption(this.lessChartDark(
+            // this.relateData[i].dataX,
+            this.allDataX,
             this.relateData[i].dataY1,
             this.relateData[i].dataY2
           ), true)
@@ -382,13 +326,15 @@ export default {
       let myChart = this.$echarts.init(document.getElementById('myChart'))
       if (this.isLight) {
         myChart.setOption(this.completeChart(
-          this.chartData[month].dataX,
+          // this.chartData[month].dataX,
+          this.allDataX,
           this.chartData[month].dataY1,
           this.chartData[month].dataY2
         ),true)
       } else {
         myChart.setOption(this.completeChartDark(
-          this.chartData[month].dataX,
+          // this.chartData[month].dataX,
+          this.allDataX,
           this.chartData[month].dataY1,
           this.chartData[month].dataY2
         ),true)
@@ -667,6 +613,9 @@ export default {
                 color: '#9C9C9C',
                 fontSize:'14'
               },
+              formatter: function(value, index) {
+                return value.toFixed(1)
+              }
             }, 
           }
         ],
@@ -793,6 +742,9 @@ export default {
                 color: '#A5ABD6',
                 fontSize:'14'
               },
+              formatter: function(value, index) {
+                return value.toFixed(1)
+              }
             }, 
           }
         ],
