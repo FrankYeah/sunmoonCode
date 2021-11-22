@@ -534,7 +534,7 @@ export default {
           for (let i = 0; i < temp.length; i++) {
             this.companyList.push(
               {
-                name: `${temp[i].name} | ${temp.industry_group} | ${temp.industry_subgroup}`,
+                name: `${temp[i].name} | ${temp[i].industry_group} | ${temp[i].industry_subgroup}`,
                 data: temp[i]
               }
             )

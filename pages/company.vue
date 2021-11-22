@@ -2,7 +2,7 @@
   <div class="company">
 
       <!-- 首圖 -->
-      <div :class="['company-title', {'company-title-dark': !isLight}]">Valaris plc</div>
+      <div :class="['company-title', {'company-title-dark': !isLight}]">{{ this.searchCompany.name }}</div>
           <!-- chart -->
       <div class="company-chart">
         <div :class="['company-chart-box', {'company-chart-box-dark': !isLight}]">
@@ -15,7 +15,7 @@
             </div>
           </div>
           <div class="company-chart-right">
-            <div class="company-chart-industry">Industry: Petroleum</div>
+            <div class="company-chart-industry">{{ searchCompany.industry_group }}</div>
             <div class="company-chart-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis id enim pharetra aliquam. Maecenas aliquet facilisis massa eu fringilla.</div>
             <router-link to="./about">
               <div :class="['company-chart-btn', {'company-chart-btn-dark': !isLight}]">Contact us for more info</div>
@@ -53,7 +53,7 @@
                 ]">Default boundary</div>
                 <div :class="['company-rotate-desc-text-2', {'company-rotate-desc-text-2-dark': !isLight}]">Lower boundary</div>
               </div>
-              <div :class="['company-rotate-hint', {'company-rotate-hint-dark': !isLight}]">Industry: Petroleum</div>
+              <div :class="['company-rotate-hint', {'company-rotate-hint-dark': !isLight}]">Industry: {{ searchCompany.industry_group }}</div>
             </div>
           </swiper-slide>
         </swiper>
@@ -63,10 +63,10 @@
         <img v-if="swiperIndex != 0 && !isLight" @click="nextPrev" class="company-rotate-arrow-left"
           src="@/assets/img/icon/grey-arrow-dark.svg" alt="arrow"
         >
-        <img v-if="swiperIndex != 9 && isLight" @click="nextSlide" class="company-rotate-arrow-right"
+        <img v-if="swiperIndex != 33 && isLight" @click="nextSlide" class="company-rotate-arrow-right"
           src="@/assets/img/icon/grey-arrow.svg" alt="arrow"
         >
-        <img v-if="swiperIndex != 9 && !isLight" @click="nextSlide" class="company-rotate-arrow-right"
+        <img v-if="swiperIndex != 33 && !isLight" @click="nextSlide" class="company-rotate-arrow-right"
           src="@/assets/img/icon/grey-arrow-dark.svg" alt="arrow"
         >
         
@@ -180,46 +180,17 @@ export default {
         dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
       })
     }
-  },
-  mounted () {
-    this.screenWidth = window.screen.width
-    this.swiper.on('slideChange', () => {
-      this.swiperIndex = this.swiper.activeIndex
-    })
-
-    
-
     for (let i = 1; i <= 60; i++) {
       this.allDataX.push(i)
     }
-
-    // 取值後畫圖
-    Promise.all([
-      this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.id}`),
-      this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.id}`)
-    ]).then(res => {
-      this.chartData = []
-      let dataLength = 0
-      dataLength = res[0].data.length - 1
-      
-      for (let i = 0; i < 24; i++) {
-        this.chartData.push({
-          title: res[0].data[dataLength-i].date,
-          subtitle: this.searchCompany.name,
-          dataY1: res[0].data[dataLength-i].next_60_m_prediction,
-          dataY2: res[1].data[dataLength-i].next_60_m_prediction
-        })
-      }
-      
-      console.log(this.chartData)
-      this.drawAllChart()
-      
-      // this.relateData = []
-    }).catch(er => {
-
-  })
-
-  
+    this.screenWidth = window.screen.width
+    
+  },
+  mounted () {
+    this.swiper.on('slideChange', () => {
+      this.swiperIndex = this.swiper.activeIndex
+    })
+    this.getChartData()
   },
   computed: {
     swiper () { return this.$refs.mySwiper.$swiper },
@@ -227,6 +198,67 @@ export default {
     searchCompany() { return this.$store.state.searchCompany },
   },
   methods: {
+    getChartData() {
+      // 取值後畫首 & 輪播圖
+      Promise.all([
+        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.id}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.id}`)
+      ]).then(res => {
+        this.chartData = []
+        
+        // dataY2 黃線 ev
+        for (let i = 0; i < 36; i++) {
+          this.chartData.push({
+            title: res[0].data[i].date,
+            subtitle: this.searchCompany.name,
+            dataY1: res[0].data[i].next_60_m_prediction,
+            dataY2: res[1].data[i].next_60_m_prediction
+          })
+        }
+        
+        console.log(this.chartData)
+        this.drawAllChart()
+        
+        // this.relateData = []
+      }).catch(er => {
+
+      })
+
+      // 取值後畫 relative chart
+      Promise.all([
+        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[0]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[0]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[1]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[1]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[2]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[2]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[3]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[3]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[4]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[4]}`)
+      ]).then(res => {
+        console.log(res)
+        this.relateData = []
+
+        for (let i = 0; i < 5; i++) {
+          console.log(i*2)
+          console.log(i*2+1)
+          this.relateData.push({
+            title: res[i*2].data[0].date,
+            subtitle: this.searchCompany.name,
+            dataY1: res[i*2].data[0].next_60_m_prediction,
+            dataY2: res[i*2+1].data[0].next_60_m_prediction
+          })
+        }
+        
+        console.log(this.relateData)
+        this.drawRelativeChart()
+        
+      }).catch(er => {
+
+      })
+
+    },
     drawAllChart () {
       // 首圖和 swiper
       if (this.screenWidth > 500) {
@@ -285,9 +317,10 @@ export default {
           }
         }
       }
-
-      console.log('即將相關搜尋')
       
+      
+    },
+    drawRelativeChart() {
       // 相關搜尋
       for (let i = 0; i < this.relateData.length; i++) {
         if (this.isLight) {
@@ -802,6 +835,7 @@ export default {
     isLight: {
       handler: function(light) {
         this.drawAllChart()
+        this.drawRelativeChart()
       }
     },
     screenWidth: {
