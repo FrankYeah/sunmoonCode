@@ -184,18 +184,32 @@ export default {
     for (let i = 1; i <= 60; i++) {
       this.allDataX.push(i)
     }
-    
+
     if(this.searchCompany.name == '') {
+      // let temp
+      // temp = {
+      //   id:27428,
+      //   industry_group:"Home Furnishings",
+      //   industry_sector:"Consumer, Cyclical",
+      //   industry_subgroup:"Appliances",
+      //   name:"Fedders Corp"
+      // }
+      // this.$store.commit('setSearchCompany', temp)
+
       this.$router.push({
         path: '/',
         query: {
 
         }
       })
-      return
     }
+    
   },
   mounted () {
+    if(this.searchCompany.name == '') {
+      return
+    }
+    
     this.screenWidth = window.screen.width
     this.swiper.on('slideChange', () => {
       this.swiperIndex = this.swiper.activeIndex
