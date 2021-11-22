@@ -23,13 +23,13 @@
         <div v-if="$route.name != 'index'" class="top-search">
           <img v-if="isLight" class="top-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
           <img v-else class="top-search-icon" src="@/assets/img/icon/icon-search-dark.svg" alt="search">
-          <input v-model="searchText" @click="focusInput" @keypress.enter="goToCompany(searchText)"
+          <input v-model="searchText" @click="focusInput" @keypress.enter="goToCompany(0)"
             :class="['top-search-input', {'top-search-input-dark': !isLight}]" type="text" placeholder="Company name"
           >
           <div v-if="showAutocomplete" :class="['top-search-popup', {'top-search-popup-dark': !isLight}]">
             <div v-for="(company, index) in companyList"
               :key="index"
-              @click="goToCompany(company.name)"
+              @click="goToCompany(index)"
               :class="['top-search-recommend', {'top-search-recommend-dark': !isLight}]"
             >{{ company.name }}</div>
           </div>
@@ -41,7 +41,7 @@
             <img v-if="isLight" @click="showRwdInput = false" class="top-rwd-search-arrow" src="@/assets/img/icon/grey-arrow.svg" alt="arrow">
             <img v-else @click="showRwdInput = false" class="top-rwd-search-arrow" src="@/assets/img/icon/grey-arrow-dark.svg" alt="arrow">
             <input v-model="searchText" ref="rwdInput"
-              @keypress.enter="goToCompany(searchText)"
+              @keypress.enter="goToCompany(0)"
               :class="['top-rwd-search-input', {'top-rwd-search-input-dark': !isLight}]" type="text"
             >
             <img @click="searchText = ''" v-if="searchText && isLight" class="top-rwd-search-close"  src="@/assets/img/icon/icon-close.svg" alt="close">
@@ -49,7 +49,7 @@
           </div>
           <div v-for="(company, index) in companyList"
             :key="index"
-            @click="goToCompany(company.name)"
+            @click="goToCompany(index)"
             class="top-rwd-search-text-box"
           >
             <img v-if="isLight" class="top-rwd-search-search"  src="@/assets/img/icon/icon-search.svg" alt="search">
@@ -106,11 +106,7 @@ export default {
     isScroll: false,
     currentRoute: null,
     companyList: [
-      { name: 'Apple inc. | Consumer electronic・Cupertino, CA' },
-      { name: 'Adobe | Consumer electronic・San Francisco, CA' },
-      { name: 'Airbnb | Internet・San Francisco, CA' },
-      { name: 'Airbnb | Internet・San Francisco, CA' },
-      { name: 'Airbnb | Internet・San Francisco, CA' }
+      { name: '' }
     ]
   }),
   mounted () {
@@ -166,22 +162,32 @@ export default {
         this.isMenu = false
       }
     },
-    goToCompany (name) {
+    goToCompany (key) {
       this.showRwdInput = false
       this.showAutocomplete = false
+
+      if(this.companyList.length == 0) {
+        return
+      } else if(!this.companyList[0].name) {
+        return
+      }
+
+      // 把最後搜尋的結果傳到 vuex
+      this.$store.commit('setSearchCompany', this.companyList[key].data)
       this.searchText = ''
-      if (name == 'error') {
+
+      if (key == 'error') {
         this.$router.push({
           path: '/noResult',
           query: {
-            step: name
+
           }
         })
       } else {
         this.$router.push({
-          path: '/company',
+          path: '/blank',
           query: {
-            step: name
+
           }
         })
       }
@@ -190,6 +196,7 @@ export default {
   computed: {
     // only here name it
     lightMode() { return this.$store.state.lightMode },
+    searchCompany() { return this.$store.state.searchCompany },
   },
   watch: {
     '$route.name': {
@@ -237,7 +244,8 @@ export default {
           for (let i = 0; i < temp.length; i++) {
             this.companyList.push(
               {
-                name: `${temp[i].name} | ${temp.industry_group} | ${temp.industry_subgroup}`
+                name: `${temp[i].name} | ${temp[i].industry_group} | ${temp[i].industry_subgroup}`,
+                data: temp[i]
               }
             )
           }

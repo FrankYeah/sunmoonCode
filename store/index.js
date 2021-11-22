@@ -2,7 +2,9 @@ export const strict = false
 
 export const state = () => ({
   lightMode: true,
-  searchCompany: {}
+  searchCompany: {
+    name: ''
+  }
 })
 
 export const mutations = {

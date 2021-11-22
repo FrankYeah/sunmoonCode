@@ -89,7 +89,7 @@
           v-for="(relate, index) in relateData"
           v-show="index < 2 || isload"
           :key="index"
-          @click="goToCompany()"
+          @click="goToCompany(relate.relateSearchData)"
         >
           <div :class="['company-relate-chart-box', {'company-relate-chart-box-dark': !isLight}]">
             <div class="company-relate-chart-subtitle">{{ relate.subtitle }}</div>
@@ -97,13 +97,13 @@
             <div class="company-relate-chart" :id="relate.title"></div>
           </div>
           <div class="company-relate-desc">
-            <div class="company-relate-desc-title">Agilent Technologies</div>
+            <div class="company-relate-desc-title">{{ relate.title }}</div>
             <div class="company-relate-desc-text">
               Status:
               <span v-if="relate.dataY1[0] > relate.dataY2[0]" style="color: #50E3C1">Safe</span>
               <span v-else style="color: #FF4866">Danger</span>
             </div>
-            <div class="company-relate-desc-text">Industry: Biotechnology</div>
+            <div class="company-relate-desc-text">{{ relate.subtitle }}</div>
           </div>
         </div>
 
@@ -175,6 +175,7 @@ export default {
       this.relateData.push({
         title: i+'a',
         subtitle: 'Airbnb',
+        relateSearchData: {},
         dataX: [0, 10 , 20 , 30 ,40 , 50],
         dataY1: [0.94, 0.96, 0.98, 0.95, 0.88, 0.82],
         dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
@@ -183,10 +184,19 @@ export default {
     for (let i = 1; i <= 60; i++) {
       this.allDataX.push(i)
     }
-    this.screenWidth = window.screen.width
     
+    if(this.searchCompany.name == '') {
+      this.$router.push({
+        path: '/',
+        query: {
+
+        }
+      })
+      return
+    }
   },
   mounted () {
+    this.screenWidth = window.screen.width
     this.swiper.on('slideChange', () => {
       this.swiperIndex = this.swiper.activeIndex
     })
@@ -226,14 +236,19 @@ export default {
 
       // 取值後畫 relative chart
       Promise.all([
+        this.$axios.get(`http://139.162.106.118:8000/app/company/?id=${this.searchCompany.related_companies[0]}`),
         this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[0]}`),
         this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[0]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/company/?id=${this.searchCompany.related_companies[1]}`),
         this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[1]}`),
         this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[1]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/company/?id=${this.searchCompany.related_companies[2]}`),
         this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[2]}`),
         this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[2]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/company/?id=${this.searchCompany.related_companies[3]}`),
         this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[3]}`),
         this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[3]}`),
+        this.$axios.get(`http://139.162.106.118:8000/app/company/?id=${this.searchCompany.related_companies[4]}`),
         this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[4]}`),
         this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[4]}`)
       ]).then(res => {
@@ -241,17 +256,16 @@ export default {
         this.relateData = []
 
         for (let i = 0; i < 5; i++) {
-          console.log(i*2)
-          console.log(i*2+1)
           this.relateData.push({
-            title: res[i*2].data[0].date,
-            subtitle: this.searchCompany.name,
-            dataY1: res[i*2].data[0].next_60_m_prediction,
-            dataY2: res[i*2+1].data[0].next_60_m_prediction
+            title: res[i*3].data[0].name,
+            subtitle: res[i*3].data[0].industry_group,
+            relateSearchData: res[i*3].data[0],
+            dataY1: res[i*3+1].data[0].next_60_m_prediction,
+            dataY2: res[i*3+2].data[0].next_60_m_prediction
           })
         }
         
-        console.log(this.relateData)
+
         this.drawRelativeChart()
         
       }).catch(er => {
@@ -340,12 +354,10 @@ export default {
         }
       }
     },
-    goToCompany (name) {
+    goToCompany (relateSearchData) {
+      this.$store.commit('setSearchCompany', relateSearchData)
       this.$router.push({
-        path: '/company',
-        query: {
-          step: name
-        }
+        path: '/blank'
       })
     },
     nextPrev () {

@@ -72,8 +72,8 @@
           : {'backgroundImage': 'url(' + require('@/assets/img/index/mountain-dark-'+ randomNum +'.svg') + ')'}]
         "
       >
-
-        <div @click="goToCompany('valaris')"
+        <!-- @click="goToCompany('valaris')" -->
+        <div 
           :class="`index-wave-talk index-wave-talk-${randomNum}`"
         >
           <div class="index-wave-talk-left">
@@ -230,14 +230,19 @@ export default {
       }
     },
     goToCompany (key) {
-      // 把最後搜尋的結果傳到 vuex
-      console.log(this.companyList[key].data)
-      this.$store.commit('setSearchCompany', this.companyList[key].data)
-
       let mo = function (e) { e.preventDefault() } 
       document.body.style.overflow = ''
       document.removeEventListener('touchmove', mo, false)
-      // this.searchText = name
+      
+      if(this.companyList.length == 0) {
+        return
+      } else if(!this.companyList[0].name) {
+        return
+      }
+
+      // 把最後搜尋的結果傳到 vuex
+      this.$store.commit('setSearchCompany', this.companyList[key].data)
+
       if (key == 'error') {
         this.$router.push({
           path: '/noResult',
@@ -811,11 +816,11 @@ export default {
       background-size: cover;
       background-position-x: center;
       background-position-y: top;
-      cursor: pointer;
+      // cursor: pointer;
 
-      &:hover {
-        opacity: 0.8;
-      }
+      // &:hover {
+      //   opacity: 0.8;
+      // }
 
       &::before {
         content: '';
