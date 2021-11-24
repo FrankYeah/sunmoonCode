@@ -12,15 +12,22 @@
         <div class="index-intro-search">
           <img v-if="isLight" class="index-intro-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
           <img v-else class="index-intro-search-icon" src="@/assets/img/icon/icon-search-dark.svg" alt="search">
-          <input v-model="searchText" @click.stop="focusInput" @keypress.enter="goToCompany(0)"
+          <input v-model="searchText" @click.stop="focusInput" @keypress.enter="goToCompany(currentSelect)"
             placeholder="Company name" :class="['index-intro-search-input', {'index-intro-search-input-dark': !isLight}]" type="text"
           >
           <div @click="goToCompany(0)" :class="['index-intro-search-btn', {'index-intro-search-btn-dark': !isLight}]">Search</div>
-          <div v-if="showAutocompleteIndex" :class="['index-intro-search-popup', {'index-intro-search-popup-dark': !isLight}]">
+          <div v-if="showAutocompleteIndex"
+            :class="['index-intro-search-popup',
+              {'index-intro-search-popup-dark': !isLight},
+            ]">
             <div v-for="(company, index) in companyList"
               :key="index"
               @click.stop="goToCompany(index)"
-              :class="['index-intro-search-recommend', {'index-intro-search-recommend-dark': !isLight}]"
+              :class="['index-intro-search-recommend',
+                {'index-intro-search-recommend-dark': !isLight},
+                {'index-intro-search-recommend-hover': index == currentSelect},
+                {'index-intro-search-recommend-dark-hover': !isLight && index == currentSelect}
+              ]"
             >{{ company.name }}</div>
           </div>
         </div>
@@ -172,6 +179,7 @@ export default {
       randomNum: 1,
       searchText: '',
       showAutocompleteIndex: false,
+      currentSelect: -1,
       companyList: [
         { name: '' }
       ],
@@ -189,16 +197,33 @@ export default {
     this.screenWidth = window.screen.width
     this.randomNum = Math.floor(Math.random()*3) + 1
     this.drawChart()
-    
+    document.addEventListener('keydown', this.keydownSelect, false)
   },
   destroyed () {
-
+    document.removeEventListener('keydown', this.keydownSelect, false)
   },
   computed: {
     isLight() { return this.$store.state.lightMode },
     searchCompany() { return this.$store.state.searchCompany },
   },
   methods: {
+    keydownSelect(e) {
+      if(this.showAutocompleteIndex) {
+        if(e.keyCode == 38) {
+          // 上 計算數值
+          if(this.currentSelect != 0) {
+            this.currentSelect--
+          }
+          
+        } else if(e.keyCode == 40) {
+          // 下 計算數值
+          if(this.currentSelect != this.companyList.length - 1) {
+            this.currentSelect++
+          }
+
+        } 
+      }
+    },
     drawChart () {
       let myChart = this.$echarts.init(document.getElementById('myChart'))
       if (this.isLight) {
@@ -251,6 +276,7 @@ export default {
           }
         })
       } else {
+        this.currentSelect = -1
         this.$router.push({
           path: '/company',
           query: {
@@ -675,6 +701,11 @@ export default {
       }
     }
 
+    &-search-recommend-hover {
+      opacity: 0.8;
+      background-color: #F7F7F7;
+    }
+
     &-search-recommend-dark {
       color: #242345;
 
@@ -682,6 +713,12 @@ export default {
         background-color: #747BAA;
         color: #EAECF4;
       }
+    }
+
+    &-search-recommend-dark-hover {
+      opacity: 0.8;
+      background-color: #747BAA;
+      color: #EAECF4;
     }
 
     

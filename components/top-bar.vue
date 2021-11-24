@@ -23,14 +23,18 @@
         <div v-if="$route.name != 'index'" class="top-search">
           <img v-if="isLight" class="top-search-icon" src="@/assets/img/icon/icon-search.svg" alt="search">
           <img v-else class="top-search-icon" src="@/assets/img/icon/icon-search-dark.svg" alt="search">
-          <input v-model="searchText" @click="focusInput" @keypress.enter="goToCompany(0)"
+          <input v-model="searchText" @click="focusInput" @keypress.enter="goToCompany(currentSelect)"
             :class="['top-search-input', {'top-search-input-dark': !isLight}]" type="text" placeholder="Company name"
           >
           <div v-if="showAutocomplete" :class="['top-search-popup', {'top-search-popup-dark': !isLight}]">
             <div v-for="(company, index) in companyList"
               :key="index"
               @click="goToCompany(index)"
-              :class="['top-search-recommend', {'top-search-recommend-dark': !isLight}]"
+              :class="['top-search-recommend',
+                {'top-search-recommend-dark': !isLight},
+                {'top-search-recommend-hover': index == currentSelect},
+                {'top-search-recommend-dark-hover': !isLight && index == currentSelect}
+              ]"
             >{{ company.name }}</div>
           </div>
         </div>
@@ -99,6 +103,7 @@ export default {
   data: () => ({
     screenWidth: null,
     isMenu: false,
+    currentSelect: -1,
     showRwdInput: false,
     searchText: '',
     isLight: true,
@@ -124,12 +129,32 @@ export default {
     
     document.addEventListener('click', this.autoHide, false)
     document.addEventListener('click', this.autoHideMenu, false)
+    document.addEventListener('keydown', this.keydownSelect, false)
   },
   destroyed () {
     document.removeEventListener('click', this.autoHide, false)
     document.removeEventListener('click', this.autoHideMenu, false)
+    document.removeEventListener('keydown', this.keydownSelect, false)
   },
   methods: {
+    keydownSelect(e) {
+      if(this.showAutocomplete) {
+        if(e.keyCode == 38) {
+          // 上 計算數值
+          if(this.currentSelect != 0) {
+            this.currentSelect--
+            console.log(this.currentSelect)
+          }
+          
+        } else if(e.keyCode == 40) {
+          // 下 計算數值
+          if(this.currentSelect != this.companyList.length - 1) {
+            this.currentSelect++
+          }
+
+        } 
+      }
+    },
     focusInput () {
       if (this.screenWidth < 500) {
         this.isMenu = false
@@ -184,6 +209,7 @@ export default {
           }
         })
       } else {
+        this.currentSelect = -1
         this.$router.push({
           path: '/blank',
           query: {
@@ -391,6 +417,11 @@ export default {
       }
     }
 
+    &-search-recommend-hover {
+      opacity: 0.8;
+      background: #F7F7F7;
+    }
+
     &-search-recommend-dark {
       color: #242345;
 
@@ -398,6 +429,12 @@ export default {
         background-color: #747BAA;
         color: #EAECF4;
       }
+    }
+
+    &-search-recommend-dark-hover {
+      opacity: 0.8;
+      background-color: #747BAA;
+      color: #EAECF4;
     }
 
 

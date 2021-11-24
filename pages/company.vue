@@ -181,7 +181,7 @@ export default {
         dataY2: [0.96, 0.94, 0.92, 0.9, 0.88, 0.86]
       })
     }
-    for (let i = 1; i <= 60; i++) {
+    for (let i = 0; i < 60; i++) {
       this.allDataX.push(i)
     }
 
@@ -648,6 +648,7 @@ export default {
                 color: '#9C9C9C',
                 fontSize:'14'
               },
+              interval: 11
             }, 
             data: dataX
           }
@@ -770,6 +771,7 @@ export default {
                 color: '#A5ABD6',
                 fontSize:'14'
               },
+              interval: 11
             }, 
             data: dataX
           }
