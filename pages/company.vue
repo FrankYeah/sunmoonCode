@@ -23,8 +23,8 @@
             <div :class="['company-chart-desc', {'company-chart-desc-dark': !isLight}]">
               <div :class="[
                 'company-chart-desc-text', {'company-chart-desc-text-dark': !isLight},
-                {'company-chart-desc-text-3': chartData[currentMonth].dataY1[0] > chartData[currentMonth].dataY2[0] },
-                {'company-chart-desc-text-3-dark': chartData[currentMonth].dataY1[0] > chartData[currentMonth].dataY2[0] && !isLight }
+                {'company-chart-desc-text-3': isAllSafe.first },
+                {'company-chart-desc-text-3-dark': isAllSafe.first && !isLight }
                 ]">Default boundary</div>
               <div :class="['company-chart-desc-text-2', {'company-chart-desc-text-2-dark': !isLight}]">Lower boundary</div>
             </div>
@@ -100,7 +100,7 @@
             <div class="company-relate-desc-title">{{ relate.title }}</div>
             <div class="company-relate-desc-text">
               Status:
-              <span v-if="relate.dataY1[0] > relate.dataY2[0]" style="color: #50E3C1">Safe</span>
+              <span v-if="isAllSafe.relate[index]" style="color: #50E3C1">Safe</span>
               <span v-else style="color: #FF4866">Danger</span>
             </div>
             <div class="company-relate-desc-text">{{ relate.subtitle }}</div>
@@ -158,7 +158,11 @@ export default {
       currentMonth: 0,
       allDataX: [],
       relateData: [],
-      chartData: []
+      chartData: [],
+      isAllSafe: {
+        first: true,
+        relate: [true, true, true, true, true]
+      }
     }
   },
   created() {
@@ -288,6 +292,16 @@ export default {
 
     },
     drawAllChart () {
+      let isFirstSafe = true
+      this.isAllSafe.first = true
+
+      for(let k = 0; k < this.chartData[this.currentMonth].dataY1.length; k++) {
+        if(this.chartData[this.currentMonth].dataY1[k] > this.chartData[this.currentMonth].dataY2[k]) {
+          isFirstSafe = false
+          this.isAllSafe.first = false
+        }
+      }
+
       // 首圖和 swiper
       if (this.screenWidth > 500) {
         this.swiperOption.spaceBetween = 0
@@ -297,34 +311,47 @@ export default {
             // this.chartData[this.currentMonth].dataX,
             this.allDataX,
             this.chartData[this.currentMonth].dataY1,
-            this.chartData[this.currentMonth].dataY2
+            this.chartData[this.currentMonth].dataY2,
+            isFirstSafe
           ), true)
         } else {
           myChart.setOption(this.completeChartDark(
             // this.chartData[this.currentMonth].dataX,
             this.allDataX,
             this.chartData[this.currentMonth].dataY1,
-            this.chartData[this.currentMonth].dataY2
+            this.chartData[this.currentMonth].dataY2,
+            isFirstSafe
           ), true)
         }
       }
 
       // 輪播圖
       for (let i = 0; i < this.chartData.length; i++) {
+        let isRotateSafe = true
+
+        for(let j = 0; j < this.chartData[i].dataY1.length; j++) {
+          if(this.chartData[i].dataY1[j] > this.chartData[i].dataY2[j]) {
+            isRotateSafe = false
+
+          }
+        }
+
         if(this.screenWidth > 500) {
           if (this.isLight) {
             this.$echarts.init(document.getElementById(i)).setOption(this.lessChart(
               // this.chartData[i].dataX,
               this.allDataX,
               this.chartData[i].dataY1,
-              this.chartData[i].dataY2
+              this.chartData[i].dataY2,
+              isRotateSafe
             ), true)
           } else {
             this.$echarts.init(document.getElementById(i)).setOption(this.lessChartDark(
               // this.chartData[i].dataX,
               this.allDataX,
               this.chartData[i].dataY1,
-              this.chartData[i].dataY2
+              this.chartData[i].dataY2,
+              isRotateSafe
             ), true)
           }
         } else {
@@ -333,14 +360,16 @@ export default {
               // this.chartData[i].dataX,
               this.allDataX,
               this.chartData[i].dataY1,
-              this.chartData[i].dataY2
+              this.chartData[i].dataY2,
+              isRotateSafe
             ), true)
           } else {
             this.$echarts.init(document.getElementById(i)).setOption(this.completeChartDark(
               // this.chartData[i].dataX,
               this.allDataX,
               this.chartData[i].dataY1,
-              this.chartData[i].dataY2
+              this.chartData[i].dataY2,
+              isRotateSafe
             ), true)
           }
         }
@@ -351,19 +380,31 @@ export default {
     drawRelativeChart() {
       // 相關搜尋
       for (let i = 0; i < this.relateData.length; i++) {
+        let isRelateSafe = true
+        this.isAllSafe.relate = [true, true, true, true, true]
+
+        for(let j = 0; j < this.relateData[i].dataY1.length; j++) {
+          if(this.relateData[i].dataY1[j] > this.relateData[i].dataY2[j]) {
+            isRelateSafe = false
+            this.isAllSafe.relate[i] = false
+          }
+        }
+
         if (this.isLight) {
           this.$echarts.init(document.getElementById(i+'a')).setOption(this.lessChart(
             // this.relateData[i].dataX,
             this.allDataX,
             this.relateData[i].dataY1,
-            this.relateData[i].dataY2
+            this.relateData[i].dataY2,
+            isRelateSafe
           ), true)
         } else {
           this.$echarts.init(document.getElementById(i+'a')).setOption(this.lessChartDark(
             // this.relateData[i].dataX,
             this.allDataX,
             this.relateData[i].dataY1,
-            this.relateData[i].dataY2
+            this.relateData[i].dataY2,
+            isRelateSafe
           ), true)
         }
       }
@@ -383,23 +424,36 @@ export default {
     changeMonthDisplay (month) {
       this.currentMonth = month
       let myChart = this.$echarts.init(document.getElementById('myChart'))
+
+      let isChangeSafe = true
+      this.isAllSafe.first = true
+
+      for(let j = 0; j < this.chartData[month].dataY1.length; j++) {
+        if(this.chartData[month].dataY1[j] > this.chartData[month].dataY2[j]) {
+          isChangeSafe = false
+          this.isAllSafe.first = false
+        }
+      }
+
       if (this.isLight) {
         myChart.setOption(this.completeChart(
           // this.chartData[month].dataX,
           this.allDataX,
           this.chartData[month].dataY1,
-          this.chartData[month].dataY2
+          this.chartData[month].dataY2,
+          isChangeSafe
         ),true)
       } else {
         myChart.setOption(this.completeChartDark(
           // this.chartData[month].dataX,
           this.allDataX,
           this.chartData[month].dataY1,
-          this.chartData[month].dataY2
+          this.chartData[month].dataY2,
+          isChangeSafe
         ),true)
       }
     },
-    lessChart (dataX, dataY1, dataY2) {
+    lessChart (dataX, dataY1, dataY2, isSafe) {
       let chart = {
         title: {
           text: ''
@@ -461,11 +515,11 @@ export default {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                   { 
                   offset: 0,
-                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  color: isSafe ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
                   },
                   {
                     offset: .43,
-                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                    color: isSafe ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
                   },
                   {
                     offset: 1,
@@ -476,11 +530,11 @@ export default {
             },
             itemStyle:{
               normal:{
-                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                color: isSafe ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
               },
             },
             lineStyle: {
-              color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
+              color: isSafe ?'rgba(80,227,193)' : 'rgba(255,119,141)'
             },
             data: dataY1,
           },
@@ -502,7 +556,7 @@ export default {
       }
       return chart
     },
-    lessChartDark (dataX, dataY1, dataY2) {
+    lessChartDark (dataX, dataY1, dataY2, isSafe) {
       let chart = {
         title: {
           text: ''
@@ -564,11 +618,11 @@ export default {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                   { 
                   offset: 0,
-                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  color: isSafe ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
                   },
                   {
                     offset: .43,
-                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                    color: isSafe ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
                   },
                   {
                     offset: 1,
@@ -579,11 +633,11 @@ export default {
             },
             itemStyle:{
               normal:{
-                color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                color: isSafe ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
               },
             },
             lineStyle: {
-              color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+              color: isSafe ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
             },
             data: dataY1,
           },
@@ -605,7 +659,7 @@ export default {
       }
       return chart
     },
-    completeChart (dataX, dataY1, dataY2) {
+    completeChart (dataX, dataY1, dataY2, isSafe) {
       let chart = {
         title: {
           text: ''
@@ -688,11 +742,12 @@ export default {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                   { 
                   offset: 0,
-                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  color: isSafe ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
                   },
+                  // 綠、紅
                   {
                     offset: .43,
-                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                    color: isSafe ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
                   },
                   {
                     offset: 1,
@@ -703,11 +758,11 @@ export default {
             },
             itemStyle:{
               normal:{
-                color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                color: isSafe ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
               },
             },
             lineStyle: {
-              color: dataY1[0] > dataY2[0] ?'rgba(80,227,193)' : 'rgba(255,119,141)'
+              color: isSafe ?'rgba(80,227,193)' : 'rgba(255,119,141)'
             },
             data: dataY1,
           },
@@ -728,7 +783,7 @@ export default {
       }
       return chart
     },
-    completeChartDark (dataX, dataY1, dataY2) {
+    completeChartDark (dataX, dataY1, dataY2, isSafe) {
       let chart = {
         title: {
           text: ''
@@ -818,11 +873,11 @@ export default {
                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                   { 
                   offset: 0,
-                  color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                  color: isSafe ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
                   },
                   {
                     offset: .43,
-                    color: dataY1[0] > dataY2[0] ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                    color: isSafe ?'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
                   },
                   {
                     offset: 1,
@@ -833,11 +888,11 @@ export default {
             },
             itemStyle:{
               normal:{
-                color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+                color: isSafe ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
               },
             },
             lineStyle: {
-              color: dataY1[0] > dataY2[0] ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
+              color: isSafe ? 'rgba(80,227,193,0.3)' : 'rgba(255,119,141,0.3)'
             },
             data: dataY1,
           },
@@ -862,8 +917,12 @@ export default {
   watch: {
     isLight: {
       handler: function(light) {
-        this.drawAllChart()
-        this.drawRelativeChart()
+        this.$router.push({
+          path: '/blank',
+          query: {
+
+          }
+        })
       }
     },
     screenWidth: {
