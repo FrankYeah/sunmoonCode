@@ -205,6 +205,7 @@ export default {
   computed: {
     isLight() { return this.$store.state.lightMode },
     searchCompany() { return this.$store.state.searchCompany },
+    apiAddress() { return this.$store.state.apiAddress },
   },
   methods: {
     keydownSelect(e) {
@@ -557,7 +558,7 @@ export default {
     },
     searchText: {
       handler: function(text) {
-        this.$axios.get(`http://139.162.106.118:8000/app/company/?text=${text}`)
+        this.$axios.get(`${this.apiAddress}/app/company/?text=${text}`)
         .then(res => {
           let temp = null
           temp = res.data

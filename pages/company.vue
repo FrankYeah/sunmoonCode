@@ -224,13 +224,14 @@ export default {
     swiper () { return this.$refs.mySwiper.$swiper },
     isLight() { return this.$store.state.lightMode },
     searchCompany() { return this.$store.state.searchCompany },
+    apiAddress() { return this.$store.state.apiAddress },
   },
   methods: {
     getChartData() {
       // 取值後畫首 & 輪播圖
       Promise.all([
-        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.id}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.id}`)
+        this.$axios.get(`${this.apiAddress}/app/ib/?company_id=${this.searchCompany.id}`),
+        this.$axios.get(`${this.apiAddress}/app/ev/?company_id=${this.searchCompany.id}`)
       ]).then(res => {
         this.chartData = []
         
@@ -254,21 +255,21 @@ export default {
 
       // 取值後畫 relative chart
       Promise.all([
-        this.$axios.get(`http://139.162.106.118:8000/app/company/?id=${this.searchCompany.related_companies[0]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[0]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[0]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/company/?id=${this.searchCompany.related_companies[1]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[1]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[1]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/company/?id=${this.searchCompany.related_companies[2]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[2]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[2]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/company/?id=${this.searchCompany.related_companies[3]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[3]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[3]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/company/?id=${this.searchCompany.related_companies[4]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/ib/?company_id=${this.searchCompany.related_companies[4]}`),
-        this.$axios.get(`http://139.162.106.118:8000/app/ev/?company_id=${this.searchCompany.related_companies[4]}`)
+        this.$axios.get(`${this.apiAddress}/app/company/?id=${this.searchCompany.related_companies[0]}`),
+        this.$axios.get(`${this.apiAddress}/app/ib/?company_id=${this.searchCompany.related_companies[0]}`),
+        this.$axios.get(`${this.apiAddress}/app/ev/?company_id=${this.searchCompany.related_companies[0]}`),
+        this.$axios.get(`${this.apiAddress}/app/company/?id=${this.searchCompany.related_companies[1]}`),
+        this.$axios.get(`${this.apiAddress}/app/ib/?company_id=${this.searchCompany.related_companies[1]}`),
+        this.$axios.get(`${this.apiAddress}/app/ev/?company_id=${this.searchCompany.related_companies[1]}`),
+        this.$axios.get(`${this.apiAddress}/app/company/?id=${this.searchCompany.related_companies[2]}`),
+        this.$axios.get(`${this.apiAddress}/app/ib/?company_id=${this.searchCompany.related_companies[2]}`),
+        this.$axios.get(`${this.apiAddress}/app/ev/?company_id=${this.searchCompany.related_companies[2]}`),
+        this.$axios.get(`${this.apiAddress}/app/company/?id=${this.searchCompany.related_companies[3]}`),
+        this.$axios.get(`${this.apiAddress}/app/ib/?company_id=${this.searchCompany.related_companies[3]}`),
+        this.$axios.get(`${this.apiAddress}/app/ev/?company_id=${this.searchCompany.related_companies[3]}`),
+        this.$axios.get(`${this.apiAddress}/app/company/?id=${this.searchCompany.related_companies[4]}`),
+        this.$axios.get(`${this.apiAddress}/app/ib/?company_id=${this.searchCompany.related_companies[4]}`),
+        this.$axios.get(`${this.apiAddress}/app/ev/?company_id=${this.searchCompany.related_companies[4]}`)
       ]).then(res => {
         console.log(res)
         this.relateData = []

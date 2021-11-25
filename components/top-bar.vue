@@ -223,6 +223,7 @@ export default {
     // only here name it
     lightMode() { return this.$store.state.lightMode },
     searchCompany() { return this.$store.state.searchCompany },
+    apiAddress() { return this.$store.state.apiAddress },
   },
   watch: {
     '$route.name': {
@@ -262,7 +263,7 @@ export default {
     },
     searchText: {
       handler: function(text) {
-        this.$axios.get(`http://139.162.106.118:8000/app/company/?text=${text}`)
+        this.$axios.get(`${this.apiAddress}/app/company/?text=${text}`)
         .then(res => {
           let temp = null
           temp = res.data
