@@ -236,16 +236,28 @@ export default {
         this.chartData = []
         
         // dataY2 黃線 ev
-        for (let i = 0; i < 36; i++) {
-          this.chartData.push({
-            title: res[0].data[i].date,
-            subtitle: this.searchCompany.name,
-            dataY1: res[0].data[i].next_60_m_prediction,
-            dataY2: res[1].data[i].next_60_m_prediction
-          })
+        if(res[0].data.length < 36) {
+          for (let i = 0; i < res[0].data.length; i++) {
+            this.chartData.push({
+              title: res[0].data[i].date,
+              subtitle: this.searchCompany.name,
+              dataY1: res[0].data[i].next_60_m_prediction,
+              dataY2: res[1].data[i].next_60_m_prediction
+            })
+          }
+        } else {
+          for (let i = 0; i < 36; i++) {
+            this.chartData.push({
+              title: res[0].data[i].date,
+              subtitle: this.searchCompany.name,
+              dataY1: res[0].data[i].next_60_m_prediction,
+              dataY2: res[1].data[i].next_60_m_prediction
+            })
+          }
         }
         
-        console.log(this.chartData)
+        
+        // console.log(this.chartData)
         this.drawAllChart()
         
         // this.relateData = []
@@ -271,7 +283,7 @@ export default {
         this.$axios.get(`${this.apiAddress}/app/ib/?company_id=${this.searchCompany.related_companies[4]}`),
         this.$axios.get(`${this.apiAddress}/app/ev/?company_id=${this.searchCompany.related_companies[4]}`)
       ]).then(res => {
-        console.log(res)
+        // console.log(res)
         this.relateData = []
 
         for (let i = 0; i < 5; i++) {
